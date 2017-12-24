@@ -1,0 +1,14 @@
+#formSearc{
+    padding:5px;
+    padding-left: 10px;
+    border: 1px #b3b3b3 solid;
+    background: #e4e4e4;
+}
+.daterangepicker{
+    box-shadow: 1px 1px 13px 0px #717171;
+}
+
+.SmallTextBox{
+    text-align: center;
+    width: 40px;
+}
