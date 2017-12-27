@@ -20,11 +20,13 @@
                 </div>-->
         <div class="admin-menu">
             <ul id="side-admin-menu" class="side-menu list-unstyled"> 
-                 
+
                 <li> <a href="index.php"> <i class="icon-screen"> </i><span>Home</span></a></li>
                 <li> <a href="callback.php"> <i class="icon-rss-feed"> </i><span>Call Back Reports</span></a></li>
                 <li> <a href="endcall.php"> <i class="icon-rss-feed"> </i><span>End call survey Reports</span></a></li> 
-				<li> <a href="auxtime.php"> <i class="icon-rss-feed"> </i><span>Auxiliary Time Reports</span></a></li> 				
+                <li> <a href="auxtime.php"> <i class="icon-rss-feed"> </i><span>Auxiliary Time Reports</span></a></li> 			
+                <li><a>------------------</a></li>
+                <li> <a href="auxtime.php"> <i class="fa fa-plus"> </i><span>Manage Project</span></a></li> 				
             </ul>
         </div>
     </div>

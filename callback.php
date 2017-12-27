@@ -2,9 +2,15 @@
 include './conf.php';
 $fn = new functionx();
 
-$agent = $fn->getCallBackAgent();
-$project = $fn->getCallBackProject();
+$project = $fn->getProjectList();
+$did = array();
+if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
+    $did = $fn->getDid($_GET['Project']);
+}
+
+
 $list = $fn->getCallBack();
+
 if (isset($_GET['date']) && !empty($_GET['date'])) {
     $date = explode('-', $_GET['date']);
 
@@ -77,27 +83,43 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                 </div>
                                 <div class="col-md-3">
                                     <label>Project</label>
-                                    <select class=" form-control" name="Project" >
+                                    <select class=" form-control" name="Project" id="Project">
                                         <option value="all">ALL</option>
                                         <?php
                                         foreach ($project AS $key => $value) {
                                             ?>
-                                            <option value="<?php echo $value['Project']; ?>" <?= @($_GET['Project'] == $value['Project']) ? 'selected' : '' ?>>  <?php echo $value['Project']; ?></option>
+                                            <option value="<?php echo $value['ProjectID']; ?>" <?= @($_GET['Project'] == $value['ProjectID']) ? 'selected' : '' ?>> 
+                                                <?php echo $value['Name']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>DID (VDN)</label>
+                                    <select class=" form-control" name="Did" id="Did" >
+                                        <option value="all">ALL</option>
+                                        <?php
+                                        foreach ($did AS $key => $value) {
+                                            ?>
+                                            <option data-status="remove" value="<?php echo $value['DIDNumber']; ?>" <?= @($_GET['Did'] == $value['DIDNumber']) ? 'selected' : '' ?>> 
+                                                <?php echo $value['DIDNumber']; ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Queue Number</label>
-                                    <select class=" form-control" name="Queue" >
+                                    <select class=" form-control" name="Queue" id="Queue" >
                                         <option value="all">ALL</option>
                                         <?php
-                                        foreach ($agent AS $key => $value) {
+                                        foreach ($did AS $key => $value) {
                                             ?>
-                                            <option value="<?php echo $value['FromQueue']; ?>" <?= @($_GET['Queue'] == $value['FromQueue']) ? 'selected' : '' ?>>  <?php echo $value['FromQueue']; ?></option>
+                                            <option data-status="remove"  value="<?php echo $value['QueueNumber']; ?>" <?= @($_GET['Queue'] == $value['QueueNumber']) ? 'selected' : '' ?>> 
+                                                <?php echo $value['QueueNumber']; ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
-                                </div>
-                                <div class="col-md-3"></div>
+                                </div>                               
                                 <div class="col-md-3">
 
                                     <label>                                        
@@ -155,7 +177,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                                 <td><?= $value['CallNum']; ?></td>
                                                 <td><?= $value['LeaveNum']; ?></td>                       
                                                 <td><?= $value['FromQueue']; ?></td>
-                                                <td></td>
+                                                <td><?= $value['Project']; ?></td>
                                             </tr>
                                             <?php
                                         }
@@ -180,7 +202,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
 
         <script src="bootstrap-daterangepicker/moment.min.js"></script>
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
-          <script src="js/front.js"></script>
+        <script src="js/front.js"></script>
         <script src="js/customs.js"></script>
         <script>
 
