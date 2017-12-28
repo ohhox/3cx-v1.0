@@ -1,11 +1,10 @@
-.login-page form   input[type=radio],.login-page form   input[type=checkbox]{
+input[type=radio],input[type=checkbox]{
     background: none; 
     margin-right:5px; 
     display: inline-block;
     position: relative !important;
     margin-left: 0px !important; 
     border: 0px;
-    background: #ffffff;
 }
 input[type=radio]:before,input[type=checkbox]:before{
     content: " ";
