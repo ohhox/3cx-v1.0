@@ -2,9 +2,14 @@
 include './conf.php';
 $fn = new functionx();
 
-$agent = $fn->getEndCallAgent();
-$project = $fn->getEndCallkProject();
 $list = $fn->getEndCall();
+$project = $fn->getProjectList();
+$agent = $fn->getEndCallAgent();
+$did = array();
+if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
+    $did = $fn->getDid($_GET['Project']);
+}
+
 if (isset($_GET['date']) && !empty($_GET['date'])) {
     $date = explode('-', $_GET['date']);
 
@@ -75,17 +80,46 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                     <label>Date Rang</label>
                                     <input type="text" class="form-control" id="date" name="date">
                                 </div>
+                                
                                 <div class="col-md-3">
                                     <label>Project</label>
-                                    <select class=" form-control" name="Project" >
+                                    <select class=" form-control" name="Project" id="Project">
                                         <option value="all">ALL</option>
                                         <?php
                                         foreach ($project AS $key => $value) {
                                             ?>
-                                            <option value="<?php echo $value['Project']; ?>" <?= @($_GET['Project'] == $value['Project']) ? 'selected' : '' ?>>  <?php echo $value['Project']; ?></option>
+                                            <option value="<?php echo $value['ProjectID']; ?>" <?= @($_GET['Project'] == $value['ProjectID']) ? 'selected' : '' ?>> 
+                                                <?php echo $value['Name']; ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
                                 </div>
+                                <div class="col-md-3">
+                                    <label>DID (VDN)</label>
+                                    <select class=" form-control" name="Did" id="Did" >
+                                        <option value="all">ALL</option>
+                                        <?php
+                                        foreach ($did AS $key => $value) {
+                                            ?>
+                                            <option data-status="remove" value="<?php echo $value['DIDNumber']; ?>" <?= @($_GET['Did'] == $value['DIDNumber']) ? 'selected' : '' ?>> 
+                                                <?php echo $value['DIDNumber']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Queue Number</label>
+                                    <select class=" form-control" name="Queue" id="Queue" >
+                                        <option value="all">ALL</option>
+                                        <?php
+                                        foreach ($did AS $key => $value) {
+                                            ?>
+                                            <option data-status="remove"  value="<?php echo $value['QueueNumber']; ?>" <?= @($_GET['Queue'] == $value['QueueNumber']) ? 'selected' : '' ?>> 
+                                                <?php echo $value['QueueNumber']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>   
                                 <div class="col-md-3">
                                     <label>Agent</label>
                                     <select class=" form-control" name="Agent" >
@@ -97,14 +131,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         <?php } ?>
                                     </select>
                                 </div>                               
-                                <div class="col-md-3"></div>
-                                <div class="col-md-3">
-                                    <label>Queue Number</label>
-                                    <select class=" form-control" name="Queue" >
-                                        <option value="all">ALL</option>
-
-                                    </select>
-                                </div>
+                                
                                 <div class="col-md-3">
 
                                     <label>Score Rate </label>   <br/>

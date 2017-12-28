@@ -1,6 +1,7 @@
 <?php
 include './conf.php';
 $fn = new functionx();
+$list = $fn->getCallBack();
 
 $project = $fn->getProjectList();
 $did = array();
@@ -9,7 +10,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
 }
 
 
-$list = $fn->getCallBack();
+
 
 if (isset($_GET['date']) && !empty($_GET['date'])) {
     $date = explode('-', $_GET['date']);

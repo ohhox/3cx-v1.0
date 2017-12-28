@@ -16,7 +16,7 @@ $pdf->addPage("P", "A4", '0');
 $pdf->AddFont('angsa', '', 'angsa.php');
 $pdf->AddFont('angsab', '', 'angsab.php');
 $pdf->SetFont('angsa', '', 16);
-$pdf->Cell(180, 5, 'Report Call Back', '0', 1, 'C', 0);
+$pdf->Cell(180, 5, 'Call Back Reports', '0', 1, 'C', 0);
 $pdf->SetFont('angsa', '', 14);
 $pdf->Cell(180, 5, 'DATA DATE: ' . (isset($_GET['date']) ? $_GET['date'] : ''), '0', 1, 'L', 0);
 $pdf->Cell(180, 5, 'Project : ' . ( ($_GET['Project'] != 'all') ? $project['Name'] : '.................')
