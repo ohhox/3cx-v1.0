@@ -10,10 +10,26 @@ $('#Project').on('change', function () {
     $("#Queue option[data-status=remove]").remove();
     var project_id = $(this).val();
     if (project_id != 'all') {
-        $.getJSON('_op_ajax.php?op=getdidq&pid=' + project_id, function (data) {
+        $.getJSON('_op_ajax.php?op=getdidA&pid=' + project_id, function (data) {
             var items = [];
             $.each(data, function (key, val) {
                 $("#Did").append('<option data-status="remove" value="' + val.DIDNumber + '"> ' + val.DIDNumber + '</option>');
+              
+            });
+
+        });
+
+
+    }
+});
+
+$('#Did').on('change', function () { 
+    $("#Queue option[data-status=remove]").remove();
+    var project_id = $(this).val();
+    if (project_id != 'all') {
+        $.getJSON('_op_ajax.php?op=getQueueA&did=' + project_id, function (data) {
+            var items = [];
+            $.each(data, function (key, val) {                
                 $("#Queue").append('<option data-status="remove" value="' + val.QueueNumber + '"> ' + val.QueueNumber + '</option>');
             });
 

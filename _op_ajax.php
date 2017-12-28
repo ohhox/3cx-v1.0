@@ -8,8 +8,13 @@ class op_ajax extends functionx {
         parent::__construct();
     }
 
-    public function getdidq() {
+    public function getdidA() {
         $did = $this->getDid($_GET['pid']);
+        echo json_encode($did);
+    }
+
+    public function getQueueA() {
+        $did = $this->getQueue($_GET['did']);
         echo json_encode($did);
     }
 
