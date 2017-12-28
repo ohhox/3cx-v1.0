@@ -1,7 +1,12 @@
 <?php
 include './conf.php';
 $fn = new functionx();
+
 $list = $fn->getCallBack();
+$project = array();
+if ($_GET['Project'] != 'all') {
+    $project = $fn->getProject($_GET['Project']);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,21 +34,22 @@ $list = $fn->getCallBack();
     </head>
     <body>
 
-        <div class="page home-page">
-
-
+        <div class="page home-page">F
             <section class="charts">
                 <div class="container-fluid">
                     <header id="formSearc" style="border: 1px #999999 solid;padding: 10px;" > 
                         <h1 class="h3">Report Call Back</h1>
-
-                        <div class="row"  >
+                        <div class="row" style="padding:10px;">
                             <div class="col-md-3">
                                 <label>Date Rang :</label>
                                 <?= isset($_GET['date']) ? $_GET['date'] : '' ?>
                             </div>
                             <div class="col-md-3">
-                                <label>Project</label>: <?= isset($_GET['Project']) ? $_GET['Project'] : '' ?>                                        
+                                <label>Project</label>: <?= ( ($_GET['Project'] != 'all') ? $project['Name'] : 'all') ?>                                        
+
+                            </div>
+                            <div class="col-md-3">
+                                <label>Did Number: </label> <?= isset($_GET['Did']) ? $_GET['Did'] : '' ?>     
 
                             </div>
                             <div class="col-md-3">

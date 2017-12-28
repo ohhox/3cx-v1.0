@@ -138,6 +138,16 @@ class functionx extends Crud {
         return $this->query($sql);
     }
 
+    public function getProject($id) {
+        $sql = "SELECT * FROM Projects WHERE ProjectID='$id' ";
+        $res = $this->query($sql);
+        if (!empty($res)) {
+            return $res[0];
+        } else {
+            return array();
+        }
+    }
+
     public function getProjectList() {
         $sql = "SELECT * FROM Projects";
         return $this->query($sql);

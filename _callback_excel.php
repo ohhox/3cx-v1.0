@@ -7,6 +7,10 @@ header("Content-Disposition: inline; filename=\"$strExcelFileName\"");
 header("Pragma:no-cache");
 
 $list = $fn->getCallBack();
+$project = array();
+if ($_GET['Project'] != 'all') {
+    $project = $fn->getProject($_GET['Project']);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,7 +36,11 @@ $list = $fn->getCallBack();
                                 <?= isset($_GET['date']) ? $_GET['date'] : '' ?>
                             </div>
                             <div class="col-md-3">
-                                <label>Project</label>: <?= isset($_GET['Project']) ? $_GET['Project'] : '' ?>                                        
+                                <label>Project</label>: <?= ( ($_GET['Project'] != 'all') ? $project['Name'] : 'all') ?>                                        
+
+                            </div>
+                             <div class="col-md-3">
+                                <label>Did Number: </label> <?= isset($_GET['Did']) ? $_GET['Did'] : '' ?>     
 
                             </div>
                             <div class="col-md-3">
