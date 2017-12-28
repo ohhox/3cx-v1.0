@@ -37,7 +37,7 @@ foreach ($list as $key => $value) {
     $pdf->Cell(30, 5,  $value['CallNum'], 'LT', 0, 'L', 0);
     $pdf->Cell(30, 5,  $value['LeaveNum'], 'LT', 0, 'L', 0);  // cell with left and right borders
     $pdf->Cell(30, 5,$value['FromQueue'], 'LT', 0, 'C', 0);
-    $pdf->Cell(30, 5,  '', 'LTR', 0, 'C', 0);
+    $pdf->Cell(30, 5,  $value['Project'], 'LTR', 0, 'C', 0);
 }
  $pdf->ln();
     $pdf->Cell(30, 5, '', 'T', 0, 'C', 0);   // empty cell with left,top, and right borders

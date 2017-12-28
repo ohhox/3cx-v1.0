@@ -75,7 +75,7 @@ $list = $fn->getCallBack();
                                                 <td><?= $value['CallNum']; ?></td>
                                                 <td><?= $value['LeaveNum']; ?></td>                       
                                                 <td><?= $value['FromQueue']; ?></td>
-                                                <td></td>
+                                                <td><?= $value['Project'];?></td>
                                             </tr>
                                             <?php
                                         }

@@ -25,7 +25,7 @@ $list = $fn->getCallBack();
                 border-right: 1px #999999 solid; 
             }
         </style>
-        
+
     </head>
     <body>
 
@@ -66,7 +66,7 @@ $list = $fn->getCallBack();
                             <div class="card-body">
                                 <table class="table" id="tablex" style="width: 100%;">
                                     <thead>
-                                       <tr> 
+                                        <tr> 
                                             <th>Date</th>
                                             <th>Time</th> 
                                             <th>Call Number</th>
@@ -86,7 +86,7 @@ $list = $fn->getCallBack();
                                                 <td><?= $value['CallNum']; ?></td>
                                                 <td><?= $value['LeaveNum']; ?></td>                       
                                                 <td><?= $value['FromQueue']; ?></td>
-                                                <td></td>
+                                                <td><?= $value['Project']; ?></td>
                                             </tr>
                                             <?php
                                         }
@@ -101,8 +101,8 @@ $list = $fn->getCallBack();
 
 
         </div>
-                <script>
-                    window.print();
-                </script>
+        <script>
+            window.print();
+        </script>
     </body>
 </html>
