@@ -5,11 +5,16 @@ $fn = new functionx();
 $list = $fn->getEndCall();
 $project = $fn->getProjectList();
 $agent = $fn->getEndCallAgent();
+
 $did = array();
+$Queue = array();
 if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
+
     $did = $fn->getDid($_GET['Project']);
 }
-
+if (isset($_GET['Did']) && $_GET['Did'] != 'all') {
+    $Queue = $fn->getQueue($_GET['Did']);
+}
 if (isset($_GET['date']) && !empty($_GET['date'])) {
     $date = explode('-', $_GET['date']);
 
@@ -80,7 +85,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                     <label>Date Rang</label>
                                     <input type="text" class="form-control" id="date" name="date">
                                 </div>
-                                
+
                                 <div class="col-md-3">
                                     <label>Project</label>
                                     <select class=" form-control" name="Project" id="Project">
@@ -112,14 +117,14 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                     <select class=" form-control" name="Queue" id="Queue" >
                                         <option value="all">ALL</option>
                                         <?php
-                                        foreach ($did AS $key => $value) {
+                                        foreach ($Queue AS $key => $value) {
                                             ?>
                                             <option data-status="remove"  value="<?php echo $value['QueueNumber']; ?>" <?= @($_GET['Queue'] == $value['QueueNumber']) ? 'selected' : '' ?>> 
                                                 <?php echo $value['QueueNumber']; ?>
                                             </option>
                                         <?php } ?>
                                     </select>
-                                </div>   
+                                </div>          
                                 <div class="col-md-3">
                                     <label>Agent</label>
                                     <select class=" form-control" name="Agent" >
@@ -131,7 +136,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         <?php } ?>
                                     </select>
                                 </div>                               
-                                
+
                                 <div class="col-md-3">
 
                                     <label>Score Rate </label>   <br/>
