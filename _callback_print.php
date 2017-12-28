@@ -34,7 +34,7 @@ if ($_GET['Project'] != 'all') {
     </head>
     <body>
 
-        <div class="page home-page">F
+        <div class="page home-page">
             <section class="charts">
                 <div class="container-fluid">
                     <header id="formSearc" style="border: 1px #999999 solid;padding: 10px;" > 
