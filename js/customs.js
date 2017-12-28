@@ -14,7 +14,7 @@ $('#Project').on('change', function () {
             var items = [];
             $.each(data, function (key, val) {
                 $("#Did").append('<option data-status="remove" value="' + val.DIDNumber + '"> ' + val.DIDNumber + '</option>');
-                $("#Queue").append('<option data-status="remove" value="' + val.DIDQueueID + '"> ' + val.DIDQueueID + '</option>');
+                $("#Queue").append('<option data-status="remove" value="' + val.QueueNumber + '"> ' + val.QueueNumber + '</option>');
             });
 
         });
