@@ -154,7 +154,7 @@ class functionx extends Crud {
     }
 
     public function getDid($project) {
-     echo   $sql = "SELECT DIDNumber FROM DIDQueues WHERE ProjectID='$project' GROUP BY DIDNumber";
+         $sql = "SELECT DIDNumber FROM DIDQueues WHERE ProjectID='$project' GROUP BY DIDNumber";
         return $this->query($sql);
     }
 
