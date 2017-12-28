@@ -16,47 +16,61 @@
         <!-- Google fonts - Roboto -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         <!-- jQuery Circle-->
-        <link rel="stylesheet" href="css/grasp_mobile_progress_circle-1.0.0.min.css">
+        
         <!-- Custom Scrollbar-->
         
-        <!-- theme stylesheet-->
-        <link rel="stylesheet" href="css/radioStyle.css">
+        <!-- theme stylesheet-->        
         
-        <link rel="stylesheet" href="css/style.default.css"  >
+        <link rel="stylesheet" href="css/radioStyle.css"> 
+        <link rel="shortcut icon" href="favicon.png"> 
         
-        <!-- Custom stylesheet - for your changes-->
-        <!-- Favicon-->
-        <link rel="shortcut icon" href="favicon.png">
-        <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+        <style>
+            .login-page{
+                width: 350px;
+                margin: auto;
+            }
+            .logo{
+                padding: 30px;
+                text-align: center;
+                font-size:1.3rem;
+            }
+            .copyrights{
+                padding: 30px;
+                color: #b5b5b5;
+            }
+        </style>
     </head>
     <body>
         <div class="page login-page">
-            <div class="container">
-                <div class="form-outer text-center d-flex align-items-center">
-                    <div class="form-inner">
-                        <div class="logo text-uppercase"><span>3CX</span><strong class="text-primary"> WEB REPORT SYSTEM.</strong></div>
+            <div  >
+                <div  >
+                    <div  >
+                        <div class="logo text-uppercase">
+                            <span>3CX</span><strong class="text-primary"> WEB REPORT SYSTEM.</strong>
+                        </div>
 
-                        <form id="login-form" method="post">
+                        <form id="login-form" action="index.php" method="post">
                             <div class="form-group">
                                 <label for="login-username" class="label-custom">User Name</label>
-                                <input id="login-username" type="text" name="loginUsername" required="">
+                                <input id="login-username" class="form-control" type="text" name="loginUsername" required="">
                             </div>
                             <div class="form-group">
                                 <label for="login-password" class="label-custom">Password</label>
-                                <input id="login-password" type="password" name="loginPassword" required="">
+                                <input id="login-password" class="form-control" type="password" name="loginPassword" required="">
                             </div>
                             <div  >
                                 <label>  
-                                    <input type="radio" name="type" value="admin"> <span> Admin </span>
+                                    <input style="background: #ffffff;" type="radio" name="type" value="admin"> <span> Admin </span> &nbsp;&nbsp;&nbsp;
                                 </label>
                                 <label>
                                     <input type="radio" name="type" value="callcenter">
                                     <span> Call Center </span>
                                 </label>
                             </div>
+                            <div >
+                                
                             <button class="btn btn-primary btn-lg">Login</button> 
+                            </div>
 
                         </form>
                     </div>
