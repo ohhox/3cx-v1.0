@@ -169,9 +169,9 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             <th>Time</th> 
                                             <th>Customer Number</th>
                                             <th>Agent Number</th>  
-                                            <th>Queue Number</th>  
-                                            <th>Score</th>
                                             <th>DID(VDN)</th>
+                                            <th>Score</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -184,9 +184,9 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                                 <td><?= $fn->retime($value['time']); ?></td>
                                                 <td><?= $value['customernumber']; ?></td>
                                                 <td><?= $value['agent']; ?></td>   
-                                                <td><?= $value['QueueNumber']; ?></td>
+                                                <td><?= $value['DIDNumber']; ?></td>    
                                                 <td><?= $value['score']; ?></td>
-                                                <td><?= $value['DIDNumber']; ?></td>
+
                                             </tr>
                                             <?php
                                         }

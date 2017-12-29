@@ -53,16 +53,16 @@ $list = $fn->getEndCall();
                     <div class="row"> 
                         <div class="card col-12">                             
                             <div class="card-body">
-                                <table class="table" id="tablex">
+                               <table class="table" id="tablex">
                                     <thead>
                                         <tr> 
                                             <th>Date</th>
                                             <th>Time</th> 
                                             <th>Customer Number</th>
                                             <th>Agent Number</th>  
-                                            <th>Queue Number</th>  
-                                            <th>Score</th>
                                             <th>DID(VDN)</th>
+                                            <th>Score</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -71,13 +71,13 @@ $list = $fn->getEndCall();
                                         foreach ($list AS $key => $value) {
                                             ?>
                                             <tr>                                                
-                                                 <td><?= $fn->redate($value['DateLeave'], 'no'); ?></td>
+                                                <td><?= $fn->redate($value['DateLeave'], 'no'); ?></td>
                                                 <td><?= $fn->retime($value['time']); ?></td>
                                                 <td><?= $value['customernumber']; ?></td>
                                                 <td><?= $value['agent']; ?></td>   
-                                                <td><?= $value['QueueNumber']; ?></td>
+                                                <td><?= $value['DIDNumber']; ?></td>    
                                                 <td><?= $value['score']; ?></td>
-                                                <td><?= $value['DIDNumber']; ?></td>
+
                                             </tr>
                                             <?php
                                         }

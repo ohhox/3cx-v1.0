@@ -23,30 +23,29 @@ $pdf->Cell(180, 5, 'Project : ' . (isset($_GET['Project']) ? $_GET['Project'] : 
 $pdf->ln();
 ///-----------------Headder--------------------------------------------------////////////
 
-$pdf->Cell(25, 5, 'Date', 'LT', 0, 'C', 0);   // empty cell with left,top, and right borders
-$pdf->Cell(25, 5, 'Time', 'LT', 0, 'C', 0);
+$pdf->Cell(30, 5, 'Date', 'LT', 0, 'C', 0);   // empty cell with left,top, and right borders
+$pdf->Cell(30, 5, 'Time', 'LT', 0, 'C', 0);
 $pdf->Cell(30, 5, 'Customer Number', 'LT', 0, 'C', 0);
-$pdf->Cell(25, 5, 'Agent Number', 'LT', 0, 'C', 0);
-$pdf->Cell(25, 5, 'Queue Number', 'LT', 0, 'C', 0);
-$pdf->Cell(20, 5, 'Score', 'LT', 0, 'C', 0);
-$pdf->Cell(25, 5, 'DID(VDN)', 'LTR', 0, 'C', 0);
+$pdf->Cell(30, 5, 'Agent Number', 'LT', 0, 'C', 0);
+$pdf->Cell(30, 5, 'DID(VDN)', 'LTR', 0, 'C', 0);
+$pdf->Cell(30, 5, 'Score', 'LT', 0, 'C', 0);
+
 
 foreach ($list as $key => $value) {
     $pdf->ln();
-    $pdf->Cell(25, 5, $fn->redate($value['DateLeave']), 'LT', 0, 'L', 0);   // empty cell with left,top, and right borders
-    $pdf->Cell(25, 5, $fn->retime($value['time']), 'LT', 0, 'L', 0);
+    $pdf->Cell(30, 5, $fn->redate($value['DateLeave']), 'LT', 0, 'L', 0);   // empty cell with left,top, and right borders
+    $pdf->Cell(30, 5, $fn->retime($value['time']), 'LT', 0, 'L', 0);
     $pdf->Cell(30, 5, $value['customernumber'], 'LT', 0, 'L', 0);
-    $pdf->Cell(25, 5, $value['agent'], 'LT', 0, 'L', 0);  // cell with left and right borders
-    $pdf->Cell(25, 5,$value['QueueNumber'], 'LT', 0, 'C', 0);
-    $pdf->Cell(20, 5, $value['score'], 'LT', 0, 'C', 0);    
-    $pdf->Cell(25, 5, $value['DIDNumber'], 'LTR', 0, 'C', 0);
+    $pdf->Cell(30, 5, $value['agent'], 'LT', 0, 'L', 0);  // cell with left and right borders
+    $pdf->Cell(30, 5, $value['DIDNumber'], 'LTR', 0, 'C', 0);
+    $pdf->Cell(30, 5, $value['score'], 'LT', 0, 'C', 0);    
+    
 }
 $pdf->ln();
-$pdf->Cell(25, 5, '', 'T', 0, 'C', 0);   // empty cell with left,top, and right borders
-$pdf->Cell(25, 5, '', 'T', 0, 'C', 0);
+$pdf->Cell(30, 5, '', 'T', 0, 'C', 0);   // empty cell with left,top, and right borders
 $pdf->Cell(30, 5, '', 'T', 0, 'C', 0);
-$pdf->Cell(25, 5, '', 'T', 0, 'C', 0);  // cell with left and right borders
-$pdf->Cell(25, 5, '', 'T', 0, 'C', 0);
-$pdf->Cell(20, 5, '', 'T', 0, 'C', 0);
-$pdf->Cell(25, 5, '', 'T', 0, 'C', 0);
+$pdf->Cell(30, 5, '', 'T', 0, 'C', 0);
+$pdf->Cell(30, 5, '', 'T', 0, 'C', 0);  // cell with left and right borders
+$pdf->Cell(30, 5, '', 'T', 0, 'C', 0);
+$pdf->Cell(30, 5, '', 'T', 0, 'C', 0);
 $pdf->Output();

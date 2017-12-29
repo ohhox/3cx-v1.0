@@ -64,16 +64,16 @@ $list = $fn->getEndCall();
                     <div class="row"> 
                         <div class="card col-12">                             
                             <div class="card-body">
-                                <table class="table" id="tablex" style="width: 100%;">
+                               <table class="table" id="tablex">
                                     <thead>
                                         <tr> 
                                             <th>Date</th>
                                             <th>Time</th> 
                                             <th>Customer Number</th>
-                                            <th>Agent</th>  
-                                            <th>Queue Number</th>  
-                                            <th>Score</th>
+                                            <th>Agent Number</th>  
                                             <th>DID(VDN)</th>
+                                            <th>Score</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -86,9 +86,9 @@ $list = $fn->getEndCall();
                                                 <td><?= $fn->retime($value['time']); ?></td>
                                                 <td><?= $value['customernumber']; ?></td>
                                                 <td><?= $value['agent']; ?></td>   
-                                                <td><?= $value['QueueNumber']; ?></td>
+                                                <td><?= $value['DIDNumber']; ?></td>    
                                                 <td><?= $value['score']; ?></td>
-                                                <td><?= $value['DIDNumber']; ?></td>
+
                                             </tr>
                                             <?php
                                         }
