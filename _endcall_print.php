@@ -3,6 +3,9 @@ include './conf.php';
 $fn = new functionx();
 
 $list = $fn->getEndCall();
+if ($_GET['Project'] != 'all') {
+    $project = $fn->getProject($_GET['Project']);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,16 +46,20 @@ $list = $fn->getEndCall();
                                 <?= isset($_GET['date']) ? $_GET['date'] : '' ?>
                             </div>
                             <div class="col-md-3">
-                                <label>Project</label>: <?= isset($_GET['Project']) ? $_GET['Project'] : '' ?>                                        
+                                <label>Project</label>: <?= ( ($_GET['Project'] != 'all') ? $project['Name'] : 'all') ?>                                        
+
+                            </div>
+                            <div class="col-md-3">
+                                <label>Did Number: </label> <?= isset($_GET['Did']) ? $_GET['Did'] : '' ?>     
 
                             </div>
                             <div class="col-md-3">
                                 <label>Agent: </label> <?= isset($_GET['Agent']) ? $_GET['Agent'] : '' ?>
                             </div>
-                            <div class="col-md-3">
+<!--                            <div class="col-md-3">
                                 <label>Queue Number: </label> <?= isset($_GET['Queue']) ? $_GET['Queue'] : '' ?>     
 
-                            </div>
+                            </div>-->
 
                             <div class="col-md-3">
                                 <label><span>Score Rate: </span></label> <?= (isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 ?> - <?= (isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5 ?>

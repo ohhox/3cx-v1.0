@@ -6,6 +6,11 @@ header("Content-Type: application/x-msexcel; name=\"$strExcelFileName\"");
 header("Content-Disposition: inline; filename=\"$strExcelFileName\"");
 header("Pragma:no-cache");
 $list = $fn->getEndCall();
+
+$project = array();
+if ($_GET['Project'] != 'all') {
+    $project = $fn->getProject($_GET['Project']);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,18 +35,22 @@ $list = $fn->getEndCall();
                                 <label>Date Rang :</label>
                                 <?= isset($_GET['date']) ? $_GET['date'] : '' ?>
                             </div>
-                            <div class="col-md-3">
-                                <label>Project</label>: <?= isset($_GET['Project']) ? $_GET['Project'] : '' ?>                                        
+                             <div class="col-md-3">
+                                <label>Project</label>: <?= ( ($_GET['Project'] != 'all') ? $project['Name'] : 'all') ?>                                        
+
+                            </div>
+                             <div class="col-md-3">
+                                <label>Did Number: </label> <?= isset($_GET['Did']) ? $_GET['Did'] : '' ?>     
 
                             </div>
                             <div class="col-md-3">
                                 <label>Agent Number: </label> <?= isset($_GET['Agent']) ? $_GET['Agent'] : '' ?>     
 
                             </div>
-                            <div class="col-md-3">
-                                <label>Queue Number: </label> <?= isset($_GET['Queue']) ? $_GET['Queue'] : '' ?>     
-
-                            </div>
+                            <!--                            <div class="col-md-3">
+                                                            <label>Queue Number: </label> <?= isset($_GET['Queue']) ? $_GET['Queue'] : '' ?>     
+                            
+                                                        </div>-->
 
                             <div class="col-md-3">
                                 <label><span>Score Rate: </span></label> <?= (isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 ?> - <?= (isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5 ?>
@@ -53,7 +62,7 @@ $list = $fn->getEndCall();
                     <div class="row"> 
                         <div class="card col-12">                             
                             <div class="card-body">
-                               <table class="table" id="tablex">
+                                <table class="table" id="tablex">
                                     <thead>
                                         <tr> 
                                             <th>Date</th>

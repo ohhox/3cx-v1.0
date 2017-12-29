@@ -3,7 +3,10 @@
 include './conf.php';
 $fn = new functionx();
 $list = $fn->getEndCall();
-
+$project = array();
+if ($_GET['Project'] != 'all') {
+    $project = $fn->getProject($_GET['Project']);
+}
 require('./FPDF/fpdf.php');
 require('./FPDI/fpdi.php');
 
@@ -15,9 +18,10 @@ $pdf->SetFont('angsa', '', 16);
 $pdf->Cell(180, 5, 'Report Call Back', '0', 1, 'C', 0);
 $pdf->SetFont('angsa', '', 14);
 $pdf->Cell(180, 5, 'DATA DATE: ' . (isset($_GET['date']) ? $_GET['date'] : ''), '0', 1, 'L', 0);
-$pdf->Cell(180, 5, 'Project : ' . (isset($_GET['Project']) ? $_GET['Project'] : '.................')
+$pdf->Cell(180, 5,  'Project : ' . ( ($_GET['Project'] != 'all') ? $project['Name'] : '.................')
+    . ' | Did Number : ' . (isset($_GET['Did']) ? $_GET['Did'] : '.................')
         . ' | Agent Number : ' . (isset($_GET['Agent']) ? $_GET['Agent'] : '.................')
-        . ' | Queue Number : ' . (isset($_GET['Queue']) ? $_GET['Queue'] : '.................')
+      //  . ' | Queue Number : ' . (isset($_GET['Queue']) ? $_GET['Queue'] : '.................')
         . ' | Rate Score: ' . ((isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 ) . ' - ' . ((isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5)
         , '0', 1, 'L', 0);
 $pdf->ln();
