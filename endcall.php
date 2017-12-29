@@ -112,7 +112,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         <?php } ?>
                                     </select>
                                 </div>
-                                <div class="col-md-3">
+<!--                                <div class="col-md-3">
                                     <label>Queue Number</label>
                                     <select class=" form-control" name="Queue" id="Queue" >
                                         <option value="all">ALL</option>
@@ -124,7 +124,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             </option>
                                         <?php } ?>
                                     </select>
-                                </div>          
+                                </div>          -->
                                 <div class="col-md-3">
                                     <label>Agent</label>
                                     <select class=" form-control" name="Agent" >
