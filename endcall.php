@@ -112,6 +112,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         <?php } ?>
                                     </select>
                                 </div>
+                                <div class="col-md-3"></div>
 <!--                                <div class="col-md-3">
                                     <label>Queue Number</label>
                                     <select class=" form-control" name="Queue" id="Queue" >
