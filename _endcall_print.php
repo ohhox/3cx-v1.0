@@ -86,9 +86,9 @@ $list = $fn->getEndCall();
                                                 <td><?= $fn->retime($value['time']); ?></td>
                                                 <td><?= $value['customernumber']; ?></td>
                                                 <td><?= $value['agent']; ?></td>   
-                                                <td></td>
+                                                <td><?= $value['QueueNumber']; ?></td>
                                                 <td><?= $value['score']; ?></td>
-                                                <td></td>
+                                                <td><?= $value['DIDNumber']; ?></td>
                                             </tr>
                                             <?php
                                         }

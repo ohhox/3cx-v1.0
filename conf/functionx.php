@@ -92,11 +92,11 @@ class functionx extends Crud {
         if (isset($_GET['date']) && !empty($_GET['date'])) {
             $date = explode('-', $_GET['date']);
 
-            $stardate = trim($date[2]) . '-' . $date[1] . '-' . $date[0];
-            $enddate = trim($date[5]) . '-' . $date[4] . '-' . $date[3];
+            $stardate = trim($date[2] ) . '-' . $date[1] . '-' . $date[0];
+            $enddate = trim($date[5]) . '-' . $date[4] . '-' . ltrim(trim($date[3]));
             $d = array(
                 '1' => $date[0] . '-' . $date[1] . '-' . trim($date[2]),
-                '2' => $date[3] . '-' . $date[4] . '-' . trim($date[5]),
+                '2' => ltrim(trim($date[3])) . '-' . $date[4] . '-' . ltrim(trim($date[5])),
             );
         } else {
             $enddate = $stardate = date('Y-m-d');
@@ -106,25 +106,36 @@ class functionx extends Crud {
             );
         }
 
-        $where .= " WHERE convert(datetime, date) BETWEEN '$stardate' AND '$enddate' ";
+        $where .= " WHERE convert(datetime, c.date) BETWEEN '$stardate' AND '$enddate' ";
 
 ///////////////////// PROJECT
         if (isset($_GET['Project']) && !empty($_GET['Project']) && $_GET['Project'] != "all") {
-            $where .= " AND project='{$_GET['Project']}'";
+            $where .= " AND d.ProjectID='{$_GET['Project']}'";
         }
 ///////////////////// Queue
         if (isset($_GET['Queue']) && !empty($_GET['Queue']) && $_GET['Queue'] != "all") {
-            $where .= " AND agent='{$_GET['Queue']}'";
+            $where .= " AND d.QueueNumber='{$_GET['Queue']}'";
         }
 
-        if (isset($_GET['scorestrat']) && isset($_GET['scoreend'])) {
-            $where .= " AND  score BETWEEN '{$_GET['scorestrat']}' AND '{$_GET['scoreend']}'";
-        } else {
-            $where .= " AND  score BETWEEN '1' AND '5'";
+        ///////////////////// Did
+        if (isset($_GET['Did']) && !empty($_GET['Did']) && $_GET['Queue'] != "all") {
+            $where .= " AND c.project='{$_GET['Did']}'";
         }
 
+///////////////////// DayOrNight
+        if (isset($_GET['Agent']) && !empty($_GET['Agent']) && $_GET['Agent'] != "all") {
+             $where .= " AND c.agent='{$_GET['Agent']}'";
+        }
 
-        $sql = "SELECT  convert(date, date) as DateLeave , convert(time,time) as  time, customernumber,agent,score FROM endcall $where";
+///////////////////// LeaveNum
+        if (isset($_GET['Leave']) && !empty($_GET['Leave']) && $_GET['Leave'] == "1") {
+            $where .= " AND c.LeaveNum !=''";
+        }
+
+         $sql = " SELECT  convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber "
+                . " FROM endcall AS c"
+                . " LEFT JOIN DIDQueues AS d ON d.DIDNumber = c.project "
+                . "$where";
         return $this->query($sql);
     }
 
@@ -154,7 +165,7 @@ class functionx extends Crud {
     }
 
     public function getDid($project) {
-         $sql = "SELECT DIDNumber FROM DIDQueues WHERE ProjectID='$project' GROUP BY DIDNumber";
+        $sql = "SELECT DIDNumber FROM DIDQueues WHERE ProjectID='$project' GROUP BY DIDNumber";
         return $this->query($sql);
     }
 
