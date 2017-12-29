@@ -118,7 +118,7 @@ class functionx extends Crud {
         }
 
         ///////////////////// Did
-        if (isset($_GET['Did']) && !empty($_GET['Did']) && $_GET['Queue'] != "all") {
+        if (isset($_GET['Did']) && !empty($_GET['Did']) && $_GET['Did'] != "all") {
             $where .= " AND c.project='{$_GET['Did']}'";
         }
 
