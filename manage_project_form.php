@@ -2,7 +2,9 @@
 include './conf.php';
 $fn = new functionx();
 
-$list = $fn->getProject();
+if (isset($_GET['id']) && !empty($_GET['id'])) {
+    $list = $fn->getProject($_GET['id']);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,51 +47,41 @@ $list = $fn->getProject();
                 <div class="container-fluid">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                        <li class="breadcrumb-item"><a href="manage_project.php">Projects List</a></li>
                         <li class="breadcrumb-item active">Projects List</li>
                     </ul>
                 </div>
             </div>
             <section class="charts">
                 <div class="container-fluid">
-                    <h1 class="page-header">Projects List  <a class="pull-right btn btn-sm btn-success" href="manage_project_form.php">
-                            <i class="fa fa-plus"></i> New Project
-                        </a>
-                    </h1>
+                    <h1 class="page-header">Project Form</h1>
                     <div class="row"> 
-                        <div class="card col-12">                             
+                        <div class="card col-8">                             
                             <div class="card-body">
+                                <form class="form" action="_op_main.php?op=<?= isset($list) ? 'editProject&id='.$_GET['id'] : 'saveProject' ?>" method="post">
+                                    <div class="form-group">
+                                        <label>Project Code</label>
+                                        <div>
+                                            <input type="text" class="form-control" name="Code" value="<?= isset($list) ? $list['Code'] : '' ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Project Name</label>
+                                        <div>
+                                            <input type="text" class="form-control" name="Name" value="<?= isset($list) ? $list['Name'] : '' ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <div>
+                                            <textarea  class="form-control"   rows="5" name="Description"><?= isset($list) ? $list['Description'] : '' ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-sm btn-success"> <i class="fa fa-save"></i> Save </button>
+                                    </div>
+                                </form>
 
-                                <div class="clear"></div>
-                                <table class="table" id="tablex">
-                                    <thead>
-                                        <tr> 
-                                            <th>Project Code</th>
-                                            <th>Project Name</th> 
-                                            <th>Description</th>
-                                            <th>manage</th> 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $i = 1;
-                                        foreach ($list AS $key => $value) {
-                                            ?>
-                                            <tr>                                                
-                                                <td><?= $value['Code']; ?></td>
-                                                <td><?= $value['Name']; ?></td>
-                                                <td><?= $value['Description']; ?></td>
-                                                <td>                                                  
-                                                    <a class="btn btn-warning btn-sm"  href="manage_project_form.php?id=<?= $value['ProjectID']; ?>"> <i class="fa fa-edit"></i> edit</a>
-                                                    <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeProject&id=<?= $value['ProjectID']; ?>"> <i class="fa fa-remove"></i> Remove</a>
-                                                </td>
-
-                                            </tr>
-                                            <?php
-                                        }
-                                        ?>
-
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>

@@ -25,8 +25,9 @@
                 <li> <a href="callback.php"> <i class="icon-rss-feed"> </i><span>Call Back Reports</span></a></li>
                 <li> <a href="endcall.php"> <i class="icon-rss-feed"> </i><span>End call survey Reports</span></a></li> 
 <!--                <li> <a href="auxtime.php"> <i class="icon-rss-feed"> </i><span>Auxiliary Time Reports</span></a></li> 			-->
-<!--                <li><a>------------------</a></li>
-                <li> <a href="auxtime.php"> <i class="fa fa-plus"> </i><span>Manage Project</span></a></li> 				-->
+                <li><a>------------------</a></li>
+                <li> <a href="manage_project.php"> <i class="fa fa-plus"> </i><span>Manage Project</span></a></li> 				 
+                <li> <a href="manage_queses.php"> <i class="fa fa-plus"> </i><span>Manage DID & Queues</span></a></li> 				 
             </ul>
         </div>
     </div>

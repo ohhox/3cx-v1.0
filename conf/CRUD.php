@@ -10,6 +10,8 @@ class Crud extends DB {
 
     private $db;
     public $variables;
+    public $table;
+    public $pk;
 
     public function __construct() {
         parent::__construct();
@@ -115,6 +117,7 @@ class Crud extends DB {
         } else {
             $sql = "INSERT INTO " . $this->table . " () VALUES ()";
         }
+          $sql;
         return $this->exec($sql);
     }
 
@@ -132,7 +135,7 @@ class Crud extends DB {
         $id = (empty($this->variables[$this->pk])) ? $id : $this->variables[$this->pk];
 
         if (!empty($id)) {
-             $sql = "SELECT * FROM " . $this->table . " WHERE " . $this->pk . "= :" . $this->pk . " ";
+            $sql = "SELECT * FROM " . $this->table . " WHERE " . $this->pk . "= :" . $this->pk . " ";
 
             $result = $this->row($sql, array($this->pk => $id));
             $this->variables = ($result != false) ? $result : null;

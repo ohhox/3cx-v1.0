@@ -2,7 +2,7 @@
 include './conf.php';
 $fn = new functionx();
 
-$list = $fn->getProject();
+$list = $fn->getDIDQueues();
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,16 +45,15 @@ $list = $fn->getProject();
                 <div class="container-fluid">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item active">Projects List</li>
+                        <li class="breadcrumb-item active"> DID & Queues Lists</li>
                     </ul>
                 </div>
             </div>
             <section class="charts">
                 <div class="container-fluid">
-                    <h1 class="page-header">Projects List  <a class="pull-right btn btn-sm btn-success" href="manage_project_form.php">
+                    <h1 class="page-header"> DID & Queues Lists. <a class="pull-right btn btn-sm btn-success" href="manage_queses_form.php">
                             <i class="fa fa-plus"></i> New Project
-                        </a>
-                    </h1>
+                        </a></h1>
                     <div class="row"> 
                         <div class="card col-12">                             
                             <div class="card-body">
@@ -62,10 +61,11 @@ $list = $fn->getProject();
                                 <div class="clear"></div>
                                 <table class="table" id="tablex">
                                     <thead>
-                                        <tr> 
+                                        <tr>
                                             <th>Project Code</th>
-                                            <th>Project Name</th> 
-                                            <th>Description</th>
+                                            <th>Project Name</th>
+                                            <th>DID Number</th>
+                                            <th>Queue Number</th>  
                                             <th>manage</th> 
                                         </tr>
                                     </thead>
@@ -74,13 +74,14 @@ $list = $fn->getProject();
                                         $i = 1;
                                         foreach ($list AS $key => $value) {
                                             ?>
-                                            <tr>                                                
+                                            <tr>               
                                                 <td><?= $value['Code']; ?></td>
                                                 <td><?= $value['Name']; ?></td>
-                                                <td><?= $value['Description']; ?></td>
+                                                <td><?= $value['DIDNumber']; ?></td>
+                                                <td><?= $value['QueueNumber']; ?></td> 
                                                 <td>                                                  
-                                                    <a class="btn btn-warning btn-sm"  href="manage_project_form.php?id=<?= $value['ProjectID']; ?>"> <i class="fa fa-edit"></i> edit</a>
-                                                    <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeProject&id=<?= $value['ProjectID']; ?>"> <i class="fa fa-remove"></i> Remove</a>
+                                                    <a class="btn btn-warning btn-sm"  href="manage_queses_form.php?id=<?= $value['DIDQueueID']; ?>"> <i class="fa fa-edit"></i> edit</a>
+                                                    <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeDidQueres&id=<?= $value['DIDQueueID']; ?>"> <i class="fa fa-remove"></i> Remove</a>
                                                 </td>
 
                                             </tr>
@@ -107,6 +108,12 @@ $list = $fn->getProject();
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="js/front.js"></script>
         <script src="js/customs.js"></script>
+
+        <script>
+            $('#tablex').DataTable({
+                "pageLength": 25
+            });
+        </script>
 
     </body>
 </html>

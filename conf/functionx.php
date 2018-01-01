@@ -24,6 +24,10 @@ class functionx extends Crud {
         return $this->search(array('Agent' => '9003'));
     }
 
+    public function Go($link) {
+        header("Location: $link");
+    }
+
     public function getCallBack() {
 
         $where = "";
@@ -92,7 +96,7 @@ class functionx extends Crud {
         if (isset($_GET['date']) && !empty($_GET['date'])) {
             $date = explode('-', $_GET['date']);
 
-            $stardate = trim($date[2] ) . '-' . $date[1] . '-' . $date[0];
+            $stardate = trim($date[2]) . '-' . $date[1] . '-' . $date[0];
             $enddate = trim($date[5]) . '-' . $date[4] . '-' . ltrim(trim($date[3]));
             $d = array(
                 '1' => $date[0] . '-' . $date[1] . '-' . trim($date[2]),
@@ -124,7 +128,7 @@ class functionx extends Crud {
 
 ///////////////////// DayOrNight
         if (isset($_GET['Agent']) && !empty($_GET['Agent']) && $_GET['Agent'] != "all") {
-             $where .= " AND c.agent='{$_GET['Agent']}'";
+            $where .= " AND c.agent='{$_GET['Agent']}'";
         }
 
 ///////////////////// LeaveNum
@@ -132,7 +136,7 @@ class functionx extends Crud {
             $where .= " AND c.LeaveNum !=''";
         }
 
-          $sql = " SELECT  convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber "
+        $sql = " SELECT  convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber "
                 . " FROM endcall AS c"
                 . " LEFT JOIN DIDQueues AS d ON d.DIDNumber = c.project "
                 . "$where";
@@ -149,13 +153,42 @@ class functionx extends Crud {
         return $this->query($sql);
     }
 
-    public function getProject($id) {
-        $sql = "SELECT * FROM Projects WHERE ProjectID='$id' ";
-        $res = $this->query($sql);
-        if (!empty($res)) {
-            return $res[0];
+    public function getProject($id = '') {
+        $where = "";
+        if (!empty($id)) {
+            $sql = "SELECT * FROM Projects WHERE ProjectID='$id' ";
+
+            $res = $this->query($sql);
+            if (!empty($res)) {
+                return $res[0];
+            } else {
+                return array();
+            }
         } else {
-            return array();
+            $sql = "SELECT * FROM Projects ";
+
+            return $this->query($sql);
+        }
+    }
+
+    public function getDIDQueues($id = '') {
+        $where = "";
+        if (!empty($id)) {
+            $sql = "SELECT d.*,j.Name,j.Code FROM DIDQueues AS  d"
+                    . " LEFT JOIN Projects AS j ON j.ProjectID=d.ProjectID"
+                    . " WHERE d.DIDQueueID='$id' ";
+
+            $res = $this->query($sql);
+            if (!empty($res)) {
+                return $res[0];
+            } else {
+                return array();
+            }
+        } else {
+               $sql = "SELECT d.*,j.Name,j.Code  FROM DIDQueues AS  d"
+                    . " LEFT JOIN Projects AS j ON j.ProjectID=d.ProjectID ";
+
+            return $this->query($sql);
         }
     }
 
