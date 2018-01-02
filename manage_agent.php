@@ -93,30 +93,31 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                         <table class="table" id="tablex">
                             <thead>
                                 <tr>
-                                    <th>Project Code</th>
-                                    <th>Project Name</th>
+                                    <th>Agent Number</th>
+                                    <th>Description</th>
+                                    <th>DID Number</th>
                                     <th>Queue Number</th>
-                                    <th>Agent Number</th>  
+
                                     <th>manage</th> 
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Project  </td>
-                                    <td>Project  </td>
-                                    <td>Queue  </td>
-                                    <td>Agent  </td>  
-                                   
+                                    <td>Agent    </td>
+                                    <td>Description  </td>
+                                    <td>DID    </td>
+                                    <td>Queue    </td>  
+
                                     <td>                                                  
                                         <a class="btn btn-warning btn-sm"  href="#"> <i class="fa fa-edit"></i> edit</a>
                                         <a class="btn btn-danger btn-sm removeAlert"  href="#"> <i class="fa fa-remove"></i> Remove</a>
                                     </td> 
                                 </tr>
                                 <tr>
-                                    <td>Project  </td>
-                                    <td>Project  </td>
-                                    <td>Queue  </td>
-                                    <td>Agent  </td>   
+                                    <td>Agent</td>
+                                    <td>Description  </td>
+                                    <td>DID</td>
+                                    <td>Queue</td>   
                                     <td>                                                  
                                         <a class="btn btn-warning btn-sm"  href="#"> <i class="fa fa-edit"></i> edit</a>
                                         <a class="btn btn-danger btn-sm removeAlert"  href="#"> <i class="fa fa-remove"></i> Remove</a>
