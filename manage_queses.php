@@ -76,7 +76,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                                     <label>Search </label>
                                     <input type="search" autocomplete name="text" class="form-control" placeholder=" Project Name,DID,Queue Number" value="<?= isset($_GET['text']) ? $_GET['text'] : '' ?>">
                                 </div>
-                             
+
                                 <div class="col-md-3">
 
                                     <div style="padding-top: 35px;">
@@ -125,30 +125,32 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
 
                     </div>
                 </div>
+
+
+
+            </section>
         </div>
 
-    </section>
+        <?php include './_foot.php'; ?>   
 
-    <?php include './_foot.php'; ?>   
+    </div>
+    <!-- Javascript files-->
+    <script src="js/jquery-3.2.1.min.js"></script> 
+    <script src="js/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script> 
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="bootstrap-daterangepicker/moment.min.js"></script>
+    <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="js/front.js"></script>
+    <script src="js/customs.js"></script>
 
-</div>
-<!-- Javascript files-->
-<script src="js/jquery-3.2.1.min.js"></script> 
-<script src="js/popper.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script> 
-<script src="js/jquery.dataTables.min.js"></script>
-<script src="bootstrap-daterangepicker/moment.min.js"></script>
-<script src="bootstrap-daterangepicker/daterangepicker.js"></script>
-<script src="js/front.js"></script>
-<script src="js/customs.js"></script>
-
-<script>
-    //            $('#tablex').DataTable({
-    //                "pageLength": 25,
-    //                "searching": false
-    //
-    //            });
-</script>
+    <script>
+        //            $('#tablex').DataTable({
+        //                "pageLength": 25,
+        //                "searching": false
+        //
+        //            });
+    </script>
 
 </body>
 </html>
