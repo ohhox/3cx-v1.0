@@ -7,17 +7,7 @@
             </div>
             <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>3</strong><strong class="text-primary">C</strong><strong>X</strong></a></div>
         </div>
-        <!--        <div class="main-menu">
-                    <ul id="side-main-menu" class="side-menu list-unstyled">                  
-                        <li class="active"><a href="index.html"> <i class="icon-home"></i><span>Home</span></a></li>
-                        <li> <a href="forms.html"><i class="icon-form"></i><span>Forms</span></a></li>
-                        <li> <a href="charts.html"><i class="icon-presentation"></i><span>Charts</span></a></li>
-                        <li> <a href="tables.html"> <i class="icon-grid"> </i><span>Tables  </span></a></li>
-                        <li> <a href="login.html"> <i class="icon-interface-windows"></i><span>Login page                        </span></a></li>
-                        <li> <a href="#"> <i class="icon-mail"></i><span>Demo</span>
-                                <div class="badge badge-warning">6 New</div></a></li>
-                    </ul>
-                </div>-->
+    
         <div class="admin-menu">
             <ul id="side-admin-menu" class="side-menu list-unstyled"> 
 
@@ -26,8 +16,7 @@
                 <li> <a href="endcall.php"> <i class="icon-rss-feed"> </i><span>End call survey Reports</span></a></li> 
 <!--                <li> <a href="auxtime.php"> <i class="icon-rss-feed"> </i><span>Auxiliary Time Reports</span></a></li> 			-->
                 <li><a>------------------</a></li>
-                <li> <a href="manage_project.php"> <i class="fa fa-plus"> </i><span>Manage Project</span></a></li> 				 
-                <li> <a href="manage_queses.php"> <i class="fa fa-plus"> </i><span>Manage DID & Queues</span></a></li> 				 
+                <li> <a href="manage_project.php"> <i class="fa fa-cog"> </i><span>Manage Project</span></a></li> 	 				 
             </ul>
         </div>
     </div>
