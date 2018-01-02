@@ -83,9 +83,9 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                                 <?php
                                 foreach ($project AS $key => $value) {
                                     ?>
-                                                                                                                                <option value="<?php echo $value['ProjectID']; ?>" <?= @($_GET['Project'] == $value['ProjectID']) ? 'selected' : '' ?>> 
+                                                                                                                                    <option value="<?php echo $value['ProjectID']; ?>" <?= @($_GET['Project'] == $value['ProjectID']) ? 'selected' : '' ?>> 
                                     <?php echo $value['Name']; ?>
-                                                                                                                                </option>
+                                                                                                                                    </option>
                                 <?php } ?>
                                                                         </select>
                                                                     </div>
@@ -96,9 +96,9 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                                 <?php
                                 foreach ($did AS $key => $value) {
                                     ?>
-                                                                                                                                <option data-status="remove" value="<?php echo $value['DIDNumber']; ?>" <?= @($_GET['Did'] == $value['DIDNumber']) ? 'selected' : '' ?>> 
+                                                                                                                                    <option data-status="remove" value="<?php echo $value['DIDNumber']; ?>" <?= @($_GET['Did'] == $value['DIDNumber']) ? 'selected' : '' ?>> 
                                     <?php echo $value['DIDNumber']; ?>
-                                                                                                                                </option>
+                                                                                                                                    </option>
                                 <?php } ?>
                                                                         </select>
                                                                     </div>-->
@@ -115,34 +115,33 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
 
 
                         <div class="clear"></div>
-                         
+
 
                     </div>
-                </div>
+
+
+            </section>
+
+            <?php include './_foot.php'; ?>   
+
         </div>
+        <!-- Javascript files-->
+        <script src="js/jquery-3.2.1.min.js"></script> 
+        <script src="js/popper.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.min.js"></script> 
+        <script src="js/jquery.dataTables.min.js"></script>
+        <script src="bootstrap-daterangepicker/moment.min.js"></script>
+        <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
+        <script src="js/front.js"></script>
+        <script src="js/customs.js"></script>
 
-    </section>
+        <script>
+            //            $('#tablex').DataTable({
+            //                "pageLength": 25,
+            //                "searching": false
+            //
+            //            });
+        </script>
 
-    <?php include './_foot.php'; ?>   
-
-</div>
-<!-- Javascript files-->
-<script src="js/jquery-3.2.1.min.js"></script> 
-<script src="js/popper.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script> 
-<script src="js/jquery.dataTables.min.js"></script>
-<script src="bootstrap-daterangepicker/moment.min.js"></script>
-<script src="bootstrap-daterangepicker/daterangepicker.js"></script>
-<script src="js/front.js"></script>
-<script src="js/customs.js"></script>
-
-<script>
-    //            $('#tablex').DataTable({
-    //                "pageLength": 25,
-    //                "searching": false
-    //
-    //            });
-</script>
-
-</body>
+    </body>
 </html>

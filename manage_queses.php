@@ -129,7 +129,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
 
 
             </section>
-        </div>
+        
 
         <?php include './_foot.php'; ?>   
 
