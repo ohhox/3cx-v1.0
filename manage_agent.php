@@ -44,7 +44,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
         <link rel="stylesheet" href="bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="css/custom.css">
     </head>
-    <body data-id="DIDQ">
+    <body data-id="Agent">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->
@@ -53,7 +53,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                 <div class="container-fluid">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item active"> DID & Queues Lists</li>
+                        <li class="breadcrumb-item active"> Agent Lists</li>
                     </ul>
                 </div>
             </div>
@@ -63,8 +63,8 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                     include './_TapFake.php';
                     ?>
                     <div  id="porjectDetail">
-                        <h1 class="page-header"> DID & Queues Lists. <a class="pull-right btn btn-sm btn-success" href="manage_queses_form.php">
-                                <i class="fa fa-plus"></i> New  DID & Queues 
+                        <h1 class="page-header">Agent Lists. <a class="pull-right btn btn-sm btn-success" href="#">
+                                <i class="fa fa-plus"></i> New Agent
                             </a>
                         </h1>
 
@@ -76,7 +76,32 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                                     <label>Search </label>
                                     <input type="search" autocomplete name="text" class="form-control" placeholder=" Project Name,DID,Queue Number" value="<?= isset($_GET['text']) ? $_GET['text'] : '' ?>">
                                 </div>
-                             
+                                <!--                                    <div class="col-md-3">
+                                                                        <label>Project</label>
+                                                                        <select class=" form-control" name="Project" id="Project">
+                                                                            <option value="all">ALL</option>
+                                <?php
+                                foreach ($project AS $key => $value) {
+                                    ?>
+                                                                                                                                <option value="<?php echo $value['ProjectID']; ?>" <?= @($_GET['Project'] == $value['ProjectID']) ? 'selected' : '' ?>> 
+                                    <?php echo $value['Name']; ?>
+                                                                                                                                </option>
+                                <?php } ?>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <label>DID (VDN)</label>
+                                                                        <select class=" form-control" name="Did" id="Did" >
+                                                                            <option value="all">ALL</option>
+                                <?php
+                                foreach ($did AS $key => $value) {
+                                    ?>
+                                                                                                                                <option data-status="remove" value="<?php echo $value['DIDNumber']; ?>" <?= @($_GET['Did'] == $value['DIDNumber']) ? 'selected' : '' ?>> 
+                                    <?php echo $value['DIDNumber']; ?>
+                                                                                                                                </option>
+                                <?php } ?>
+                                                                        </select>
+                                                                    </div>-->
                                 <div class="col-md-3">
 
                                     <div style="padding-top: 35px;">
@@ -90,38 +115,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
 
 
                         <div class="clear"></div>
-                        <table class="table" id="tablex">
-                            <thead>
-                                <tr>
-                                    <th>Project Code</th>
-                                    <th>Project Name</th>
-                                    <th>DID Number</th>
-                                    <th>Queue Number</th>  
-                                    <th>manage</th> 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $i = 1;
-                                foreach ($list AS $key => $value) {
-                                    ?>
-                                    <tr>               
-                                        <td><?= $value['Code']; ?></td>
-                                        <td><?= $value['Name']; ?></td>
-                                        <td><?= $value['DIDNumber']; ?></td>
-                                        <td><?= $value['QueueNumber']; ?></td> 
-                                        <td>                                                  
-                                            <a class="btn btn-warning btn-sm"  href="manage_queses_form.php?id=<?= $value['DIDQueueID']; ?>"> <i class="fa fa-edit"></i> edit</a>
-                                            <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeDidQueres&id=<?= $value['DIDQueueID']; ?>"> <i class="fa fa-remove"></i> Remove</a>
-                                        </td>
-
-                                    </tr>
-                                    <?php
-                                }
-                                ?>
-
-                            </tbody>
-                        </table>
+                         
 
                     </div>
                 </div>

@@ -12,3 +12,42 @@
     text-align: center;
     width: 40px;
 }
+.TapFake{ 
+
+    margin: 0px;
+    padding: 0px;
+    padding-top: 30px;
+    border-bottom: 1px #ccc solid;
+}
+.TapFake ul{
+    padding: 0px;
+    margin: 0px;
+}
+.TapFake li{
+    float: left;
+    list-style: none;
+}
+.TapFake .liTap a{
+    padding:10px 15px; 
+    display: block;
+    border-bottom: 0px;
+
+
+}
+.TapFake .liTap.active a{ 
+    background: #fff;
+    border: 1px #ccc solid;
+    border-bottom: 0px;
+    margin-bottom: -1px;
+}
+.clear{
+    clear: both;
+}
+#porjectDetail{
+    padding: 20px;
+    background: #fff;
+    border: 1px #ccc solid;
+    border-top: 0px;
+}
+.Search-form{ 
+}

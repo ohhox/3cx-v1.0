@@ -185,8 +185,13 @@ class functionx extends Crud {
                 return array();
             }
         } else {
+            $wh = '';
+            if(isset($_GET['text']) & !empty($_GET['text'])){
+                $text = $_GET['text'];
+                $wh = " WHERE j.Name LIKE '%$text%' OR  d.DIDNumber LIKE '%$text%' OR  d.QueueNumber LIKE '%$text%'";
+            }
                $sql = "SELECT d.*,j.Name,j.Code  FROM DIDQueues AS  d"
-                    . " LEFT JOIN Projects AS j ON j.ProjectID=d.ProjectID ";
+                    . " LEFT JOIN Projects AS j ON j.ProjectID=d.ProjectID  $wh";
 
             return $this->query($sql);
         }

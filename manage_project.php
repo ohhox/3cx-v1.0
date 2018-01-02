@@ -36,7 +36,7 @@ $list = $fn->getProject();
         <link rel="stylesheet" href="bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="css/custom.css">
     </head>
-    <body>
+    <body data-id="Project">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->
@@ -49,50 +49,54 @@ $list = $fn->getProject();
                     </ul>
                 </div>
             </div>
+
             <section class="charts">
                 <div class="container-fluid">
-                    <h1 class="page-header">Projects List  <a class="pull-right btn btn-sm btn-success" href="manage_project_form.php">
-                            <i class="fa fa-plus"></i> New Project
-                        </a>
-                    </h1>
-                    <div class="row"> 
-                        <div class="card col-12">                             
-                            <div class="card-body">
+                    <?php
+                    include './_TapFake.php';
+                    ?>
+                    <div  id="porjectDetail">
+                        <h1 class="page-header">Projects List  <a class="pull-right btn btn-sm btn-success" href="manage_project_form.php">
+                                <i class="fa fa-plus"></i> New Project
+                            </a>
+                        </h1>
 
-                                <div class="clear"></div>
-                                <table class="table" id="tablex">
-                                    <thead>
-                                        <tr> 
-                                            <th>Project Code</th>
-                                            <th>Project Name</th> 
-                                            <th>Description</th>
-                                            <th>manage</th> 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $i = 1;
-                                        foreach ($list AS $key => $value) {
-                                            ?>
-                                            <tr>                                                
-                                                <td><?= $value['Code']; ?></td>
-                                                <td><?= $value['Name']; ?></td>
-                                                <td><?= $value['Description']; ?></td>
-                                                <td>                                                  
-                                                    <a class="btn btn-warning btn-sm"  href="manage_project_form.php?id=<?= $value['ProjectID']; ?>"> <i class="fa fa-edit"></i> edit</a>
-                                                    <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeProject&id=<?= $value['ProjectID']; ?>"> <i class="fa fa-remove"></i> Remove</a>
-                                                </td>
+                        <div>        
 
-                                            </tr>
-                                            <?php
-                                        }
+                            <div class="clear"></div>
+                            <table class="table" id="tablex">
+                                <thead>
+                                    <tr> 
+                                        <th>Project Code</th>
+                                        <th>Project Name</th> 
+                                        <th>Description</th>
+                                        <th>manage</th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $i = 1;
+                                    foreach ($list AS $key => $value) {
                                         ?>
+                                        <tr>                                                
+                                            <td><?= $value['Code']; ?></td>
+                                            <td><?= $value['Name']; ?></td>
+                                            <td><?= $value['Description']; ?></td>
+                                            <td>                                                  
+                                                <a class="btn btn-warning btn-sm"  href="manage_project_form.php?id=<?= $value['ProjectID']; ?>"> <i class="fa fa-edit"></i> edit</a>
+                                                <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeProject&id=<?= $value['ProjectID']; ?>"> <i class="fa fa-remove"></i> Remove</a>
+                                            </td>
 
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
             </section>
 
             <?php include './_foot.php'; ?>   

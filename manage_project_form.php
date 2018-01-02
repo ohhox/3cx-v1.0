@@ -38,7 +38,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <link rel="stylesheet" href="bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="css/custom.css">
     </head>
-    <body>
+    <body data-id="Project">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->
@@ -54,37 +54,44 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             </div>
             <section class="charts">
                 <div class="container-fluid">
-                    <h1 class="page-header">Project Form</h1>
-                    <div class="row"> 
-                        <div class="card col-8">                             
-                            <div class="card-body">
-                                <form class="form" action="_op_main.php?op=<?= isset($list) ? 'editProject&id='.$_GET['id'] : 'saveProject' ?>" method="post">
-                                    <div class="form-group">
-                                        <label>Project Code</label>
-                                        <div>
-                                            <input type="text" class="form-control" name="Code" value="<?= isset($list) ? $list['Code'] : '' ?>">
+                    <?php
+                    include './_TapFake.php';
+                    ?>
+                    <div  id="porjectDetail">
+                        <h1 class="page-header">Project Form</h1>
+                        <div class="row"> 
+                            <div class="card col-8">                             
+                                <div class="card-body">
+                                    <form class="form" action="_op_main.php?op=<?= isset($list) ? 'editProject&id=' . $_GET['id'] : 'saveProject' ?>" method="post">
+                                        <div class="form-group">
+                                            <label>Project Code</label>
+                                            <div>
+                                                <input type="text" class="form-control" name="Code" value="<?= isset($list) ? $list['Code'] : '' ?>" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Project Name</label>
-                                        <div>
-                                            <input type="text" class="form-control" name="Name" value="<?= isset($list) ? $list['Name'] : '' ?>">
+                                        <div class="form-group">
+                                            <label>Project Name</label>
+                                            <div>
+                                                <input type="text" class="form-control" name="Name" value="<?= isset($list) ? $list['Name'] : '' ?>" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Description</label>
-                                        <div>
-                                            <textarea  class="form-control"   rows="5" name="Description"><?= isset($list) ? $list['Description'] : '' ?></textarea>
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <div>
+                                                <textarea  class="form-control"   rows="5" name="Description"><?= isset($list) ? $list['Description'] : '' ?></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <button class="btn btn-sm btn-success"> <i class="fa fa-save"></i> Save </button>
-                                    </div>
-                                </form>
+                                        <div class="form-group">
+                                            <button class="btn btn-sm btn-success"> <i class="fa fa-save"></i> Save </button>
+                                        </div>
+                                    </form>
 
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
             </section>
 
             <?php include './_foot.php'; ?>   

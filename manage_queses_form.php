@@ -38,7 +38,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <link rel="stylesheet" href="bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="css/custom.css">
     </head>
-    <body>
+    <body data-id="DIDQ">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->
@@ -54,56 +54,62 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             </div>
             <section class="charts">
                 <div class="container-fluid">
-                    <h1 class="page-header"> DID & Queues Form</h1>
-                    <div class="row"> 
-                        <div class="card col-8">                             
-                            <div class="card-body">
-                                <form class="form" action="_op_main.php?op=<?= isset($list) ? 'editDidQueres&id=' . $_GET['id'] : 'saveDidQueres' ?>" method="post">
-                                    <div class="form-group">
-                                        <label>Project Code</label>
-                                        <div>
-                                            <select name="ProjectID" class="form-control">
-                                                <option value="0">Choose Project </option>
-                                                <?php
-                                                foreach ($project as $key => $value) {
-                                                    $active = "";
-                                                    if($value['ProjectID'] == $list['ProjectID']){
-                                                        $active = "selected";
+                    <?php
+                    include './_TapFake.php';
+                    ?>
+                    <div  id="porjectDetail">
+                        <h1 class="page-header"> DID & Queues Form</h1>
+                        <div class="row"> 
+                            <div class="card col-8">                             
+                                <div class="card-body">
+                                    <form class="form" action="_op_main.php?op=<?= isset($list) ? 'editDidQueres&id=' . $_GET['id'] : 'saveDidQueres' ?>" method="post">
+                                        <div class="form-group">
+                                            <label>Project Code</label>
+                                            <div>
+                                                <select name="ProjectID" class="form-control" required>
+                                                    <option value="0">Choose Project </option>
+                                                    <?php
+                                                    foreach ($project as $key => $value) {
+                                                        $active = "";
+                                                        if ($value['ProjectID'] == $list['ProjectID']) {
+                                                            $active = "selected";
+                                                        }
+                                                        ?>
+                                                        <option value="<?= $value['ProjectID'] ?>" <?= $active ?>><?= $value['Code'] . ': ' . $value['Name']; ?></option>
+                                                        <?php
                                                     }
                                                     ?>
-                                                    <option value="<?= $value['ProjectID'] ?>" <?=$active?>><?= $value['Code'] . ': ' . $value['Name']; ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>DID Number</label>
-                                        <div>
-                                            <input type="number" class="form-control" name="DIDNumber" value="<?= isset($list) ? $list['DIDNumber'] : '' ?>">
+                                        <div class="form-group">
+                                            <label>DID Number * </label>
+                                            <div>
+                                                <input type="number" class="form-control" name="DIDNumber" value="<?= isset($list) ? $list['DIDNumber'] : '' ?>" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Queue Number</label>
-                                        <div>
-                                            <input type="number" class="form-control" name="QueueNumber" value="<?= isset($list) ? $list['QueueNumber'] : '' ?>">
+                                        <div class="form-group">
+                                            <label>Queue Number * </label>
+                                            <div>
+                                                <input type="number" class="form-control" name="QueueNumber" value="<?= isset($list) ? $list['QueueNumber'] : '' ?>" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Description</label>
-                                        <div>
-                                            <textarea  class="form-control"   rows="5" name="DidDescription"><?= isset($list) ? $list['DidDescription'] : '' ?></textarea>
+                                        <div class="form-group">
+                                            <label>Description </label>
+                                            <div>
+                                                <textarea  class="form-control"   rows="5" name="DidDescription"><?= isset($list) ? $list['DidDescription'] : '' ?></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <button class="btn btn-sm btn-success"> <i class="fa fa-save"></i> Save </button>
-                                    </div>
-                                </form>
+                                        <div class="form-group">
+                                            <button class="btn btn-sm btn-success"> <i class="fa fa-save"></i> Save </button>
+                                        </div>
+                                    </form>
 
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </section>
 
             <?php include './_foot.php'; ?>   

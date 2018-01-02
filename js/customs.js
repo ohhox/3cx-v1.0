@@ -46,3 +46,7 @@ $('.removeAlert').on('click', function (e) {
         e.preventDefault();
     }
 });
+
+
+var TapFake = $('body').attr('data-id');
+$('.TapFake').find('.'+TapFake).addClass('active');
