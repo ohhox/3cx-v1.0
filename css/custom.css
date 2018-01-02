@@ -31,7 +31,7 @@
     padding:10px 15px; 
     display: block;
     border-bottom: 0px;
-
+ text-decoration: none;
 
 }
 .TapFake .liTap.active a{ 
@@ -39,6 +39,10 @@
     border: 1px #ccc solid;
     border-bottom: 0px;
     margin-bottom: -1px;
+   
+}
+.TapFake .liTap a:hover{
+    color: #000;
 }
 .clear{
     clear: both;

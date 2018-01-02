@@ -74,7 +74,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                             <div class="row"> 
                                 <div class="col-md-5">
                                     <label>Search </label>
-                                    <input type="search" autocomplete name="text" class="form-control" placeholder=" Project Name,DID,Queue Number" value="<?= isset($_GET['text']) ? $_GET['text'] : '' ?>">
+                                    <input type="search" autocomplete name="text" class="form-control" placeholder=" ? " value="<?= isset($_GET['text']) ? $_GET['text'] : '' ?>">
                                 </div>
                                 <!--                                    <div class="col-md-3">
                                                                         <label>Project</label>
