@@ -106,23 +106,20 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                                     <td>Project  </td>
                                     <td>Queue  </td>
                                     <td>Agent  </td>  
-                                    <td> 
+                                   
                                     <td>                                                  
                                         <a class="btn btn-warning btn-sm"  href="#"> <i class="fa fa-edit"></i> edit</a>
                                         <a class="btn btn-danger btn-sm removeAlert"  href="#"> <i class="fa fa-remove"></i> Remove</a>
-                                    </td>
                                     </td> 
                                 </tr>
                                 <tr>
                                     <td>Project  </td>
                                     <td>Project  </td>
                                     <td>Queue  </td>
-                                    <td>Agent  </td>  
-                                    <td> 
+                                    <td>Agent  </td>   
                                     <td>                                                  
                                         <a class="btn btn-warning btn-sm"  href="#"> <i class="fa fa-edit"></i> edit</a>
                                         <a class="btn btn-danger btn-sm removeAlert"  href="#"> <i class="fa fa-remove"></i> Remove</a>
-                                    </td>
                                     </td> 
                                 </tr>
                             </tbody>
