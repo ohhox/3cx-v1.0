@@ -48,7 +48,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                         <li class="breadcrumb-item"><a href="manage_project.php">Projects List</a></li>
-                        <li class="breadcrumb-item active">Projects List</li>
+                        <li class="breadcrumb-item active">Projects Form</li>
                     </ul>
                 </div>
             </div>

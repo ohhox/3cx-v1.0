@@ -31,7 +31,7 @@
     padding:10px 15px; 
     display: block;
     border-bottom: 0px;
- text-decoration: none;
+    text-decoration: none;
 
 }
 .TapFake .liTap.active a{ 
@@ -39,13 +39,21 @@
     border: 1px #ccc solid;
     border-bottom: 0px;
     margin-bottom: -1px;
-   
+
 }
 .TapFake .liTap a:hover{
     color: #000;
 }
 .clear{
     clear: both;
+}
+.clearfix {
+    overflow: auto;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
 #porjectDetail{
     padding: 20px;
@@ -54,4 +62,38 @@
     border-top: 0px;
 }
 .Search-form{ 
+}
+.agentMageDispalu{
+    padding:10px;
+    border-bottom: 1px #ccc solid;
+    margin-top: 20px;
+}
+.agentMageDispalu>div{
+    float: left;
+    padding-right: 40px;
+}
+.agentMageDispalu>div:last-child{
+    float: none;  
+    width: 100%;
+
+}
+.agentMageDispalu label{
+    font-weight: bold;
+}
+#ListAgentForadd{
+    padding: 20px;
+    border: 1px #ccc solid;
+
+}
+#appdex{
+    display: none;
+}
+#ListAgentForadd>div{
+    max-height: 500px;
+}
+#ListAgentForadd label{
+    cursor: pointer;
+}
+#openAgentName{
+    color: #fff;
 }

@@ -2,15 +2,7 @@
 include './conf.php';
 $fn = new functionx();
 
-$list = $fn->getDIDQueues();
-$project = $fn->getProjectList();
-
-$did = array();
-$Queue = array();
-if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
-
-    $did = $fn->getDid($_GET['Project']);
-}
+$list = $fn->getAgent();
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,7 +66,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                             <div class="row"> 
                                 <div class="col-md-5">
                                     <label>Search </label>
-                                    <input type="search" autocomplete name="text" class="form-control" placeholder=" ? " value="<?= isset($_GET['text']) ? $_GET['text'] : '' ?>">
+                                    <input type="search" autocomplete name="text" class="form-control" placeholder=" Agent code,name,lastname,phone " value="<?= isset($_GET['text']) ? $_GET['text'] : '' ?>">
                                 </div>
 
                                 <div class="col-md-3">
@@ -94,35 +86,34 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                             <thead>
                                 <tr>
                                     <th>Agent Number</th>
-                                    <th>Description</th>
-                                    <th>DID Number</th>
-                                    <th>Queue Number</th>
-
+                                    <th>Name</th>
+                                    <th>Lastname</th>
+                                    <th>Phone Number</th>
+                                    <th>Gender.</th>
                                     <th>manage</th> 
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Agent    </td>
-                                    <td>Description  </td>
-                                    <td>DID    </td>
-                                    <td>Queue    </td>  
+                                  <?php
+                                $i = 1;
+                                foreach ($list AS $key => $value) {
+                                    $value = $fn->ThaiTextToutf($value);
+                                    ?>
+                                    <tr>               
+                                        <td><?= $value['agent_code']; ?></td>
+                                        <td><?= $value['name']; ?></td>
+                                        <td><?= $value['lastname']; ?></td>
+                                        <td><?= $value['tel']; ?></td> 
+                                         <td><?= $value['gender']; ?></td> 
+                                        <td>                                                  
+                                            <a class="btn btn-warning btn-sm"  href="manage_agent_form.php?id=<?= $value['agent_id']; ?>"> <i class="fa fa-edit"></i> edit</a>
+                                            <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeAgent&id=<?= $value['agent_id']; ?>"> <i class="fa fa-remove"></i> Remove</a>
+                                        </td>
 
-                                    <td>                                                  
-                                        <a class="btn btn-warning btn-sm"  href="#"> <i class="fa fa-edit"></i> edit</a>
-                                        <a class="btn btn-danger btn-sm removeAlert"  href="#"> <i class="fa fa-remove"></i> Remove</a>
-                                    </td> 
-                                </tr>
-                                <tr>
-                                    <td>Agent</td>
-                                    <td>Description  </td>
-                                    <td>DID</td>
-                                    <td>Queue</td>   
-                                    <td>                                                  
-                                        <a class="btn btn-warning btn-sm"  href="#"> <i class="fa fa-edit"></i> edit</a>
-                                        <a class="btn btn-danger btn-sm removeAlert"  href="#"> <i class="fa fa-remove"></i> Remove</a>
-                                    </td> 
-                                </tr>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
 
@@ -145,11 +136,10 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
         <script src="js/customs.js"></script>
 
         <script>
-            //            $('#tablex').DataTable({
-            //                "pageLength": 25,
-            //                "searching": false
-            //
-            //            });
+                        $('#tablex').DataTable({
+                            "pageLength": 25, 
+            
+                        });
         </script>
 
     </body>

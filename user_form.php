@@ -1,10 +1,9 @@
 <?php
 include './conf.php';
 $fn = new functionx();
-$project = $fn->getProject();
+
 if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $list = $fn->getAgent($_GET['id']);
-    $list = $fn->ThaiTextToutf($list);
+    $list = $fn->getUser($_GET['id']);
 }
 ?>
 <!DOCTYPE html>
@@ -39,7 +38,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <link rel="stylesheet" href="bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="css/custom.css">
     </head>
-    <body data-id="Agent">
+    <body data-id="Project">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->
@@ -48,68 +47,66 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 <div class="container-fluid">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li  class="breadcrumb-item"><a href="manage_agent.php"> Agent Lists </a></li>
-                        <li class="breadcrumb-item active">Agent Form</li>
+                        <li class="breadcrumb-item"><a href="user_management.php">User Management</a></li>
+                        <li class="breadcrumb-item active">User Form</li>
                     </ul>
                 </div>
             </div>
             <section class="charts">
-                <div class="container-fluid">
-                    <?php
-                    include './_TapFake.php';
-                    ?>
-                    <div  id="porjectDetail">
-                        <h1 class="page-header"> Agent Form</h1>
+                <div class="container-fluid"> 
+                    <div  id="porjectDetail" style="border-top: 1px #ccc solid;margin-top: 20px;">
+                        <h1 class="page-header">User Form</h1>
                         <div class="row"> 
-                            <div class="card col-8">                             
-                                <div class="card-body">
-                                    <form class="form" action="_op_main.php?op=<?= isset($list) ? 'editAgent&id=' . $_GET['id'] : 'saveAgent' ?>" method="post">                                        
+                            <div class="  col-8">                             
+                                <div >
+                                    <form class="form" action="_op_main.php?op=<?= isset($list) ? 'editUser&id=' . $_GET['id'] : 'saveUser' ?>" method="post">
                                         <div class="form-group">
-                                            <label>Agent Code * </label>
-                                            <div>
-                                                <input type="text" class="form-control" name="agent_code" value="<?= isset($list) ? $list['agent_code'] : '' ?>" required>
-                                            </div>
-                                        </div>
-                                          <div class="form-group">
-                                            <label>Gender.</label>
+                                            <label>User Type.</label>
                                             <div style="padding-left: 20px;">
                                                 <div>
                                                     <label>
-                                                        <input type="radio" name="gender"  value="male" <?= (isset($list) && $list['gender'] == 'male') ? 'checked' : '' ?> required> Male 
+                                                        <input type="radio" name="user_type"  value="admin" <?= (isset($list) && $list['user_type'] == 'admin') ? 'checked' : '' ?> required> Admin 
                                                     </label>
                                                 </div>
                                                 <div>
                                                     <label>
-                                                        <input type="radio" name="gender"  value="female" <?= (isset($list) && $list['gender'] == 'female') ? 'checked' : '' ?> required> Female
+                                                        <input type="radio" name="user_type"  value="outsource" <?= (isset($list) && $list['user_type'] == 'outsource') ? 'checked' : '' ?> required> Outsource
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label>Name. </label>
+                                            <div>
+                                                <input type="text" class="form-control" name="name_lastname" value="<?= isset($list) ? $list['name_lastname'] : '' ?>" required>
+                                            </div>
+                                        </div>
                                          <div class="form-group">
-                                            <label>Name * </label>
+                                            <label>email.</label>
                                             <div>
-                                                <input type="text" class="form-control" name="name" value="<?= isset($list) ? $list['name'] : '' ?>" required>
+                                                <input type="email" class="form-control" name="email" value="<?= isset($list) ? $list['email'] : '' ?>" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Lastname * </label>
+                                            <label>Username.</label>
                                             <div>
-                                                <input type="text" class="form-control" name="lastname" value="<?= isset($list) ? $list['lastname'] : '' ?>" required>
+                                                <input type="text" class="form-control" name="username" value="<?= isset($list) ? $list['username'] : '' ?>" required>
                                             </div>
                                         </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Phone * </label>
-                                            <div>
-                                                <input type="text" class="form-control" name="tel" value="<?= isset($list) ? $list['tel'] : '' ?>" required>
+                                        <?php
+                                        if (!isset($list)) {
+                                            ?>
+                                            <div class="form-group">
+                                                <label>Password.</label>
+                                                <div>
+                                                    <input type="password" class="form-control" name="password"  required>
+                                                </div>
                                             </div>
-                                        </div>
-                                    
-                                        
+                                        <?php } ?>
                                         <div class="form-group">
-                                            <label>Description </label>
+                                            <label>Description.</label>
                                             <div>
-                                                <textarea  class="form-control"   rows="5" name="AGDescription"><?= isset($list) ? $list['AGDescription'] : '' ?></textarea>
+                                                <textarea  class="form-control"   rows="5" name="description"><?= isset($list) ? $list['description'] : '' ?></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -122,6 +119,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         </div>
                     </div>
                 </div>
+
             </section>
 
             <?php include './_foot.php'; ?>   

@@ -14,9 +14,9 @@
                 <li> <a href="index.php"> <i class="icon-screen"> </i><span>Home</span></a></li>
                 <li> <a href="callback.php"> <i class="icon-rss-feed"> </i><span>Call Back Reports</span></a></li>
                 <li> <a href="endcall.php"> <i class="icon-rss-feed"> </i><span>End call survey Reports</span></a></li> 
-<!--                <li> <a href="auxtime.php"> <i class="icon-rss-feed"> </i><span>Auxiliary Time Reports</span></a></li> 			-->
-                <li><a>------------------</a></li>
-                <li> <a href="manage_project.php"> <i class="fa fa-cog"> </i><span>Manage Project</span></a></li> 	 				 
+                
+                <li> <a href="manage_project.php"> <i class="fa fa-cog"> </i><span>Project Management</span></a></li> 	 				 
+                <li> <a href="user_management.php"> <i class="fa fa-user-secret"> </i><span>User Management</span></a></li> 	 				 
             </ul>
         </div>
     </div>

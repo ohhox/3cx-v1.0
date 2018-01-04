@@ -186,11 +186,11 @@ class functionx extends Crud {
             }
         } else {
             $wh = '';
-            if(isset($_GET['text']) & !empty($_GET['text'])){
+            if (isset($_GET['text']) & !empty($_GET['text'])) {
                 $text = $_GET['text'];
                 $wh = " WHERE j.Name LIKE '%$text%' OR  d.DIDNumber LIKE '%$text%' OR  d.QueueNumber LIKE '%$text%'";
             }
-               $sql = "SELECT d.*,j.Name,j.Code  FROM DIDQueues AS  d"
+            $sql = "SELECT d.*,j.Name,j.Code  FROM DIDQueues AS  d"
                     . " LEFT JOIN Projects AS j ON j.ProjectID=d.ProjectID  $wh";
 
             return $this->query($sql);
@@ -234,6 +234,89 @@ class functionx extends Crud {
     public function retime($date) {
         $date = explode(':', $date);
         return $date[0] . ':' . $date[1];
+    }
+
+    public function getUser($id = '') {
+        $where = "";
+        if (!empty($id)) {
+            $sql = "SELECT * FROM Users WHERE user_id='$id'";
+
+            $res = $this->query($sql);
+            if (!empty($res)) {
+                return $res[0];
+            } else {
+                return array();
+            }
+        } else {
+            $wh = '';
+            if (isset($_GET['text']) & !empty($_GET['text'])) {
+                $get = $this->toThaiText($_GET);
+                $text = $get['text'];
+                $wh = " AND (name_lastname LIKE '%$text%' OR  username LIKE '%$text%' OR email LIKE '%$text%')";
+            }
+            $sql = "SELECT * FROM Users WHERE user_status = '0' $wh";
+
+            return $this->query($sql);
+        }
+    }
+
+    public function getAgent($id = NULL) {
+        $where = "";
+        if (!empty($id)) {
+            $sql = "SELECT * FROM agent WHERE agent_id='$id'";
+
+            $res = $this->query($sql);
+            if (!empty($res)) {
+                return $res[0];
+            } else {
+                return array();
+            }
+        } else {
+            $wh = '';
+            if (isset($_GET['text']) & !empty($_GET['text'])) {
+                $get = $this->toThaiText($_GET);
+                $text = $get['text'];
+                $wh = " AND (agent_code LIKE '%$text%' OR  name LIKE '%$text%' OR lastname LIKE '%$text%' OR tel LIKE '%$text%')";
+            }
+            $sql = "SELECT * FROM agent WHERE  agent_status='0' $wh";
+
+            return $this->query($sql);
+        }
+    }
+
+    public function toThaiText(array $data) {
+        $res = array();
+        foreach ($data as $key => $value) {
+            $res[$key] = iconv('windows-874', 'utf-8', $value);
+        }
+        return $res;
+    }
+
+    public function ThaiTextToutf(array $data) {
+        $res = array();
+        foreach ($data as $key => $value) {
+            $res[$key] = iconv('utf-8', 'windows-874', $value);
+        }
+        return $res;
+    }
+
+    public function getDidAgent($id) {
+      echo  $sql = " SELECT dq.DIDNumber,dq.QueueNumber,a.* FROM didagent AS d "
+                . "LEFT JOIN agent AS a ON a.agent_id=d.agent_id "
+                . "LEFT JOIN DIDQueues AS dq ON dq.DIDQueueID=d.DIDQueueID "
+                . "WHERE  d.DIDQueueID='$id'";
+        return $this->query($sql);
+    }
+
+    public function getNotDidAgent($id) {
+        $sql = "SELECT *  FROM agent WHERE agent_id NOT IN( SELECT agent_id FROM didagent WHERE DIDQueueID='$id') AND agent_status='0'";
+        return $this->query($sql);
+    }
+
+    public function countDidAgent($id) {
+        $sql = "SELECT count(*) AS count FROM didagent WHERE  DIDQueueID='$id'";
+        $res = $this->query($sql);
+        return $res[0]['count'];
     }
 
 }

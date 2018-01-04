@@ -71,6 +71,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                                     <?php
                                                     foreach ($project as $key => $value) {
                                                         $active = "";
+                                                        if(isset($list))
                                                         if ($value['ProjectID'] == $list['ProjectID']) {
                                                             $active = "selected";
                                                         }

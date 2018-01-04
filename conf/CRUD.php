@@ -109,15 +109,13 @@ class Crud extends DB {
     public function create() {
         $bindings = $this->variables;
         if (!empty($bindings)) {
-
-            echo '';
             $fields = array_keys($bindings);
             $fieldsvals = array(implode(",", $fields), ":" . implode(",:", $fields));
             $sql = "INSERT INTO " . $this->table . " (" . $fieldsvals[0] . ") VALUES (" . $fieldsvals[1] . ")";
         } else {
             $sql = "INSERT INTO " . $this->table . " () VALUES ()";
         }
-          $sql;
+
         return $this->exec($sql);
     }
 

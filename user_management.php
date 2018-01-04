@@ -2,15 +2,7 @@
 include './conf.php';
 $fn = new functionx();
 
-$list = $fn->getDIDQueues();
-$project = $fn->getProjectList();
-
-$did = array();
-$Queue = array();
-if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
-
-    $did = $fn->getDid($_GET['Project']);
-}
+$list = $fn->getUser();
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,7 +36,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
         <link rel="stylesheet" href="bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="css/custom.css">
     </head>
-    <body data-id="DIDQ">
+    <body data-id="Project">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->
@@ -53,28 +45,24 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                 <div class="container-fluid">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item active"> DID & Queues Lists</li>
+                        <li class="breadcrumb-item active">User Management</li>
                     </ul>
                 </div>
             </div>
+
             <section class="charts">
-                <div class="container-fluid">
-                    <?php
-                    include './_TapFake.php';
-                    ?>
-                    <div  id="porjectDetail">
-                        <h1 class="page-header"> DID & Queues Lists. <a class="pull-right btn btn-sm btn-success" href="manage_queses_form.php">
-                                <i class="fa fa-plus"></i> New  DID & Queues 
+                <div class="container-fluid"> 
+                    <div  id="porjectDetail" style="border-top: 1px #ccc solid;margin-top: 20px;"> 
+                        <h1 class="page-header">User Management  <a class="pull-right btn btn-sm btn-success" href="user_form.php">
+                                <i class="fa fa-plus"></i> New User
                             </a>
                         </h1>
-
-
-
-                        <form id="Sform" class="Search-form">
+                        <div>
+                            <form id="Sform" class="Search-form">
                             <div class="row"> 
                                 <div class="col-md-5">
                                     <label>Search </label>
-                                    <input type="search" autocomplete name="text" class="form-control" placeholder=" Project Name,DID,Queue Number" value="<?= isset($_GET['text']) ? $_GET['text'] : '' ?>">
+                                    <input type="search" autocomplete name="text" class="form-control" placeholder=" Name , Username , Email" value="<?= isset($_GET['text']) ? $_GET['text'] : '' ?>">
                                 </div>
 
                                 <div class="col-md-3">
@@ -87,52 +75,46 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
 
                             </div>
                         </form> 
-
-
-                        <div class="clear"></div>
-                        <table class="table" id="tablex">
-                            <thead>
-                                <tr>
-                                    <th>Project Code</th>
-                                    <th>Project Name</th>
-                                    <th>DID Number</th>
-                                    <th>Queue Number</th>  
-                                    <th>Total Agent </th>
-                                    <th>manage</th> 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $i = 1;
-                                foreach ($list AS $key => $value) {
-                                    ?>
-                                    <tr>               
-                                        <td><?= $value['Code']; ?></td>
-                                        <td><?= $value['Name']; ?></td>
-                                        <td><?= $value['DIDNumber']; ?></td>
-                                        <td><?= $value['QueueNumber']; ?></td> 
-                                        <td><?= $fn->countDidAgent($value['DIDQueueID']); ?></td> 
-                                        <td>                                                  
-                                            <a class="btn btn-primary btn-sm"  href="manage_did_agent.php?id=<?= $value['DIDQueueID']; ?>"> <i class="fa fa-user-md"></i> Manage Agent</a>
-                                            <a class="btn btn-warning btn-sm"  href="manage_queses_form.php?id=<?= $value['DIDQueueID']; ?>"> <i class="fa fa-edit"></i> edit</a>
-                                            <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeDidQueres&id=<?= $value['DIDQueueID']; ?>"> <i class="fa fa-remove"></i> Remove</a>
-                                        </td>
-
+                            <div class="clear"></div>
+                            <table class="table" id="tablex">
+                                <thead>
+                                    <tr> 
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Username</th> 
+                                        <th>Email</th>
+                                        <th>User Type</th>
+                                        <th>Manage</th> 
                                     </tr>
+                                </thead>
+                                <tbody>
                                     <?php
-                                }
-                                ?>
+                                    $i = 1;
+                                    foreach ($list AS $key => $value) {
+                                        $value = $fn->ThaiTextToutf($value);
+                                        ?>
+                                        <tr>          
+                                             <th><?=$i++?></th>
+                                            <td><?= $value['name_lastname']; ?></td>
+                                            <td><?= $value['username']; ?></td>
+                                            <td><?= $value['email']; ?></td>
+                                            <td><?= $value['user_type']; ?></td>
+                                            <td>                                                  
+                                                <a class="btn btn-warning btn-sm"  href="user_form.php?id=<?= $value['user_id']; ?>"> <i class="fa fa-edit"></i> edit</a>
+                                                <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeUser&id=<?= $value['user_id']; ?>"> <i class="fa fa-remove"></i> Remove</a>
+                                            </td>
 
-                            </tbody>
-                        </table>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
 
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-
-
-
             </section>
-
 
             <?php include './_foot.php'; ?>   
 
@@ -146,14 +128,12 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="js/front.js"></script>
         <script src="js/customs.js"></script>
-
-        <script>
-            $('#tablex').DataTable({
-                "pageLength": 25,
-                "searching": false
-
-            });
-        </script>
-
+ <script>
+                    $('#tablex').DataTable({
+                        "pageLength": 25,
+                        "searching": false
+        
+                    });
+    </script>
     </body>
 </html>

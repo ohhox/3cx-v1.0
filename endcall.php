@@ -145,7 +145,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                     <input type="number" min="0" max="5" value="<?= (isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5 ?>" name="scoreend" class="SmallTextBox">
                                 </div> 
                                 <div class="col-md-6">
-                                    <button type="submit" class="btn btn-primary btn-lg"> Export </button> 
+                                    <button type="submit" class="btn btn-primary btn-lg"> Generate </button> 
                                     OR  &nbsp;&nbsp;
 
                                     <a href="_endcall_excel.php" class="extranalLink"><i class="fa fa-file-excel-o fa-2x"></i> </a> &nbsp;
