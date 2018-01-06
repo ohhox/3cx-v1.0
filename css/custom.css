@@ -97,3 +97,9 @@
 #openAgentName{
     color: #fff;
 }
+#agentCalc{
+    display: none;
+}
+#agentCalc.show{
+    display: block;
+}

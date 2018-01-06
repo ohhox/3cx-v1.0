@@ -70,6 +70,7 @@ $list = $fn->getProject();
                                         <th>Project Code</th>
                                         <th>Project Name</th> 
                                         <th>Description</th>
+                                        <th>Score Rate</th>
                                         <th>manage</th> 
                                     </tr>
                                 </thead>
@@ -82,6 +83,7 @@ $list = $fn->getProject();
                                             <td><?= $value['Code']; ?></td>
                                             <td><?= $value['Name']; ?></td>
                                             <td><?= $value['Description']; ?></td>
+                                            <td><?= $value['score_min']; ?> - <?= $value['score_max']; ?></td>
                                             <td>                                                  
                                                 <a class="btn btn-warning btn-sm"  href="manage_project_form.php?id=<?= $value['ProjectID']; ?>"> <i class="fa fa-edit"></i> edit</a>
                                                 <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeProject&id=<?= $value['ProjectID']; ?>"> <i class="fa fa-remove"></i> Remove</a>

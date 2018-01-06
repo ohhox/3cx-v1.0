@@ -18,6 +18,30 @@ class op_ajax extends functionx {
         echo json_encode($did);
     }
 
+    public function getAgent() {
+        $project = "";
+        $DID = "";
+        $Queues = "";
+        if (isset($_GET['project'])) {
+            $project = $_GET['project'];
+        }
+        if (isset($_GET['did'])) {
+            $DID = $_GET['did'];
+        }
+        if (isset($_GET['Qid'])) {
+            $Queues = $_GET['Qid'];
+        }
+        $res = $this->getAgentForProjectDID($project, $DID, $Queues);
+        echo json_encode($res);
+    }
+
+    public function getScore() {
+        if (isset($_GET['project'])) {
+            $did = $this->getProject($_GET['project']);
+            echo json_encode($did);
+        }
+    }
+
 }
 
 $op = $_GET['op'];

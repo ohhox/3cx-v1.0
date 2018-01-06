@@ -62,7 +62,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         <div class="row"> 
                             <div class="card col-8">                             
                                 <div class="card-body">
-                                    <form class="form" action="_op_main.php?op=<?= isset($list) ? 'editDidQueres&id=' . $_GET['id'] : 'saveDidQueres' ?>" method="post">
+                                    <form id="manageDIDQForm" class="form" action="_op_main.php?op=<?= isset($list) ? 'editDidQueres&id=' . $_GET['id'] : 'saveDidQueres' ?>" method="post">
                                         <div class="form-group">
                                             <label>Project Code</label>
                                             <div>
@@ -71,10 +71,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                                     <?php
                                                     foreach ($project as $key => $value) {
                                                         $active = "";
-                                                        if(isset($list))
-                                                        if ($value['ProjectID'] == $list['ProjectID']) {
-                                                            $active = "selected";
-                                                        }
+                                                        if (isset($list))
+                                                            if ($value['ProjectID'] == $list['ProjectID']) {
+                                                                $active = "selected";
+                                                            }
                                                         ?>
                                                         <option value="<?= $value['ProjectID'] ?>" <?= $active ?>><?= $value['Code'] . ': ' . $value['Name']; ?></option>
                                                         <?php
@@ -102,6 +102,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <div id="errorMessageMGF" class="text-danger"></div>
                                             <button class="btn btn-sm btn-success"> <i class="fa fa-save"></i> Save </button>
                                         </div>
                                     </form>

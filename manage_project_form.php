@@ -62,7 +62,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         <div class="row"> 
                             <div class="card col-8">                             
                                 <div class="card-body">
-                                    <form class="form" action="_op_main.php?op=<?= isset($list) ? 'editProject&id=' . $_GET['id'] : 'saveProject' ?>" method="post">
+                                    <form id="ProjectForm" class="form" action="_op_main.php?op=<?= isset($list) ? 'editProject&id=' . $_GET['id'] : 'saveProject' ?>" method="post">
                                         <div class="form-group">
                                             <label>Project Code</label>
                                             <div>
@@ -76,12 +76,25 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label>Score Rate</label>
+                                            <div style="padding-left: 15px;">
+
+                                                <div style="padding-bottom: 10px;">
+                                                    <label style="width: 50px">  Min :</label>  <input type="number" id="scroe_min"  name="score_min" value="<?= isset($list) ? $list['score_min'] : '' ?>" required min="0" style="width: 50px;padding-left: 5px;"> <br/>
+                                                </div>
+                                                <div style="padding-bottom: 10px;">
+                                                    <label style="width: 50px">   Max : </label> <input type="number"  id="scroe_max" name="score_max" value="<?= isset($list) ? $list['score_max'] : '' ?>" required min="0" style="width: 50px;padding-left: 5px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Description</label>
                                             <div>
                                                 <textarea  class="form-control"   rows="5" name="Description"><?= isset($list) ? $list['Description'] : '' ?></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <div id="errorMessageMGF" class="text-danger"></div>
                                             <button class="btn btn-sm btn-success"> <i class="fa fa-save"></i> Save </button>
                                         </div>
                                     </form>

@@ -89,10 +89,13 @@ class functionx extends Crud {
     public function getEndCall() {
 
         $where = "";
+        $where2 = "";
+        $where3 = "";
         $stardate = "";
         $enddate = "";
 
         $d = array(); // FOR SHOW IN INPUT
+
         if (isset($_GET['date']) && !empty($_GET['date'])) {
             $date = explode('-', $_GET['date']);
 
@@ -110,11 +113,12 @@ class functionx extends Crud {
             );
         }
 
-        $where .= " WHERE convert(datetime, c.date) BETWEEN '$stardate' AND '$enddate' ";
-
+        $where .= " AND convert(datetime, c.date) BETWEEN '$stardate' AND '$enddate' ";
+        $where2 .= " WHERE convert(datetime, date) BETWEEN '$stardate' AND '$enddate' ";
 ///////////////////// PROJECT
         if (isset($_GET['Project']) && !empty($_GET['Project']) && $_GET['Project'] != "all") {
             $where .= " AND d.ProjectID='{$_GET['Project']}'";
+            $where3 .= " AND d.ProjectID='{$_GET['Project']}'";
         }
 ///////////////////// Queue
         if (isset($_GET['Queue']) && !empty($_GET['Queue']) && $_GET['Queue'] != "all") {
@@ -124,22 +128,67 @@ class functionx extends Crud {
         ///////////////////// Did
         if (isset($_GET['Did']) && !empty($_GET['Did']) && $_GET['Did'] != "all") {
             $where .= " AND c.project='{$_GET['Did']}'";
+            $where2 .= " AND  project='{$_GET['Did']}'";
+            $where3 .= " AND d.DIDNumber='{$_GET['Did']}'";
         }
 
 ///////////////////// DayOrNight
         if (isset($_GET['Agent']) && !empty($_GET['Agent']) && $_GET['Agent'] != "all") {
             $where .= " AND c.agent='{$_GET['Agent']}'";
+              $where3 .= " AND a.agent_code='{$_GET['Agent']}'";
         }
 
 ///////////////////// LeaveNum
         if (isset($_GET['Leave']) && !empty($_GET['Leave']) && $_GET['Leave'] == "1") {
             $where .= " AND c.LeaveNum !=''";
         }
+        ///////////////////// Score
+        if (isset($_GET['scorestrat'])) {
+            if (isset($_GET['scoreend']) && !empty($_GET['scoreend'])) {
+                $where .= " AND c.score BETWEEN {$_GET['scorestrat']} AND {$_GET['scoreend']}";
+                $where2 .= " AND score BETWEEN {$_GET['scorestrat']} AND {$_GET['scoreend']}";
+            }
+        }
+        if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average
+            if (isset($_GET['calc']) && !empty($_GET['calc']) && $_GET['calc'] == 'all') { // ALL Agent
+                 $sql = ""
+                        . "SELECT agent_code AS agent,DIDNumber,score FROM (
+                        (
+                        SELECT a.agent_code,d.DIDNumber  FROM didagent AS da
+                         LEFT JOIN agent AS a ON a.agent_id =da.agent_id
+                         LEFT JOIN DIDQueues AS d ON d.DIDQueueID = da.DIDQueueID  
+                         WHERE  a.agent_status='0' $where3
+                         GROUP BY a.agent_code,d.DIDNumber
+                          ) AS data1 
+                          LEFT JOIN (
+                                SELECT ROUND(AVG(CAST(score AS FLOAT)), 2) as score,agent,project as did   FROM  endcall 
+                                 $where2  
+                                 GROUP BY agent,project
+                          ) AS data2 ON data1.agent_code = data2.agent  AND data1.DIDNumber= data2.did
+                          )
+                          ORDER BY agent_code ASC
+                    ";
+              
+            } else {
+                $sql = "SELECT ROUND(AVG(CAST(c.score AS FLOAT)), 2)  as score,a.agent_code as agent,d.DIDNumber as DIDNumber
+                    FROM didagent AS da
+                    LEFT JOIN agent AS a ON a.agent_id =da.agent_id
+                    LEFT JOIN DIDQueues AS d ON d.DIDQueueID = da.DIDQueueID 
+                    FULL OUTER  JOIN endcall AS c ON c.agent = a.agent_code 
+                    WHERE  a.agent_status='0' "
+                        . "$where "
+                        . " GROUP BY a.agent_code,d.DIDNumber";
+            }
+        } else {
+            $sql = " SELECT convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber
+                    FROM didagent AS da
+                    LEFT JOIN agent AS a ON a.agent_id =da.agent_id
+                    LEFT JOIN DIDQueues AS d ON d.DIDQueueID = da.DIDQueueID 
+                    FULL OUTER  JOIN endcall AS c ON c.agent = a.agent_code 
+                    WHERE  a.agent_status='0' "
+                    . "$where";
+        }
 
-        $sql = " SELECT  convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber "
-                . " FROM endcall AS c"
-                . " LEFT JOIN DIDQueues AS d ON d.DIDNumber = c.project "
-                . "$where";
         return $this->query($sql);
     }
 
@@ -301,7 +350,7 @@ class functionx extends Crud {
     }
 
     public function getDidAgent($id) {
-      echo  $sql = " SELECT dq.DIDNumber,dq.QueueNumber,a.* FROM didagent AS d "
+        $sql = " SELECT dq.DIDNumber,dq.QueueNumber,a.* FROM didagent AS d "
                 . "LEFT JOIN agent AS a ON a.agent_id=d.agent_id "
                 . "LEFT JOIN DIDQueues AS dq ON dq.DIDQueueID=d.DIDQueueID "
                 . "WHERE  d.DIDQueueID='$id'";
@@ -317,6 +366,23 @@ class functionx extends Crud {
         $sql = "SELECT count(*) AS count FROM didagent WHERE  DIDQueueID='$id'";
         $res = $this->query($sql);
         return $res[0]['count'];
+    }
+
+    public function getAgentForProjectDID($project = "", $did = "", $queues = "") {
+        $sql = "SELECT * FROM didagent AS da"
+                . " LEFT JOIN agent AS a ON a.agent_id=da.agent_id "
+                . " LEFT JOIN DIDQueues AS d ON d.DIDQueueID=da.DIDQueueID "
+                . " WHERE a.agent_status='0' ";
+        if ($project != "all" && !empty($project)) {
+            $sql .= " AND d.ProjectID='$project'";
+        }
+        if ($did != "all" && !empty($did)) {
+            $sql .= " AND d.DIDNumber='$did'";
+        }
+        if ($queues != "all" && !empty($queues)) {
+            $sql .= " AND d.QueueNumber='$queues'";
+        }
+        return $this->query($sql);
     }
 
 }

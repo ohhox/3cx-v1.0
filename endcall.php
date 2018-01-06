@@ -4,7 +4,22 @@ $fn = new functionx();
 
 $list = $fn->getEndCall();
 $project = $fn->getProjectList();
-$agent = $fn->getEndCallAgent();
+$thisProject = "";
+
+$projectId = "";
+$DIDID = "";
+$QueuesID = "";
+if (isset($_GET['Project'])) {
+    $projectId = $_GET['Project'];
+    $thisProject = $fn->getProject($_GET['Project']);
+}
+if (isset($_GET['Did'])) {
+    $DIDID = $_GET['Did'];
+}
+if (isset($_GET['Queue'])) {
+    $QueuesID = $_GET['Queue'];
+}
+$agent = $fn->getAgentForProjectDID($projectId, $DIDID, $QueuesID);
 
 $did = array();
 $Queue = array();
@@ -111,38 +126,51 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             </option>
                                         <?php } ?>
                                     </select>
-                                </div>
-                                <div class="col-md-3"></div>
-<!--                                <div class="col-md-3">
-                                    <label>Queue Number</label>
-                                    <select class=" form-control" name="Queue" id="Queue" >
-                                        <option value="all">ALL</option>
-                                        <?php
-                                        foreach ($Queue AS $key => $value) {
-                                            ?>
-                                            <option data-status="remove"  value="<?php echo $value['QueueNumber']; ?>" <?= @($_GET['Queue'] == $value['QueueNumber']) ? 'selected' : '' ?>> 
-                                                <?php echo $value['QueueNumber']; ?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
-                                </div>          -->
+                                </div> 
+
+
                                 <div class="col-md-3">
                                     <label>Agent</label>
-                                    <select class=" form-control" name="Agent" >
+                                    <select class=" form-control" name="Agent" id="Agent">
                                         <option value="all">ALL</option>
                                         <?php
                                         foreach ($agent AS $key => $value) {
                                             ?>
-                                            <option value="<?php echo $value['agent']; ?>" <?= @($_GET['Agent'] == $value['agent']) ? 'selected' : '' ?>>  <?php echo $value['agent']; ?></option>
+                                            <option data-status='remove' value="<?php echo $value['agent_code']; ?>" <?= @($_GET['Agent'] == $value['agent_code']) ? 'selected' : '' ?>>  <?php echo $value['agent_code']; ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>                               
 
-                                <div class="col-md-3">
+                                <?php
+                                if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
+                                    ?>
+                                    <div class="col-md-3" id="ScoreRate">
 
-                                    <label>Score Rate </label>   <br/>
-                                    <input type="number" min="0" max="5" value="<?= (isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 ?>" name="scorestrat" class="SmallTextBox" > -
-                                    <input type="number" min="0" max="5" value="<?= (isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5 ?>" name="scoreend" class="SmallTextBox">
+                                        <label>Score Rate </label>   <br/>
+                                        <input type="number" id="score_min" min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" name="scorestrat" class="SmallTextBox" > -
+                                        <input type="number" id="score_max"  min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" name="scoreend" class="SmallTextBox">
+                                    </div> 
+                                    <?php
+                                }
+                                ?>
+
+                                <div class="col-md-3">
+                                    Report 
+                                    <div>
+                                        <label  style="margin-left: 25px;"> <input type="radio" name="report"  value="data" checked> Total Score </label> 
+                                        <div>
+                                            <label style="margin-left: 25px;"> <input type="radio"  name="report" value="sum" <?= (isset($_GET['report']) && $_GET['report'] == "sum") ? "checked" : "" ?>> Average Score</label>
+                                        </div>
+                                    </div>
+                                    <div id="agentCalc" class="<?= (isset($_GET['report']) && $_GET['report'] == "sum") ? "show" : "" ?>" >
+                                        Agent 
+                                        <div>
+                                            <label style="margin-left: 25px;"> <input type="radio" name="calc" value="indata" checked> In Data </label> 
+                                            <div>
+                                                <label style="margin-left: 25px;"> <input type="radio"  name="calc" value="all"  <?= (isset($_GET['calc']) && $_GET['calc'] == "all") ? "checked" : "" ?>> Total Agent</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div> 
                                 <div class="col-md-6">
                                     <button type="submit" class="btn btn-primary btn-lg"> Generate </button> 
@@ -163,38 +191,74 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                     <div class="row"> 
                         <div class="card col-12">                             
                             <div class="card-body">
-                                <table class="table" id="tablex">
-                                    <thead>
-                                        <tr> 
-                                            <th>Date</th>
-                                            <th>Time</th> 
-                                            <th>Customer Number</th>
-                                            <th>Agent Number</th>  
-                                            <th>DID(VDN)</th>
-                                            <th>Score</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $i = 1;
-                                        foreach ($list AS $key => $value) {
-                                            ?>
-                                            <tr>                                                
-                                                <td><?= $fn->redate($value['DateLeave'], 'no'); ?></td>
-                                                <td><?= $fn->retime($value['time']); ?></td>
-                                                <td><?= $value['customernumber']; ?></td>
-                                                <td><?= $value['agent']; ?></td>   
-                                                <td><?= $value['DIDNumber']; ?></td>    
-                                                <td><?= $value['score']; ?></td>
+                                <?php
+                                if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average
+                                    ?>
+                                    <table class="table" id="tablex">
+                                        <thead>
+                                            <tr>  
+                                                <th>#</th>  
+                                                <th>Agent Number</th>  
+                                                <th>DID(VDN)</th>
+                                                <th>Score(AVG)</th>
 
                                             </tr>
+                                        </thead>
+                                        <tbody>
                                             <?php
-                                        }
-                                        ?>
+                                            $i = 1;
+                                            foreach ($list AS $key => $value) {
+                                                ?>
+                                                <tr>      
+                                                    <td><?= $i++ ?></td>
+                                                    <td><?= $value['agent']; ?></td>   
+                                                    <td><?= $value['DIDNumber']; ?></td>    
+                                                    <td><?= number_format($value['score'], 2); ?></td>
 
-                                    </tbody>
-                                </table>
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
+                                        </tbody>
+                                    </table>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <table class="table" id="tablex">
+                                        <thead>
+                                            <tr> 
+                                                <th>Date</th>
+                                                <th>Time</th> 
+                                                <th>Customer Number</th>
+                                                <th>Agent Number</th>  
+                                                <th>DID(VDN)</th>
+                                                <th>Score</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $i = 1;
+                                            foreach ($list AS $key => $value) {
+                                                ?>
+                                                <tr>                                                
+                                                    <td><?= $fn->redate($value['DateLeave'], 'no'); ?></td>
+                                                    <td><?= $fn->retime($value['time']); ?></td>
+                                                    <td><?= $value['customernumber']; ?></td>
+                                                    <td><?= $value['agent']; ?></td>   
+                                                    <td><?= $value['DIDNumber']; ?></td>    
+                                                    <td><?= $value['score']; ?></td>
+
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
+                                        </tbody>
+                                    </table>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -212,6 +276,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="js/front.js"></script>
         <script src="js/customs.js"></script>
+        <script src="js/endcal.js"></script>
         <script>
 
             $(function () {

@@ -38,19 +38,43 @@ class op_main extends functionx {
     public function saveDidQueres() {
         $this->table = "DIDQueues";
         $this->pk = 'DIDQueueID';
+        $data = $_POST;
+        unset($data['DidDescription']);
+        $res = $this->search($data);
 
-        $this->__setMultiple($_POST);
-        $this->create();
-        $this->Go("manage_queses.php");
+
+        if (!empty($res)) {
+            echo "1";
+        } else {
+            echo "2";
+            $this->__setMultiple($_POST);
+            $this->create();
+            // $this->Go("manage_queses.php");
+        }
     }
 
     public function editDidQueres() {
         $this->table = "DIDQueues";
         $this->pk = 'DIDQueueID';
 
-        $this->__setMultiple($_POST);
-        $this->save($_GET['id']);
-        $this->Go("manage_queses.php");
+        $data = $_POST;
+        unset($data['DidDescription']);
+        $res = $this->search($data);
+        $erro = 1;
+        foreach ($res as $key => $value) {
+            if ($value['DIDQueueID'] != $_GET['id']) {
+                $erro = 2;
+                break;
+            }
+        }
+        if ($erro == 1) {
+            $this->__setMultiple($_POST);
+            $this->save($_GET['id']);
+            echo "2";
+        } else {
+            echo "1";
+        }
+        //$this->Go("manage_queses.php");
     }
 
     public function removeDidQueres() {

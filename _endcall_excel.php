@@ -47,6 +47,9 @@ if ($_GET['Project'] != 'all') {
                                 <label>Agent Number: </label> <?= isset($_GET['Agent']) ? $_GET['Agent'] : '' ?>     
 
                             </div>
+                             <div class="col-md-3">
+                                <label>report Type: </label> <?= isset($_GET['report']) ? (($_GET['report'] == 'sum')? ' Average Score' : 'Total Score') : '' ?>
+                            </div>
                             <!--                            <div class="col-md-3">
                                                             <label>Queue Number: </label> <?= isset($_GET['Queue']) ? $_GET['Queue'] : '' ?>     
                             
@@ -62,38 +65,73 @@ if ($_GET['Project'] != 'all') {
                     <div class="row"> 
                         <div class="card col-12">                             
                             <div class="card-body">
-                                <table class="table" id="tablex">
-                                    <thead>
-                                        <tr> 
-                                            <th>Date</th>
-                                            <th>Time</th> 
-                                            <th>Customer Number</th>
-                                            <th>Agent Number</th>  
-                                            <th>DID(VDN)</th>
-                                            <th>Score</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $i = 1;
-                                        foreach ($list AS $key => $value) {
-                                            ?>
-                                            <tr>                                                
-                                                <td><?= $fn->redate($value['DateLeave'], 'no'); ?></td>
-                                                <td><?= $fn->retime($value['time']); ?></td>
-                                                <td><?= $value['customernumber']; ?></td>
-                                                <td><?= $value['agent']; ?></td>   
-                                                <td><?= $value['DIDNumber']; ?></td>    
-                                                <td><?= $value['score']; ?></td>
+                                  <?php
+                                if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average
+                                    ?>
+                                    <table class="table" id="tablex">
+                                        <thead>
+                                            <tr>  
+                                                <th>#</th>  
+                                                <th>Agent Number</th>  
+                                                <th>DID(VDN)</th>
+                                                <th>Score(AVG)</th>
 
                                             </tr>
+                                        </thead>
+                                        <tbody>
                                             <?php
-                                        }
-                                        ?>
+                                            $i = 1;
+                                            foreach ($list AS $key => $value) {
+                                                ?>
+                                                <tr>      
+                                                    <td><?= $i++ ?></td>
+                                                    <td><?= $value['agent']; ?></td>   
+                                                    <td><?= $value['DIDNumber']; ?></td>    
+                                                    <td><?= number_format($value['score'], 2); ?></td>
 
-                                    </tbody>
-                                </table>
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
+                                        </tbody>
+                                    </table>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <table class="table" id="tablex">
+                                        <thead>
+                                            <tr> 
+                                                <th>Date</th>
+                                                <th>Time</th> 
+                                                <th>Customer Number</th>
+                                                <th>Agent Number</th>  
+                                                <th>DID(VDN)</th>
+                                                <th>Score</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $i = 1;
+                                            foreach ($list AS $key => $value) {
+                                                ?>
+                                                <tr>                                                
+                                                    <td><?= $fn->redate($value['DateLeave'], 'no'); ?></td>
+                                                    <td><?= $fn->retime($value['time']); ?></td>
+                                                    <td><?= $value['customernumber']; ?></td>
+                                                    <td><?= $value['agent']; ?></td>   
+                                                    <td><?= $value['DIDNumber']; ?></td>    
+                                                    <td><?= $value['score']; ?></td>
+
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
+                                        </tbody>
+                                    </table>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
