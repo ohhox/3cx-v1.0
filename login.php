@@ -16,14 +16,14 @@
         <!-- Google fonts - Roboto -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         <!-- jQuery Circle-->
-        
+
         <!-- Custom Scrollbar-->
-        
+
         <!-- theme stylesheet-->        
-        
+
         <link rel="stylesheet" href="css/radioStyle.css"> 
         <link rel="shortcut icon" href="favicon.png"> 
-        
+
         <style>
             .login-page{
                 width: 450px;
@@ -38,6 +38,17 @@
                 padding: 30px;
                 color: #b5b5b5;
             }
+            .errorMsg{
+                background-color: #f2dede;
+                font-weight: 700;
+                font-size: 13px;
+                color: #b94a53;
+                line-height: 20px;
+                margin-bottom: 20px;
+                padding: 15px;
+                border: 1px solid #ebccd1;
+                position: relative;
+            }
         </style>
     </head>
     <body>
@@ -47,36 +58,34 @@
                     <div  style=" padding: 20px;margin-top:100px;">
                         <div class="logo text-uppercase">
                             <span>3CX</span><strong class="text-primary"> WEB REPORT SYSTEM.</strong>
+                            <div ><small style="font-size: 0.8rem;">Access your account.</small></div>
                         </div>
 
                         <form id="login-form" action="system.php?op=login" method="post">
                             <div class="form-group">
-                                <label for="login-username" class="label-custom">User Name</label>
+                                <label for="login-username" class="label-custom">Username</label>
                                 <input id="login-username" class="form-control" type="text" name="loginUsername" required="">
                             </div>
                             <div class="form-group">
                                 <label for="login-password" class="label-custom">Password</label>
                                 <input id="login-password" class="form-control" type="password" name="loginPassword" required="">
                             </div>
-<!--                            <div  >
-                                <label>  
-                                    <input style="background: #ffffff;" type="radio" name="type" value="admin"> <span> Admin </span> &nbsp;&nbsp;&nbsp;
-                                </label>
-                                <label>
-                                    <input type="radio" name="type" value="callcenter">
-                                    <span> Call Center </span>
-                                </label>
-                            </div>-->
-                            <div >
-                                
-                            <button class="btn btn-primary btn-lg">Login</button> 
+                            <div class="text-center">
+                                <?php
+                                if (isset($_GET['er']) && $_GET['er'] == "nof") {
+                                    ?>
+                                <div class="errorMsg"> <i class="fa fa-info-circle"></i> &nbsp;&nbsp;&nbsp;You have entered invalid login or password. Please try again.</div>
+                                    <?php
+                                }
+                                ?>
+                                <button class="btn btn-info" style="padding-left: 100px;padding-right: 100px;">Login</button> 
                             </div>
 
                         </form>
                     </div>
                     <div class="copyrights text-center">
                         <p>&COPY; 3CX  WEB REPORT SYSTEM.</p>
-                        
+
                     </div>
                 </div>
             </div>

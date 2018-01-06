@@ -141,18 +141,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                     </select>
                                 </div>                               
 
-                                <?php
-                                if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
-                                    ?>
-                                    <div class="col-md-3" id="ScoreRate">
 
-                                        <label>Score Rate </label>   <br/>
-                                        <input type="number" id="score_min" min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" name="scorestrat" class="SmallTextBox" > -
-                                        <input type="number" id="score_max"  min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" name="scoreend" class="SmallTextBox">
-                                    </div> 
-                                    <?php
-                                }
-                                ?>
 
                                 <div class="col-md-3">
                                     Report 
@@ -172,6 +161,18 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         </div>
                                     </div>
                                 </div> 
+
+                                <div class="col-md-3" id="ScoreRate"   <?php
+                                if (isset($_GET['Project']) && $_GET['Project'] == 'all') {
+                                    ?> style="display: none;"<?php
+                                }
+                                ?>>
+
+                                    <label>Score Rate </label>   <br/>
+                                    <input type="number" id="score_min" min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" name="scorestrat" class="SmallTextBox" > -
+                                    <input type="number" id="score_max"  min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" name="scoreend" class="SmallTextBox">
+                                </div> 
+
                                 <div class="col-md-6">
                                     <button type="submit" class="btn btn-primary btn-lg"> Generate </button> 
                                     OR  &nbsp;&nbsp;

@@ -2,7 +2,7 @@
 
 class functionx extends Crud {
 
-    protected $user = array();
+    public $user = array();
     private $allow_file = array(
         'login.php',
         'system.php'
