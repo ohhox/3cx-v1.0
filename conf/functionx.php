@@ -2,8 +2,28 @@
 
 class functionx extends Crud {
 
+    protected $user = array();
+    private $allow_file = array(
+        'login.php',
+        'system.php'
+    );
+
     public function __construct() {
         parent::__construct();
+        if (isset($_COOKIE['uid']) && !empty($_COOKIE['uid'])) {
+            $user = $this->getUser($_COOKIE['uid']);
+            if (empty($user)) {
+                $this->checkLogin();
+            } else {
+                if ($user['user_status'] != 0) {
+                    $this->checkLogin();
+                } else {
+                    $this->user = $user;
+                }
+            }
+        } else {
+            $this->checkLogin();
+        }
     }
 
     public $dayNight = array(
@@ -11,6 +31,16 @@ class functionx extends Crud {
         1 => 'Night',
         'all' => 'all'
     );
+
+    public function checkLogin() {
+
+
+        $file = $_SERVER['SCRIPT_NAME'];
+        $file = str_repeat('/', "", $file);
+        if (!in_array($file, $this->allow_file)) {
+            $this->Go('logout.php');
+        }
+    }
 
     public function s($ar) {
         echo "<pre>";
@@ -135,7 +165,7 @@ class functionx extends Crud {
 ///////////////////// DayOrNight
         if (isset($_GET['Agent']) && !empty($_GET['Agent']) && $_GET['Agent'] != "all") {
             $where .= " AND c.agent='{$_GET['Agent']}'";
-              $where3 .= " AND a.agent_code='{$_GET['Agent']}'";
+            $where3 .= " AND a.agent_code='{$_GET['Agent']}'";
         }
 
 ///////////////////// LeaveNum
@@ -151,7 +181,7 @@ class functionx extends Crud {
         }
         if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average
             if (isset($_GET['calc']) && !empty($_GET['calc']) && $_GET['calc'] == 'all') { // ALL Agent
-                 $sql = ""
+                $sql = ""
                         . "SELECT agent_code AS agent,DIDNumber,score FROM (
                         (
                         SELECT a.agent_code,d.DIDNumber  FROM didagent AS da
@@ -168,7 +198,6 @@ class functionx extends Crud {
                           )
                           ORDER BY agent_code ASC
                     ";
-              
             } else {
                 $sql = "SELECT ROUND(AVG(CAST(c.score AS FLOAT)), 2)  as score,a.agent_code as agent,d.DIDNumber as DIDNumber
                     FROM didagent AS da

@@ -26,7 +26,7 @@
         
         <style>
             .login-page{
-                width: 350px;
+                width: 450px;
                 margin: auto;
             }
             .logo{
@@ -44,12 +44,12 @@
         <div class="page login-page">
             <div  >
                 <div  >
-                    <div  >
+                    <div  style=" padding: 20px;margin-top:100px;">
                         <div class="logo text-uppercase">
                             <span>3CX</span><strong class="text-primary"> WEB REPORT SYSTEM.</strong>
                         </div>
 
-                        <form id="login-form" action="index.php" method="post">
+                        <form id="login-form" action="system.php?op=login" method="post">
                             <div class="form-group">
                                 <label for="login-username" class="label-custom">User Name</label>
                                 <input id="login-username" class="form-control" type="text" name="loginUsername" required="">
@@ -58,7 +58,7 @@
                                 <label for="login-password" class="label-custom">Password</label>
                                 <input id="login-password" class="form-control" type="password" name="loginPassword" required="">
                             </div>
-                            <div  >
+<!--                            <div  >
                                 <label>  
                                     <input style="background: #ffffff;" type="radio" name="type" value="admin"> <span> Admin </span> &nbsp;&nbsp;&nbsp;
                                 </label>
@@ -66,7 +66,7 @@
                                     <input type="radio" name="type" value="callcenter">
                                     <span> Call Center </span>
                                 </label>
-                            </div>
+                            </div>-->
                             <div >
                                 
                             <button class="btn btn-primary btn-lg">Login</button> 

@@ -4,6 +4,7 @@ $fn = new functionx();
 
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $list = $fn->getUser($_GET['id']);
+    $list = $fn->ThaiTextToutf($list);
 }
 ?>
 <!DOCTYPE html>

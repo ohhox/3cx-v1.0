@@ -1,3 +1,7 @@
+<?php
+include './conf.php';
+$fn = new functionx();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,8 +36,8 @@
         <div class="page home-page">
             <!-- navbar-->
             <?php include './_head.php'; ?>    
-            
-            
+
+
             <?php include './_foot.php'; ?>   
 
         </div>
