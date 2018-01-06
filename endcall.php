@@ -163,7 +163,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                 </div> 
 
                                 <div class="col-md-3" id="ScoreRate"   <?php
-                                if (isset($_GET['Project']) && $_GET['Project'] == 'all') {
+                                if (@!isset($_GET['Project']) || $_GET['Project'] == 'all') {
                                     ?> style="display: none;"<?php
                                 }
                                 ?>>
