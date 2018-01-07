@@ -94,7 +94,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                 <div class="container-fluid">
                     <header id="formSearc"> 
                         <h1 class="h3">End Call Survey Reports</h1>
-                        <form id="Sform">
+                        <form id="Sform" class="endcall">
                             <div class="row">
                                 <div class="col-md-3">
                                     <label>Date Rang</label>
@@ -165,8 +165,8 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                 <div class="col-md-3" id="ScoreRate"   <?php
                                 if (@!isset($_GET['Project']) || $_GET['Project'] == 'all') {
                                     ?> style="display: none;"<?php
-                                }
-                                ?>>
+                                     }
+                                     ?>>
 
                                     <label>Score Rate </label>   <br/>
                                     <input type="number" id="score_min" min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" name="scorestrat" class="SmallTextBox" > -
@@ -174,12 +174,15 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                 </div> 
 
                                 <div class="col-md-6">
+                                    <div id="AllertMage" class="text-danger" > 
+                                    </div>
                                     <button type="submit" class="btn btn-primary btn-lg"> Generate </button> 
                                     OR  &nbsp;&nbsp;
 
-                                    <a href="_endcall_excel.php" class="extranalLink"><i class="fa fa-file-excel-o fa-2x"></i> </a> &nbsp;
-                                    <a href="_endcall_pdf.php" class="extranalLink"><i class="fa fa-file-pdf-o fa-2x"></i> </a> &nbsp;
-                                    <a href="_endcall_print.php" class="extranalLink"><i class="fa fa-print fa-2x"></i> </a>
+                                    <a href="_endcall_excel.php" class="extranalLink2"><i class="fa fa-file-excel-o fa-2x"></i> </a> &nbsp;
+                                    <a href="_endcall_pdf.php" class="extranalLink2"><i class="fa fa-file-pdf-o fa-2x"></i> </a> &nbsp;
+                                    <a href="_endcall_print.php" class="extranalLink2"><i class="fa fa-print fa-2x"></i> </a>
+                                    
 
 
                                 </div>
@@ -201,6 +204,8 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             <tr>  
                                                 <th>#</th>  
                                                 <th>Agent Number</th>  
+                                                <th>Name Lastname</th>
+
                                                 <th>DID(VDN)</th>
                                                 <th>Score(AVG)</th>
 
@@ -210,10 +215,13 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             <?php
                                             $i = 1;
                                             foreach ($list AS $key => $value) {
+                                                $valuex = $fn->ThaiTextToutf($value);
                                                 ?>
                                                 <tr>      
                                                     <td><?= $i++ ?></td>
+
                                                     <td><?= $value['agent']; ?></td>   
+                                                    <td><?= $valuex['name'] . ' ' . $valuex['lastname']; ?></td> 
                                                     <td><?= $value['DIDNumber']; ?></td>    
                                                     <td><?= number_format($value['score'], 2); ?></td>
 
@@ -234,6 +242,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                                 <th>Time</th> 
                                                 <th>Customer Number</th>
                                                 <th>Agent Number</th>  
+                                                <th>Agent Name  </th>
                                                 <th>DID(VDN)</th>
                                                 <th>Score</th>
 
@@ -243,12 +252,14 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             <?php
                                             $i = 1;
                                             foreach ($list AS $key => $value) {
+                                                $valuex = $fn->ThaiTextToutf($value);
                                                 ?>
                                                 <tr>                                                
                                                     <td><?= $fn->redate($value['DateLeave'], 'no'); ?></td>
                                                     <td><?= $fn->retime($value['time']); ?></td>
                                                     <td><?= $value['customernumber']; ?></td>
                                                     <td><?= $value['agent']; ?></td>   
+                                                    <td><?= $valuex['name'] . ' ' . $valuex['lastname']; ?></td> 
                                                     <td><?= $value['DIDNumber']; ?></td>    
                                                     <td><?= $value['score']; ?></td>
 

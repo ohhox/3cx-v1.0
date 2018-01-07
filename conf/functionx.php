@@ -142,7 +142,17 @@ class functionx extends Crud {
                 '2' => date('d-m-Y'),
             );
         }
-
+        
+        //check Select Project
+        if (!isset($_GET['Project']) || $_GET['Project'] == "all" || empty($_GET['Project'])) {
+            return array();
+        }
+        //check Select Project
+        if (!isset($_GET['Did']) || $_GET['Did'] == "all" || empty($_GET['Did'])) {
+            return array();
+        }
+        
+        
         $where .= " AND convert(datetime, c.date) BETWEEN '$stardate' AND '$enddate' ";
         $where2 .= " WHERE convert(datetime, date) BETWEEN '$stardate' AND '$enddate' ";
 ///////////////////// PROJECT
@@ -182,13 +192,13 @@ class functionx extends Crud {
         if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average
             if (isset($_GET['calc']) && !empty($_GET['calc']) && $_GET['calc'] == 'all') { // ALL Agent
                 $sql = ""
-                        . "SELECT agent_code AS agent,DIDNumber,score FROM (
+                        . "SELECT  name,lastname,agent_code AS agent,DIDNumber,score  FROM (
                         (
-                        SELECT a.agent_code,d.DIDNumber  FROM didagent AS da
+                        SELECT a.agent_code,d.DIDNumber,a.name,a.lastname   FROM didagent AS da
                          LEFT JOIN agent AS a ON a.agent_id =da.agent_id
                          LEFT JOIN DIDQueues AS d ON d.DIDQueueID = da.DIDQueueID  
                          WHERE  a.agent_status='0' $where3
-                         GROUP BY a.agent_code,d.DIDNumber
+                         GROUP BY a.agent_code,d.DIDNumber,a.name,a.lastname
                           ) AS data1 
                           LEFT JOIN (
                                 SELECT ROUND(AVG(CAST(score AS FLOAT)), 2) as score,agent,project as did   FROM  endcall 
@@ -199,17 +209,17 @@ class functionx extends Crud {
                           ORDER BY agent_code ASC
                     ";
             } else {
-                $sql = "SELECT ROUND(AVG(CAST(c.score AS FLOAT)), 2)  as score,a.agent_code as agent,d.DIDNumber as DIDNumber
+                $sql = "SELECT ROUND(AVG(CAST(c.score AS FLOAT)), 2)  as score,a.agent_code as agent,d.DIDNumber as DIDNumber,a.name,a.lastname
                     FROM didagent AS da
                     LEFT JOIN agent AS a ON a.agent_id =da.agent_id
                     LEFT JOIN DIDQueues AS d ON d.DIDQueueID = da.DIDQueueID 
                     FULL OUTER  JOIN endcall AS c ON c.agent = a.agent_code 
                     WHERE  a.agent_status='0' "
                         . "$where "
-                        . " GROUP BY a.agent_code,d.DIDNumber";
+                        . " GROUP BY a.agent_code,d.DIDNumber,a.name,a.lastname";
             }
         } else {
-            $sql = " SELECT convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber
+            $sql = " SELECT convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber,a.name,a.lastname
                     FROM didagent AS da
                     LEFT JOIN agent AS a ON a.agent_id =da.agent_id
                     LEFT JOIN DIDQueues AS d ON d.DIDQueueID = da.DIDQueueID 

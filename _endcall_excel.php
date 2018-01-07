@@ -35,11 +35,11 @@ if ($_GET['Project'] != 'all') {
                                 <label>Date Rang :</label>
                                 <?= isset($_GET['date']) ? $_GET['date'] : '' ?>
                             </div>
-                             <div class="col-md-3">
+                            <div class="col-md-3">
                                 <label>Project</label>: <?= ( ($_GET['Project'] != 'all') ? $project['Name'] : 'all') ?>                                        
 
                             </div>
-                             <div class="col-md-3">
+                            <div class="col-md-3">
                                 <label>Did Number: </label> <?= isset($_GET['Did']) ? $_GET['Did'] : '' ?>     
 
                             </div>
@@ -47,8 +47,8 @@ if ($_GET['Project'] != 'all') {
                                 <label>Agent Number: </label> <?= isset($_GET['Agent']) ? $_GET['Agent'] : '' ?>     
 
                             </div>
-                             <div class="col-md-3">
-                                <label>report Type: </label> <?= isset($_GET['report']) ? (($_GET['report'] == 'sum')? ' Average Score' : 'Total Score') : '' ?>
+                            <div class="col-md-3">
+                                <label>report Type: </label> <?= isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '' ?>
                             </div>
                             <!--                            <div class="col-md-3">
                                                             <label>Queue Number: </label> <?= isset($_GET['Queue']) ? $_GET['Queue'] : '' ?>     
@@ -65,7 +65,7 @@ if ($_GET['Project'] != 'all') {
                     <div class="row"> 
                         <div class="card col-12">                             
                             <div class="card-body">
-                                  <?php
+                                <?php
                                 if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average
                                     ?>
                                     <table class="table" id="tablex">
@@ -73,6 +73,8 @@ if ($_GET['Project'] != 'all') {
                                             <tr>  
                                                 <th>#</th>  
                                                 <th>Agent Number</th>  
+                                                <th>Name Lastname</th>
+
                                                 <th>DID(VDN)</th>
                                                 <th>Score(AVG)</th>
 
@@ -82,10 +84,13 @@ if ($_GET['Project'] != 'all') {
                                             <?php
                                             $i = 1;
                                             foreach ($list AS $key => $value) {
+                                                $valuex = $fn->ThaiTextToutf($value);
                                                 ?>
                                                 <tr>      
                                                     <td><?= $i++ ?></td>
+
                                                     <td><?= $value['agent']; ?></td>   
+                                                    <td><?= $valuex['name'] . ' ' . $valuex['lastname']; ?></td> 
                                                     <td><?= $value['DIDNumber']; ?></td>    
                                                     <td><?= number_format($value['score'], 2); ?></td>
 
@@ -106,6 +111,7 @@ if ($_GET['Project'] != 'all') {
                                                 <th>Time</th> 
                                                 <th>Customer Number</th>
                                                 <th>Agent Number</th>  
+                                                <th>Agent Name</th>
                                                 <th>DID(VDN)</th>
                                                 <th>Score</th>
 
@@ -115,12 +121,14 @@ if ($_GET['Project'] != 'all') {
                                             <?php
                                             $i = 1;
                                             foreach ($list AS $key => $value) {
+                                                $valuex = $fn->ThaiTextToutf($value);
                                                 ?>
                                                 <tr>                                                
                                                     <td><?= $fn->redate($value['DateLeave'], 'no'); ?></td>
                                                     <td><?= $fn->retime($value['time']); ?></td>
-                                                    <td><?= $value['customernumber']; ?></td>
+                                                    <td><?= $value['customernumber']; ?></td>                                                    
                                                     <td><?= $value['agent']; ?></td>   
+                                                    <td><?= $valuex['name'] . ' ' . $valuex['lastname']; ?></td> 
                                                     <td><?= $value['DIDNumber']; ?></td>    
                                                     <td><?= $value['score']; ?></td>
 

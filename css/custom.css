@@ -103,3 +103,14 @@
 #agentCalc.show{
     display: block;
 }
+#AllertMage.active{    
+    background-color: #f2dede;
+    font-weight: 700;
+    font-size: 13px;
+    color: #b94a53;
+    line-height: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ebccd1;
+    position: relative;
+}

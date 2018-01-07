@@ -1,3 +1,11 @@
+$('.extranalLink2').on('click', function (e) {
+    e.preventDefault();
+    if (checkSelectProject(e)) {
+        $("#Sform").attr('action', $(this).attr('href')).attr('target', '_BLANK').submit();
+        $("#Sform").removeAttr('action').removeAttr('target');
+    }
+});
+
 $('#Did,#Project').on('change', function () { // Get Agent
     $("#Agent option[data-status=remove]").remove();
 
@@ -37,3 +45,21 @@ $("input[name=report]").on('change', function () {
     }
 });
 
+$('#Sform.endcall').on('submit', function (e) {
+    checkSelectProject(e);
+});
+function checkSelectProject(e) {
+
+    if ($("#Project").val() == "all") {
+        e.preventDefault();
+        $("#AllertMage").html("<i class='fa fa-info'> </i> Please select [Project], and [DID(VDN)]").addClass('active');
+        return false;
+    } else if ($("#Did").val() == "all") {
+        e.preventDefault();
+        $("#AllertMage").html("<i class='fa fa-info'> </i> Please select [Project], and [DID(VDN)]").addClass('active');
+        return false;
+    } else {
+        $("#AllertMage").html("").removeClass('active');
+        return true;
+    }
+}
