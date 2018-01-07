@@ -154,7 +154,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         </div>
                                     </div>
                                     <div id="agentCalc" class="<?= (isset($_GET['report']) && $_GET['report'] == "sum") ? "show" : "" ?>" >
-                                      Play Agent 
+                                      Display Agent 
                                         <div>
                                             <label style="margin-left: 25px;"> <input type="radio" name="calc" value="indata" checked> With Score </label> 
                                             <div>
