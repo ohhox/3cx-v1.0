@@ -54,10 +54,12 @@ function checkSelectProject(e) {
     if ($("#Project").val() == "all") {
         e.preventDefault();
         $("#AllertMage").html("<i class='fa fa-info'></i> Please select Project.").addClass('active');
+        $("#Project").focus();
         return false;
     } else if ($("#Did").val() == "all") {
         e.preventDefault();
         $("#AllertMage2").html("<i class='fa fa-info'></i> Please select  DID(VDN).").addClass('active');
+        $("#Did").focus();
         return false;
     } else {
 
