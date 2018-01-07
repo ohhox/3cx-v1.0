@@ -63,14 +63,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         <div class="row"> 
                             <div class="card col-8">                             
                                 <div class="card-body">
-                                    <form class="form" action="_op_main.php?op=<?= isset($list) ? 'editAgent&id=' . $_GET['id'] : 'saveAgent' ?>" method="post">                                        
+                                    <form    class="form" action="_op_main.php?op=<?= isset($list) ? 'editAgent&id=' . $_GET['id'] : 'saveAgent' ?>" method="post">                                        
                                         <div class="form-group">
                                             <label>Agent Code * </label>
                                             <div>
                                                 <input type="text" class="form-control" name="agent_code" value="<?= isset($list) ? $list['agent_code'] : '' ?>" required>
                                             </div>
                                         </div>
-                                          <div class="form-group">
+                                        <div class="form-group">
                                             <label>Gender.</label>
                                             <div style="padding-left: 20px;">
                                                 <div>
@@ -85,7 +85,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                                 </div>
                                             </div>
                                         </div>
-                                         <div class="form-group">
+                                        <div class="form-group">
                                             <label>Name * </label>
                                             <div>
                                                 <input type="text" class="form-control" name="name" value="<?= isset($list) ? $list['name'] : '' ?>" required>
@@ -97,15 +97,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                                 <input type="text" class="form-control" name="lastname" value="<?= isset($list) ? $list['lastname'] : '' ?>" required>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label>Phone * </label>
                                             <div>
                                                 <input type="text" class="form-control" name="tel" value="<?= isset($list) ? $list['tel'] : '' ?>" required>
                                             </div>
                                         </div>
-                                    
-                                        
+
+
                                         <div class="form-group">
                                             <label>Description </label>
                                             <div>
@@ -136,6 +136,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="js/front.js"></script>
         <script src="js/customs.js"></script>
+       
 
     </body>
 </html>

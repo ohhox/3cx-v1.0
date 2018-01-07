@@ -169,8 +169,8 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                      ?>>
 
                                     <label>Score Rate </label>   <br/>
-                                    <input type="number" id="score_min" min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" name="scorestrat" class="SmallTextBox" > -
-                                    <input type="number" id="score_max"  min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" name="scoreend" class="SmallTextBox">
+                                    <input type="number" id="score_min" min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= isset($_GET['scorestrat']) ? $_GET['scorestrat'] : (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" name="scorestrat" class="SmallTextBox" > -
+                                    <input type="number" id="score_max"  min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= isset($_GET['scoreend']) ? $_GET['scoreend'] : (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" name="scoreend" class="SmallTextBox">
                                 </div> 
 
                                 <div class="col-md-6">
@@ -182,7 +182,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                     <a href="_endcall_excel.php" class="extranalLink2"><i class="fa fa-file-excel-o fa-2x"></i> </a> &nbsp;
                                     <a href="_endcall_pdf.php" class="extranalLink2"><i class="fa fa-file-pdf-o fa-2x"></i> </a> &nbsp;
                                     <a href="_endcall_print.php" class="extranalLink2"><i class="fa fa-print fa-2x"></i> </a>
-                                    
+
 
 
                                 </div>

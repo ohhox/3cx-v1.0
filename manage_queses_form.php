@@ -66,7 +66,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                         <div class="form-group">
                                             <label>Project Code</label>
                                             <div>
-                                                <select name="ProjectID" class="form-control" required>
+                                                <select name="ProjectID" id="ProjectID" class="form-control" required>
                                                     <option value="0">Choose Project </option>
                                                     <?php
                                                     foreach ($project as $key => $value) {
@@ -126,6 +126,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="js/front.js"></script>
         <script src="js/customs.js"></script>
-
+         
     </body>
 </html>

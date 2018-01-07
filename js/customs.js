@@ -61,6 +61,12 @@ $("#openAgentName").on('click', function () {
 var TapFake = $('body').attr('data-id');
 $('.TapFake').find('.' + TapFake).addClass('active');
 $('#manageDIDQForm').on('submit', function (e) {
+    $('.selectProjectAlert').remove();
+    if ($("#ProjectID").val() == "0") {
+        e.preventDefault();
+        $("#ProjectID").after('<div class="text-danger" class="selectProjectAlert"> Please select Project.</div>')
+        return;
+    }
     e.preventDefault();
     var url = $(this).attr('action');
     var data = $(this).serialize();
