@@ -63,7 +63,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         <div class="row"> 
                             <div class="card col-8">                             
                                 <div class="card-body">
-                                    <form    class="form" action="_op_main.php?op=<?= isset($list) ? 'editAgent&id=' . $_GET['id'] : 'saveAgent' ?>" method="post">                                        
+                                    <form  class="form" action="_op_main.php?op=<?= isset($list) ? 'editAgent&id=' . $_GET['id'] : 'saveAgent' ?>" method="post">                                        
                                         <div class="form-group">
                                             <label>Agent Code * </label>
                                             <div>

@@ -113,6 +113,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             </option>
                                         <?php } ?>
                                     </select>
+                                    <div id="AllertMage"></div>
                                 </div>
                                 <div class="col-md-3">
                                     <label>DID (VDN)</label>
@@ -126,6 +127,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             </option>
                                         <?php } ?>
                                     </select>
+                                    <div id="AllertMage2"></div>
                                 </div> 
 
 
@@ -174,8 +176,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                 </div> 
 
                                 <div class="col-md-6">
-                                    <div id="AllertMage" class="text-danger" > 
-                                    </div>
+                                    
                                     <button type="submit" class="btn btn-primary btn-lg"> Generate </button> 
                                     OR  &nbsp;&nbsp;
 

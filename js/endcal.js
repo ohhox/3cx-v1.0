@@ -49,17 +49,18 @@ $('#Sform.endcall').on('submit', function (e) {
     checkSelectProject(e);
 });
 function checkSelectProject(e) {
-
+    $("#AllertMage").html("").removeClass('active');
+    $("#AllertMage2").html("").removeClass('active');
     if ($("#Project").val() == "all") {
         e.preventDefault();
-        $("#AllertMage").html("<i class='fa fa-info'> </i> Please select [Project], and [DID(VDN)]").addClass('active');
+        $("#AllertMage").html("<i class='fa fa-info'></i> Please select Project.").addClass('active');
         return false;
     } else if ($("#Did").val() == "all") {
         e.preventDefault();
-        $("#AllertMage").html("<i class='fa fa-info'> </i> Please select [Project], and [DID(VDN)]").addClass('active');
+        $("#AllertMage2").html("<i class='fa fa-info'></i> Please select  DID(VDN).").addClass('active');
         return false;
     } else {
-        $("#AllertMage").html("").removeClass('active');
+
         return true;
     }
 }
