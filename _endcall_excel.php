@@ -36,10 +36,10 @@ $objPHPExcel->getProperties()->setCreator("3CX WEB REPORT SYSTEM. ")
 // Add some data
 $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A1', 'End Call Survey Reports')
-        ->setCellValue('A2', 'Date Rang  ')->setCellValue('B2', isset($_GET['date']) ? $_GET['date'] : '' )
+        ->setCellValue('A2', 'Date Rang')->setCellValue('B2', isset($_GET['date']) ? $_GET['date'] : '' )
         ->setCellValue('A3', 'Project')->setCellValue('B3', isset($_GET['Project']) ? $_GET['Project'] : '' )
-        ->setCellValue('A4', 'Did Number!')->setCellValue('B4', isset($_GET['Did']) ? $_GET['Did'] : '' )
-        ->setCellValue('A5', 'Agent Number!')->setCellValue('B5', isset($_GET['Agent']) ? $_GET['Agent'] : '' )
+        ->setCellValue('A4', 'Did Number')->setCellValue('B4', isset($_GET['Did']) ? $_GET['Did'] : '' )
+        ->setCellValue('A5', 'Agent Number')->setCellValue('B5', isset($_GET['Agent']) ? $_GET['Agent'] : '' )
         ->setCellValue('A6', 'Report Type')->setCellValue('B6', isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '')
         ->setCellValue('A7', 'Score Rate')->setCellValue('B7', (isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 . " - " . (isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5 )
         ->setCellValue('A8', 'Customer Number')->setCellValue('B8', (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) ? $_GET['Cusnum'] : "..............." );
