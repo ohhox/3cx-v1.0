@@ -90,7 +90,7 @@ if ($_GET['Project'] != 'all') {
                                                     <td><?= $i++ ?></td>
 
                                                     <td><?= $value['agent']; ?></td>   
-                                                    <td><?= $valuex['name'] . ' ' . $valuex['lastname']; ?></td> 
+                                                    <td><?= $value['name'] . ' ' . $value['lastname']; ?></td> 
                                                     <td><?= $value['DIDNumber']; ?></td>    
                                                     <td><?= number_format($value['score'], 2); ?></td>
 
@@ -128,7 +128,7 @@ if ($_GET['Project'] != 'all') {
                                                     <td><?= $fn->retime($value['time']); ?></td>
                                                     <td><?= $value['customernumber']; ?></td>                                                    
                                                     <td><?= $value['agent']; ?></td>   
-                                                    <td><?= $valuex['name'] . ' ' . $valuex['lastname']; ?></td> 
+                                                    <td><?= $value['name'] . ' ' . $value['lastname']; ?></td> 
                                                     <td><?= $value['DIDNumber']; ?></td>    
                                                     <td><?= $value['score']; ?></td>
 
