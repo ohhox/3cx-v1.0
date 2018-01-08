@@ -40,8 +40,10 @@ $('#Project').on('change', function () { // Get Score
 $("input[name=report]").on('change', function () {
     if ($(this).val() == "sum") {
         $("#agentCalc").addClass('show');
+        $("#CustermerNumberF").removeClass('show').find('input').val('');
     } else {
         $("#agentCalc").removeClass('show');
+        $("#CustermerNumberF").addClass('show').focus();
     }
 });
 

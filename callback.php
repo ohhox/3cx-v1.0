@@ -145,14 +145,22 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         <span>Only Leave Number</span>
                                     </label>
                                 </div>
-                                <div class="col-md-6">
-                                    <button type="submit" class="btn btn-primary btn-lg"> Generate </button> 
-                                    OR  &nbsp;&nbsp;
-                                    <a href="_callback_excel.php" class="extranalLink"><i class="fa fa-file-excel-o fa-2x"></i> </a> &nbsp;
-                                    <a href="_callback_pdf.php" class="extranalLink"><i class="fa fa-file-pdf-o fa-2x"></i> </a> &nbsp;
-                                    <a href="_callback_print.php" class="extranalLink"><i class="fa fa-print fa-2x"></i> </a>
-
+                                 <div class="col-md-12" style="height: 0px;margin: 0px;"> 
+                                    <div class="btn-group   pull-right" role="group" aria-label="Button group with nested dropdown" style="margin-right:30px;margin-top:-65px;">
+                                        <button type="submit" class="btn btn-primary btn-lg">Generate</button>
+                                        <div class="btn-group" role="group">
+                                            <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Export
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                <a class="dropdown-item extranalLink"  href="_callback_excel.php"><i class="fa fa-file-excel-o"></i> Excel</a>
+                                                <a class="dropdown-item extranalLink" href="_callback_pdf.php"><i class="fa fa-file-pdf-o"></i> PDF</a>
+                                                <a class="dropdown-item extranalLink" href="_callback_print.php"><i class="fa fa-print"></i> Print</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
 
 
                             </div>

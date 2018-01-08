@@ -154,7 +154,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         </div>
                                     </div>
                                     <div id="agentCalc" class="<?= (isset($_GET['report']) && $_GET['report'] == "sum") ? "show" : "" ?>" >
-                                      Display Agent 
+                                        Display Agent 
                                         <div>
                                             <label style="margin-left: 25px;"> <input type="radio" name="calc" value="indata" checked> With Score </label> 
                                             <div>
@@ -162,7 +162,13 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div id="CustermerNumberF" class="<?= (!isset($_GET['report']) || $_GET['report'] != "sum") ? "show" : "" ?>">
+                                        <label>Customer Number</label>
+                                        <input type="text" name="Cusnum" placeholder="Customer Number" class="form-control" value="<?= (isset($_GET['Cusnum'])) ? $_GET['Cusnum'] : "" ?>">
+                                    </div>
                                 </div> 
+
 
                                 <div class="col-md-3" id="ScoreRate"   <?php
                                 if (@!isset($_GET['Project']) || $_GET['Project'] == 'all') {
@@ -174,18 +180,21 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                     <input type="number" id="score_min" min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= isset($_GET['scorestrat']) ? $_GET['scorestrat'] : (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" name="scorestrat" class="SmallTextBox" > -
                                     <input type="number" id="score_max"  min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= isset($_GET['scoreend']) ? $_GET['scoreend'] : (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" name="scoreend" class="SmallTextBox">
                                 </div> 
-
-                                <div class="col-md-6">
-                                    
-                                    <button type="submit" class="btn btn-primary btn-lg"> Generate </button> 
-                                    OR  &nbsp;&nbsp;
-
-                                    <a href="_endcall_excel.php" class="extranalLink2"><i class="fa fa-file-excel-o fa-2x"></i> </a> &nbsp;
-                                    <a href="_endcall_pdf.php" class="extranalLink2"><i class="fa fa-file-pdf-o fa-2x"></i> </a> &nbsp;
-                                    <a href="_endcall_print.php" class="extranalLink2"><i class="fa fa-print fa-2x"></i> </a>
-
-
-
+                                <div class="clear"></div>
+                                <div class="col-md-12" style="height: 0px;margin: 0px;"> 
+                                    <div class="btn-group   pull-right" role="group" aria-label="Button group with nested dropdown" style="margin-right:30px;margin-top:-65px;">
+                                        <button type="submit" class="btn btn-primary btn-lg">Generate</button>
+                                        <div class="btn-group" role="group">
+                                            <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Export
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                <a class="dropdown-item extranalLink2"  href="_endcall_excel.php"><i class="fa fa-file-excel-o"></i> Excel</a>
+                                                <a class="dropdown-item extranalLink2" href="_endcall_pdf.php"><i class="fa fa-file-pdf-o"></i> PDF</a>
+                                                <a class="dropdown-item extranalLink2" href="_endcall_print.php"><i class="fa fa-print"></i> Print</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
 

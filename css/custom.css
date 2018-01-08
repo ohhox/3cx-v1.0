@@ -97,12 +97,13 @@
 #openAgentName{
     color: #fff;
 }
-#agentCalc{
+#agentCalc,#CustermerNumberF{
     display: none;
 }
-#agentCalc.show{
+#agentCalc.show,#CustermerNumberF.show{
     display: block;
 }
+
 #AllertMage.active,#AllertMage2.active{    
     padding: 10px;
     padding-bottom: 0px;

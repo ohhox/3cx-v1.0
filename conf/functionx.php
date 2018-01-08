@@ -219,6 +219,10 @@ class functionx extends Crud {
                         . " GROUP BY a.agent_code,d.DIDNumber,a.name,a.lastname";
             }
         } else {
+            
+          if (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) {
+              $where .= " AND customernumber='{$_GET['Cusnum']}'";
+          }
             $sql = " SELECT convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber,a.name,a.lastname
                     FROM didagent AS da
                     LEFT JOIN agent AS a ON a.agent_id =da.agent_id
@@ -227,7 +231,7 @@ class functionx extends Crud {
                     WHERE  a.agent_status='0' "
                     . "$where";
         }
-
+      
         return $this->query($sql);
     }
 

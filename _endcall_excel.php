@@ -1,153 +1,90 @@
 <?php
+
 //header($strExcelFileName);
 include './conf.php';
 $fn = new functionx();
 $strExcelFileName = "ReportEndCall.xls";
-header("Content-Type: application/x-msexcel; name=\"$strExcelFileName\"");
-header("Content-Disposition: inline; filename=\"$strExcelFileName\"");
-header("Pragma:no-cache");
 $list = $fn->getEndCall();
 
 $project = array();
 if ($_GET['Project'] != 'all') {
     $project = $fn->getProject($_GET['Project']);
 }
-?>
-<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"xmlns="http://www.w3.org/TR/REC-html40">
-<html>
-    <head>
-        <meta http-equiv="Content-type" content="text/html;charset=tis-620" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>3CX WEB REPORT SYSTEM.</title>
 
-    </head>
-    <body>
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+date_default_timezone_set('Europe/London');
 
-        <div class="page home-page">
+define('EOL', (PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
+/** Include PHPExcel */
+require_once 'Classes/PHPExcel.php';
+// Create new PHPExcel object
+$objPHPExcel = new PHPExcel();
 
-            <section class="charts">
-                <div class="container-fluid">
-                    <header id="formSearc"  > 
-                        <h1 class="h3">End Call Survey Reports</h1>
-
-                        <div class="row" style="padding:10px;">
-                            <div class="col-md-3">
-                                <label>Date Rang :</label>
-                                <?= isset($_GET['date']) ? $_GET['date'] : '' ?>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Project</label>: <?= ( ($_GET['Project'] != 'all') ? $project['Name'] : 'all') ?>                                        
-
-                            </div>
-                            <div class="col-md-3">
-                                <label>Did Number: </label> <?= isset($_GET['Did']) ? $_GET['Did'] : '' ?>     
-
-                            </div>
-                            <div class="col-md-3">
-                                <label>Agent Number: </label> <?= isset($_GET['Agent']) ? $_GET['Agent'] : '' ?>     
-
-                            </div>
-                            <div class="col-md-3">
-                                <label>report Type: </label> <?= isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '' ?>
-                            </div>
-                            <!--                            <div class="col-md-3">
-                                                            <label>Queue Number: </label> <?= isset($_GET['Queue']) ? $_GET['Queue'] : '' ?>     
-                            
-                                                        </div>-->
-
-                            <div class="col-md-3">
-                                <label><span>Score Rate: </span></label> <?= (isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 ?> - <?= (isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5 ?>
-                            </div>
-                        </div>
-
-                    </header>
-
-                    <div class="row"> 
-                        <div class="card col-12">                             
-                            <div class="card-body">
-                                <?php
-                                if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average
-                                    ?>
-                                    <table class="table" id="tablex">
-                                        <thead>
-                                            <tr>  
-                                                <th>#</th>  
-                                                <th>Agent Number</th>  
-                                                <th>Name Lastname</th>
-
-                                                <th>DID(VDN)</th>
-                                                <th>Score(AVG)</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $i = 1;
-                                            foreach ($list AS $key => $value) {
-                                                $valuex = $fn->ThaiTextToutf($value);
-                                                ?>
-                                                <tr>      
-                                                    <td><?= $i++ ?></td>
-
-                                                    <td><?= $value['agent']; ?></td>   
-                                                    <td><?= $valuex['name'] . ' ' . $valuex['lastname']; ?></td> 
-                                                    <td><?= $value['DIDNumber']; ?></td>    
-                                                    <td><?= number_format($value['score'], 2); ?></td>
-
-                                                </tr>
-                                                <?php
-                                            }
-                                            ?>
-
-                                        </tbody>
-                                    </table>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <table class="table" id="tablex">
-                                        <thead>
-                                            <tr> 
-                                                <th>Date</th>
-                                                <th>Time</th> 
-                                                <th>Customer Number</th>
-                                                <th>Agent Number</th>  
-                                                <th>Agent Name</th>
-                                                <th>DID(VDN)</th>
-                                                <th>Score</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $i = 1;
-                                            foreach ($list AS $key => $value) {
-                                                $valuex = $fn->ThaiTextToutf($value);
-                                                ?>
-                                                <tr>                                                
-                                                    <td><?= $fn->redate($value['DateLeave'], 'no'); ?></td>
-                                                    <td><?= $fn->retime($value['time']); ?></td>
-                                                    <td><?= $value['customernumber']; ?></td>                                                    
-                                                    <td><?= $value['agent']; ?></td>   
-                                                    <td><?= $valuex['name'] . ' ' . $valuex['lastname']; ?></td> 
-                                                    <td><?= $value['DIDNumber']; ?></td>    
-                                                    <td><?= $value['score']; ?></td>
-
-                                                </tr>
-                                                <?php
-                                            }
-                                            ?>
-
-                                        </tbody>
-                                    </table>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    </div>
-            </section>
+// Set document properties
+$objPHPExcel->getProperties()->setCreator("3CX WEB REPORT SYSTEM. ")
+        ->setLastModifiedBy("3CX WEB REPORT SYSTEM.")
+        ->setTitle("Call Back Report.")
+        ->setSubject("Call Back Report.")
+        ->setDescription("Call Back Report.")
+        ->setKeywords("Call Back Report.")
+        ->setCategory("Report.");
 
 
-        </div>
+// Add some data
+$objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('A1', 'End Call Survey Reports')
+        ->setCellValue('A2', 'Date Rang  ')->setCellValue('B2', isset($_GET['date']) ? $_GET['date'] : '' )
+        ->setCellValue('A3', 'Project')->setCellValue('B3', isset($_GET['Project']) ? $_GET['Project'] : '' )
+        ->setCellValue('A4', 'Did Number!')->setCellValue('B4', isset($_GET['Did']) ? $_GET['Did'] : '' )
+        ->setCellValue('A5', 'Agent Number!')->setCellValue('B5', isset($_GET['Queue']) ? $_GET['Queue'] : '' )
+        ->setCellValue('A6', 'Report Type')->setCellValue('B6', isset($_GET['DayOrNight']) ? $fn->dayNight[$_GET['DayOrNight']] : '' )
+        ->setCellValue('A7', 'Score Rate')->setCellValue('B7', isset($_GET['Leave']) ? "Yes" : "NO" )
+        ->setCellValue('A8', 'Customer Number')->setCellValue('B8', isset($_GET['Leave']) ? "Yes" : "NO" );
 
-    </body>
-</html>
+
+
+
+// Rename worksheet
+$objPHPExcel->getActiveSheet()->setTitle('Simple');
+
+
+// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+$objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('A9', 'Date')
+        ->setCellValue('B9', 'Time')
+        ->setCellValue('C9', 'Call Number')
+        ->setCellValue('D9', 'Leave Number')
+        ->setCellValue('E9', 'Queue Number')
+        ->setCellValue('F9', 'DID(VDN)');
+
+$i = 10;
+foreach ($list AS $key => $value) {
+    $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue("A$i", $fn->redate($value['DateLeave']))
+            ->setCellValue("B$i", $fn->retime($value['TimeLeave']))
+            ->setCellValue("C$i", $value['CallNum'])
+            ->setCellValue("D$i", $value['LeaveNum'])
+            ->setCellValue("E$i", $value['FromQueue'])
+            ->setCellValue("F$i", $value['Project']);
+    $i++;
+}
+
+
+// Redirect output to a clientâ€™s web browser (Excel2007)
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment;filename="01simple.xlsx"');
+header('Cache-Control: max-age=0');
+// If you're serving to IE 9, then the following may be needed
+header('Cache-Control: max-age=1');
+
+// If you're serving to IE over SSL, then the following may be needed
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+header('Pragma: public'); // HTTP/1.0
+
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter->save('php://output');
