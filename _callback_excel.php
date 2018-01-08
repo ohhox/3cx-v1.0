@@ -73,10 +73,11 @@ foreach ($list AS $key => $value) {
     $i++;
 }
 
-
+$objPHPExcel->getActiveSheet()->getStyle('A1:A1')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A9:F9')->getFont()->setBold(true);
 // Redirect output to a clientâ€™s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="01simple.xlsx"');
+header('Content-Disposition: attachment;filename="CallBackReport.xlsx"');
 header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
 header('Cache-Control: max-age=1');

@@ -85,10 +85,11 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
         $i++;
     }
 }
-
+$objPHPExcel->getActiveSheet()->getStyle('A1:A8')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A9:G9')->getFont()->setBold(true);
 // Redirect output to a clientâ€™s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="01simple.xlsx"');
+header('Content-Disposition: attachment;filename="EndCallSurveyReports.xlsx"');
 header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
 header('Cache-Control: max-age=1');
