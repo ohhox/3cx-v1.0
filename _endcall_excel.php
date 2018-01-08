@@ -48,12 +48,12 @@ $objPHPExcel->getActiveSheet()->setTitle('EndCallSurveyReports');
 
 if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average 
     $objPHPExcel->setActiveSheetIndex(0) 
-            ->setCellValue('A9', 'Agent Number')
-            ->setCellValue('B9', 'Agent Name')
-            ->setCellValue('C9', 'DID(VDN)')
-            ->setCellValue('D9', 'Score(AVG)');
+            ->setCellValue('A10', 'Agent Number')
+            ->setCellValue('B10', 'Agent Name')
+            ->setCellValue('C10', 'DID(VDN)')
+            ->setCellValue('D10', 'Score(AVG)');
 
-    $i = 10;
+    $i = 11;
     foreach ($list AS $key => $value) {
         $objPHPExcel->setActiveSheetIndex(0) 
                 ->setCellValue("A$i", $value['agent'])
@@ -64,15 +64,15 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
     }
 } else {
     $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A9', 'Date')
-            ->setCellValue('B9', 'Time')
-            ->setCellValue('C9', 'Customer Number')
-            ->setCellValue('D9', 'Agent Number')
-            ->setCellValue('E9', 'Agent Name')
-            ->setCellValue('F9', 'DID(VDN)')
-            ->setCellValue('G9', 'Score');
+            ->setCellValue('A10', 'Date')
+            ->setCellValue('B10', 'Time')
+            ->setCellValue('C10', 'Customer Number')
+            ->setCellValue('D10', 'Agent Number')
+            ->setCellValue('E10', 'Agent Name')
+            ->setCellValue('F10', 'DID(VDN)')
+            ->setCellValue('G10', 'Score');
 
-    $i = 10;
+    $i = 11;
     foreach ($list AS $key => $value) {
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue("A$i", $fn->redate($value['DateLeave'], 'no'))
@@ -86,7 +86,8 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
     }
 }
 $objPHPExcel->getActiveSheet()->getStyle('A1:A8')->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('A9:G9')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A10:G10')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle("A1:A1")->getFont()->setSize(18);
 // Redirect output to a clientâ€™s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="EndCallSurveyReports.xlsx"');

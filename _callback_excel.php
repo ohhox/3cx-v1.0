@@ -73,8 +73,9 @@ foreach ($list AS $key => $value) {
     $i++;
 }
 
-$objPHPExcel->getActiveSheet()->getStyle('A1:A1')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A1:A7')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('A9:F9')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle("A1:A1")->getFont()->setSize(18);
 // Redirect output to a clientâ€™s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="CallBackReport.xlsx"');
