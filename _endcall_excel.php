@@ -26,10 +26,10 @@ $objPHPExcel = new PHPExcel();
 // Set document properties
 $objPHPExcel->getProperties()->setCreator("3CX WEB REPORT SYSTEM. ")
         ->setLastModifiedBy("3CX WEB REPORT SYSTEM.")
-        ->setTitle("Call Back Report.")
-        ->setSubject("Call Back Report.")
-        ->setDescription("Call Back Report.")
-        ->setKeywords("Call Back Report.")
+        ->setTitle("End Call Survey Reports.")
+        ->setSubject("End Call Survey Reports.")
+        ->setDescription("End Call Survey Reports.")
+        ->setKeywords("End Call Survey Reports.")
         ->setCategory("Report.");
 
 
@@ -39,39 +39,52 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A2', 'Date Rang  ')->setCellValue('B2', isset($_GET['date']) ? $_GET['date'] : '' )
         ->setCellValue('A3', 'Project')->setCellValue('B3', isset($_GET['Project']) ? $_GET['Project'] : '' )
         ->setCellValue('A4', 'Did Number!')->setCellValue('B4', isset($_GET['Did']) ? $_GET['Did'] : '' )
-        ->setCellValue('A5', 'Agent Number!')->setCellValue('B5', isset($_GET['Queue']) ? $_GET['Queue'] : '' )
-        ->setCellValue('A6', 'Report Type')->setCellValue('B6', isset($_GET['DayOrNight']) ? $fn->dayNight[$_GET['DayOrNight']] : '' )
-        ->setCellValue('A7', 'Score Rate')->setCellValue('B7', isset($_GET['Leave']) ? "Yes" : "NO" )
-        ->setCellValue('A8', 'Customer Number')->setCellValue('B8', isset($_GET['Leave']) ? "Yes" : "NO" );
-
-
-
-
+        ->setCellValue('A5', 'Agent Number!')->setCellValue('B5', isset($_GET['Agent']) ? $_GET['Agent'] : '' )
+        ->setCellValue('A6', 'Report Type')->setCellValue('B6', isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '')
+        ->setCellValue('A7', 'Score Rate')->setCellValue('B7', (isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 . " - " . (isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5 )
+        ->setCellValue('A8', 'Customer Number')->setCellValue('B8', (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) ? $_GET['Cusnum'] : "..............." );
 // Rename worksheet
-$objPHPExcel->getActiveSheet()->setTitle('Simple');
+$objPHPExcel->getActiveSheet()->setTitle('EndCallSurveyReports');
 
+if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average 
+    $objPHPExcel->setActiveSheetIndex(0) 
+            ->setCellValue('A9', 'Agent Number')
+            ->setCellValue('B9', 'Agent Name')
+            ->setCellValue('C9', 'DID(VDN)')
+            ->setCellValue('D9', 'Score(AVG)');
 
-// Set active sheet index to the first sheet, so Excel opens this as the first sheet
-$objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('A9', 'Date')
-        ->setCellValue('B9', 'Time')
-        ->setCellValue('C9', 'Call Number')
-        ->setCellValue('D9', 'Leave Number')
-        ->setCellValue('E9', 'Queue Number')
-        ->setCellValue('F9', 'DID(VDN)');
-
-$i = 10;
-foreach ($list AS $key => $value) {
+    $i = 10;
+    foreach ($list AS $key => $value) {
+        $objPHPExcel->setActiveSheetIndex(0) 
+                ->setCellValue("A$i", $value['agent'])
+                ->setCellValue("B$i", $value['name'] . ' ' . $value['lastname'])
+                ->setCellValue("C$i", $value['DIDNumber'])
+                ->setCellValue("D$i", $value['score']);
+        $i++;
+    }
+} else {
     $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue("A$i", $fn->redate($value['DateLeave']))
-            ->setCellValue("B$i", $fn->retime($value['TimeLeave']))
-            ->setCellValue("C$i", $value['CallNum'])
-            ->setCellValue("D$i", $value['LeaveNum'])
-            ->setCellValue("E$i", $value['FromQueue'])
-            ->setCellValue("F$i", $value['Project']);
-    $i++;
-}
+            ->setCellValue('A9', 'Date')
+            ->setCellValue('B9', 'Time')
+            ->setCellValue('C9', 'Customer Number')
+            ->setCellValue('D9', 'Agent Number')
+            ->setCellValue('E9', 'Agent Name')
+            ->setCellValue('F9', 'DID(VDN)')
+            ->setCellValue('G9', 'Score');
 
+    $i = 10;
+    foreach ($list AS $key => $value) {
+        $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue("A$i", $fn->redate($value['DateLeave'], 'no'))
+                ->setCellValue("B$i", $fn->retime($value['time']))
+                ->setCellValue("C$i", $value['customernumber'])
+                ->setCellValue("D$i", $value['agent'])
+                ->setCellValue("E$i", $value['name'] . ' ' . $value['lastname'])
+                ->setCellValue("F$i", $value['DIDNumber'])
+                ->setCellValue("G$i", $value['score']);
+        $i++;
+    }
+}
 
 // Redirect output to a clientâ€™s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

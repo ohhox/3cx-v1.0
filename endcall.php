@@ -214,7 +214,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             <tr>  
                                                 <th>#</th>  
                                                 <th>Agent Number</th>  
-                                                <th>Name Lastname</th>
+                                                <th>Agent Name</th>
 
                                                 <th>DID(VDN)</th>
                                                 <th>Score(AVG)</th>

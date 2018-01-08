@@ -15,15 +15,15 @@ $pdf->addPage("P", "A4", '0');
 $pdf->AddFont('angsa', '', 'angsa.php');
 $pdf->AddFont('angsab', '', 'angsab.php');
 $pdf->SetFont('angsa', '', 16);
-$pdf->Cell(180, 5, 'Report Call Back', '0', 1, 'C', 0);
+$pdf->Cell(180, 5, 'End Call Survey Reports', '0', 1, 'C', 0);
 $pdf->SetFont('angsa', '', 14);
 $pdf->Cell(180, 5, 'DATA DATE: ' . (isset($_GET['date']) ? $_GET['date'] : ''), '0', 1, 'L', 0);
 $pdf->Cell(180, 5, 'Project : ' . ( ($_GET['Project'] != 'all') ? $project['Name'] : '.................')
         . ' | Did Number : ' . (isset($_GET['Did']) ? $_GET['Did'] : '.................')
         . ' | Agent Number : ' . (isset($_GET['Agent']) ? $_GET['Agent'] : '.................')
-        //  . ' | Queue Number : ' . (isset($_GET['Queue']) ? $_GET['Queue'] : '.................')
         . ' | report Type : ' . (isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '.................')
         . ' | Rate Score: ' . ((isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 ) . ' - ' . ((isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5)
+        . ' | Customer Number: ' . ((isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) ? $_GET['Cusnum'] : "..................")
         , '0', 1, 'L', 0);
 $pdf->ln();
 ///-----------------Headder--------------------------------------------------////////////

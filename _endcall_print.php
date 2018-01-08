@@ -50,13 +50,11 @@ if ($_GET['Project'] != 'all') {
 
                             </div>
                             <div class="col-md-3">
-                                <label>Did Number: </label> <?= isset($_GET['Did']) ? $_GET['Did'] : '' ?>     
-
+                                <label>Did Number: </label> <?= isset($_GET['Did']) ? $_GET['Did'] : '' ?>
                             </div>
                             <div class="col-md-3">
                                 <label>Agent Number: </label> <?= isset($_GET['Agent']) ? $_GET['Agent'] : '' ?>
                             </div>
-
                             <div class="col-md-3">
                                 <label>report Type: </label> <?= isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '' ?>
                             </div>
@@ -68,6 +66,9 @@ if ($_GET['Project'] != 'all') {
 
                             <div class="col-md-3">
                                 <label><span>Score Rate: </span></label> <?= (isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 ?> - <?= (isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5 ?>
+                            </div>
+                            <div class="col-md-3">
+                                <label><span>Customer Number: </span></label> <?=  (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) ? $_GET['Cusnum'] : ".................."?>
                             </div>
                         </div>
 
