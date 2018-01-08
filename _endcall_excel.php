@@ -1,4 +1,5 @@
 <?php
+//header($strExcelFileName);
 include './conf.php';
 $fn = new functionx();
 $strExcelFileName = "ReportEndCall.xls";
@@ -12,10 +13,10 @@ if ($_GET['Project'] != 'all') {
     $project = $fn->getProject($_GET['Project']);
 }
 ?>
-<!DOCTYPE html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"xmlns="http://www.w3.org/TR/REC-html40">
 <html>
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-type" content="text/html;charset=tis-620" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>3CX WEB REPORT SYSTEM.</title>
 
