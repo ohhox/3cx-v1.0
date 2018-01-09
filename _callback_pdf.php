@@ -20,7 +20,7 @@ $pdf->Cell(180, 5, 'Call Back Reports', '0', 1, 'C', 0);
 $pdf->SetFont('angsa', '', 14);
 $pdf->Cell(180, 5, 'DATA DATE: ' . (isset($_GET['date']) ? $_GET['date'] : ''), '0', 1, 'L', 0);
 $pdf->Cell(180, 5, 'Project : ' . ( ($_GET['Project'] != 'all') ? $project['Name'] : '.................')
-    . ' | Did Number : ' . (isset($_GET['Did']) ? $_GET['Did'] : '.................')
+    . ' | DID Number : ' . (isset($_GET['Did']) ? $_GET['Did'] : '.................')
         . ' | Queue Number : ' . (isset($_GET['Queue']) ? $_GET['Queue'] : '.................')
         . ' | Day Or Night : ' . (isset($_GET['DayOrNight']) ? $fn->dayNight[$_GET['DayOrNight']] : '................')
         . ' | Only Leave Number: ' . (isset($_GET['Leave']) ? "Yes" : "NO" )

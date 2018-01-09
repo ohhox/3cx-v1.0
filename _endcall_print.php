@@ -50,7 +50,7 @@ if ($_GET['Project'] != 'all') {
 
                             </div>
                             <div class="col-md-3">
-                                <label>Did Number: </label> <?= isset($_GET['Did']) ? $_GET['Did'] : '' ?>
+                                <label>DID Number: </label> <?= isset($_GET['Did']) ? $_GET['Did'] : '' ?>
                             </div>
                             <div class="col-md-3">
                                 <label>Agent Number: </label> <?= isset($_GET['Agent']) ? $_GET['Agent'] : '' ?>

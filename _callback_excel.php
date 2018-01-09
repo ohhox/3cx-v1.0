@@ -42,7 +42,7 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A1', 'Call Back Reports')
         ->setCellValue('A2', 'Date Rang : ' . ( isset($_GET['date']) ? $_GET['date'] : ''))
         ->setCellValue('A3', 'Project')->setCellValue('B3', !empty($project) ? $project['Name'] : '' )
-        ->setCellValue('A4', 'Did Number')->setCellValue('B4', isset($_GET['Did']) ? $_GET['Did'] : '' )
+        ->setCellValue('A4', 'DID Number')->setCellValue('B4', isset($_GET['Did']) ? $_GET['Did'] : '' )
         ->setCellValue('A5', 'Queue Number')->setCellValue('B5', isset($_GET['Queue']) ? $_GET['Queue'] : '' )
         ->setCellValue('A6', 'Day Or Night')->setCellValue('B6', isset($_GET['DayOrNight']) ? $fn->dayNight[$_GET['DayOrNight']] : '' )
         ->setCellValue('A7', 'Only Leave Number')->setCellValue('B7', isset($_GET['Leave']) ? "Yes" : "NO" );

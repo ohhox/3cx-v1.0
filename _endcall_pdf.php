@@ -19,7 +19,7 @@ $pdf->Cell(180, 5, 'End Call Survey Reports', '0', 1, 'C', 0);
 $pdf->SetFont('angsa', '', 14);
 $pdf->Cell(180, 5, 'DATA DATE: ' . (isset($_GET['date']) ? $_GET['date'] : ''), '0', 1, 'L', 0);
 $pdf->Cell(180, 5, 'Project : ' . ( ($_GET['Project'] != 'all') ? $project['Name'] : '.................')
-        . ' | Did Number : ' . (isset($_GET['Did']) ? $_GET['Did'] : '.................')
+        . ' | DID Number : ' . (isset($_GET['Did']) ? $_GET['Did'] : '.................')
         . ' | Agent Number : ' . (isset($_GET['Agent']) ? $_GET['Agent'] : '.................')
         . ' | report Type : ' . (isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '.................')
         . ' | Rate Score: ' . ((isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 ) . ' - ' . ((isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5)
