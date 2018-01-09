@@ -33,7 +33,7 @@ $pdf->Cell(30, 5, 'Time', 'LT', 0, 'C', 0);
 $pdf->Cell(30, 5, 'Call Number', 'LT', 0, 'C', 0);
 $pdf->Cell(30, 5, 'Leave Number', 'LT', 0, 'C', 0);  // cell with left and right borders
 $pdf->Cell(30, 5, 'Queue Number', 'LT', 0, 'C', 0);
-$pdf->Cell(30, 5, 'DID.(VDN.)', 'LTR', 0, 'C', 0);
+$pdf->Cell(30, 5, 'DID. (VDN.)', 'LTR', 0, 'C', 0);
 
 foreach ($list as $key => $value) {
     $pdf->ln();

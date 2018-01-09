@@ -116,7 +116,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                     <div id="AllertMage"></div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label>DID.(VDN.)</label>
+                                    <label>DID. (VDN.)</label>
                                     <select class=" form-control" name="Did" id="Did" >
                                         <option value="all">ALL</option>
                                         <?php
@@ -216,7 +216,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                                 <th>Agent Number</th>  
                                                 <th>Agent Name</th>
 
-                                                <th>DID.(VDN.)</th>
+                                                <th>DID. (VDN.)</th>
                                                 <th>Score(AVG)</th>
 
                                             </tr>
@@ -253,7 +253,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                                 <th>Customer Number</th>
                                                 <th>Agent Number</th>  
                                                 <th>Agent Name  </th>
-                                                <th>DID.(VDN.)</th>
+                                                <th>DID. (VDN.)</th>
                                                 <th>Score</th>
 
                                             </tr>

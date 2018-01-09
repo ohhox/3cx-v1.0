@@ -61,7 +61,7 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('C9', 'Call Number')
         ->setCellValue('D9', 'Leave Number')
         ->setCellValue('E9', 'Queue Number')
-        ->setCellValue('F9', 'DID.(VDN.)');
+        ->setCellValue('F9', 'DID. (VDN.)');
 
 $i = 10;
 foreach ($list AS $key => $value) {

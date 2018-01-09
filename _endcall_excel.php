@@ -50,7 +50,7 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A10', 'Agent Number')
             ->setCellValue('B10', 'Agent Name')
-            ->setCellValue('C10', 'DID.(VDN.)')
+            ->setCellValue('C10', 'DID. (VDN.)')
             ->setCellValue('D10', 'Score(AVG)');
 
     $i = 11;
@@ -69,7 +69,7 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
             ->setCellValue('C10', 'Customer Number')
             ->setCellValue('D10', 'Agent Number')
             ->setCellValue('E10', 'Agent Name')
-            ->setCellValue('F10', 'DID.(VDN.)')
+            ->setCellValue('F10', 'DID. (VDN.)')
             ->setCellValue('G10', 'Score');
 
     $i = 11;

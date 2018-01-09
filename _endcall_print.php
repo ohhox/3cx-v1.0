@@ -88,7 +88,7 @@ if ($_GET['Project'] != 'all') {
                                                 <th>Agent Number</th>  
                                                 <th>Agent Name</th>
 
-                                                <th>DID.(VDN.)</th>
+                                                <th>DID. (VDN.)</th>
                                                 <th>Score(AVG)</th>
 
                                             </tr>
@@ -125,7 +125,7 @@ if ($_GET['Project'] != 'all') {
                                                 <th>Customer Number</th>
                                                 <th>Agent Number</th>  
                                                 <th>Agent Name  </th>
-                                                <th>DID.(VDN.)</th>
+                                                <th>DID. (VDN.)</th>
                                                 <th>Score</th>
 
                                             </tr>

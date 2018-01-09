@@ -30,7 +30,7 @@ $pdf->ln();
 if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // คำนวน
     $pdf->Cell(40, 5, 'Agent Number', 'LT', 0, 'C', 0);
     $pdf->Cell(70, 5, 'Agent Name', 'LT', 0, 'C', 0);
-    $pdf->Cell(40, 5, 'DID.(VDN.)', 'LTR', 0, 'C', 0);
+    $pdf->Cell(40, 5, 'DID. (VDN.)', 'LTR', 0, 'C', 0);
     $pdf->Cell(40, 5, 'Score', 'LTR', 0, 'C', 0);
 
     foreach ($list as $key => $value) {
@@ -53,7 +53,7 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
     $pdf->Cell(30, 5, 'Customer Number', 'LT', 0, 'C', 0);
     $pdf->Cell(30, 5, 'Agent Name', 'LT', 0, 'C', 0);
     $pdf->Cell(40, 5, 'Agent Number', 'LT', 0, 'C', 0);
-    $pdf->Cell(25, 5, 'DID.(VDN.)', 'LT', 0, 'C', 0);
+    $pdf->Cell(25, 5, 'DID. (VDN.)', 'LT', 0, 'C', 0);
     $pdf->Cell(25, 5, 'Score', 'LTR', 0, 'C', 0);
 
 

@@ -78,7 +78,7 @@ if ($_GET['Project'] != 'all') {
                                             <th>Call Number</th>
                                             <th>Leave Number</th>  
                                             <th>Queue Number</th>
-                                            <th>DID.(VDN.)</th>
+                                            <th>DID. (VDN.)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
