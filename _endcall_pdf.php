@@ -30,16 +30,16 @@ $pdf->ln();
 if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // คำนวน
     $pdf->Cell(40, 5, 'Agent Number', 'LT', 0, 'C', 0);
     $pdf->Cell(70, 5, 'Agent Name', 'LT', 0, 'C', 0);
-    $pdf->Cell(40, 5, 'DID(VDN)', 'LTR', 0, 'C', 0);
+    $pdf->Cell(40, 5, 'DID.(VDN.)', 'LTR', 0, 'C', 0);
     $pdf->Cell(40, 5, 'Score', 'LTR', 0, 'C', 0);
 
     foreach ($list as $key => $value) {
         $valuex = $fn->ThaiTextToutf($value);
         $pdf->ln();
-        $pdf->Cell(40, 5, $value['agent'], 'LT', 0, 'C', 0);  // cell with left and right borders
+        $pdf->Cell(40, 5, $value['agent'], 'LT', 0, 'L', 0);  // cell with left and right borders
         $pdf->Cell(70, 5, $valuex['name'] . ' ' . $valuex['lastname'], 'LTR', 0, 'L', 0);
-        $pdf->Cell(40, 5, $value['DIDNumber'], 'LTR', 0, 'C', 0);
-        $pdf->Cell(40, 5, number_format($value['score'], 2), 'LTR', 0, 'C', 0);
+        $pdf->Cell(40, 5, $value['DIDNumber'], 'LTR', 0, 'L', 0);
+        $pdf->Cell(40, 5, number_format($value['score'], 2), 'LTR', 0, 'L', 0);
     }
     $pdf->ln();
 
@@ -53,20 +53,20 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
     $pdf->Cell(30, 5, 'Customer Number', 'LT', 0, 'C', 0);
     $pdf->Cell(30, 5, 'Agent Name', 'LT', 0, 'C', 0);
     $pdf->Cell(40, 5, 'Agent Number', 'LT', 0, 'C', 0);
-    $pdf->Cell(25, 5, 'DID(VDN)', 'LT', 0, 'C', 0);
+    $pdf->Cell(25, 5, 'DID.(VDN.)', 'LT', 0, 'C', 0);
     $pdf->Cell(25, 5, 'Score', 'LTR', 0, 'C', 0);
 
 
     foreach ($list as $key => $value) {
         $valuex = $fn->ThaiTextToutf($value);
         $pdf->ln();
-        $pdf->Cell(22, 5, $fn->redate($value['DateLeave'], 'No'), 'LT', 0, 'C', 0);   // empty cell with left,top, and right borders
-        $pdf->Cell(15, 5, $fn->retime($value['time']), 'LT', 0, 'C', 0);
+        $pdf->Cell(22, 5, $fn->redate($value['DateLeave'], 'No'), 'LT', 0, 'L', 0);   // empty cell with left,top, and right borders
+        $pdf->Cell(15, 5, $fn->retime($value['time']), 'LT', 0, 'L', 0);
         $pdf->Cell(30, 5, $value['customernumber'], 'LT', 0, 'L', 0);
-        $pdf->Cell(30, 5, $value['agent'], 'LT', 0, 'C', 0);
+        $pdf->Cell(30, 5, $value['agent'], 'LT', 0, 'L', 0);
         $pdf->Cell(40, 5, $valuex['name'] . ' ' . $valuex['lastname'], 'LT', 0, 'L', 0);
-        $pdf->Cell(25, 5, $value['DIDNumber'], 'LTR', 0, 'C', 0);
-        $pdf->Cell(25, 5, number_format($value['score'], 2), 'LTR', 0, 'C', 0);
+        $pdf->Cell(25, 5, $value['DIDNumber'], 'LTR', 0, 'L', 0);
+        $pdf->Cell(25, 5, number_format($value['score'], 2), 'LTR', 0, 'L', 0);
     }
     $pdf->ln();
     $pdf->Cell(22, 5, '', 'T', 0, 'C', 0);   // empty cell with left,top, and right borders

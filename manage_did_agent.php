@@ -47,7 +47,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
         <link rel="stylesheet" href="bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="css/custom.css">
     </head>
-    <body data-id="DIDQ">
+    <body data-active="project" data-id="DIDQ">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->

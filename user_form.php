@@ -39,7 +39,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <link rel="stylesheet" href="bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="css/custom.css">
     </head>
-    <body data-id="Project">
+    <body data-active="user">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->

@@ -58,7 +58,7 @@ if ($_GET['Project'] != 'all') {
                             </div>
                             <div class="col-md-3"></div>
                             <div class="col-md-3">
-                                <label>DayOrNight: </label>  <?= isset($_GET['DayOrNight']) ? $fn->dayNight[$_GET['DayOrNight']] : '' ?>  
+                                <label>Day Or Night: </label>  <?= isset($_GET['DayOrNight']) ? $fn->dayNight[$_GET['DayOrNight']] : '' ?>  
                             </div>
                             <div class="col-md-3">
                                 <label><span>Only Leave Number: </span></label> <?= isset($_GET['Leave']) ? "Yes" : "NO" ?>
@@ -78,7 +78,7 @@ if ($_GET['Project'] != 'all') {
                                             <th>Call Number</th>
                                             <th>Leave Number</th>  
                                             <th>Queue Number</th>
-                                            <th>DID(VDN)</th>
+                                            <th>DID.(VDN.)</th>
                                         </tr>
                                     </thead>
                                     <tbody>

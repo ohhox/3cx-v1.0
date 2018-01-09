@@ -27,8 +27,8 @@ class functionx extends Crud {
     }
 
     public $dayNight = array(
-        0 => 'Day',
-        1 => 'Night',
+        1 => 'Day',
+        2 => 'Night',
         'all' => 'all'
     );
 

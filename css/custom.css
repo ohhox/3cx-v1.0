@@ -111,3 +111,6 @@
     color: #b94a53; 
     position: relative;
 }
+nav.side-navbar li.active a {
+    background: #292929;
+}

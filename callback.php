@@ -64,7 +64,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
         <link rel="stylesheet" href="bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="css/custom.css">
     </head>
-    <body>
+    <body data-active="callback">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->
@@ -102,7 +102,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <label>DID (VDN)</label>
+                                    <label>DID.(VDN.)</label>
                                     <select class=" form-control" name="Did" id="Did" >
                                         <option value="all">ALL</option>
                                         <?php
@@ -178,7 +178,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             <th>Call Number</th>
                                             <th>Leave Number</th>  
                                             <th>Queue Number</th>
-                                            <th>DID(VDN)</th>
+                                            <th>DID.(VDN.)</th>
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -1,4 +1,5 @@
 <?php
+
 include './conf.php';
 $fn = new functionx();
 $strExcelFileName = "ReportCallBack.xls";
@@ -36,13 +37,14 @@ $objPHPExcel->getProperties()->setCreator("3CX WEB REPORT SYSTEM. ")
 
 
 // Add some data
+
 $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A1', 'Call Back Reports')
-        ->setCellValue('A2', 'Date Rang')->setCellValue('B2', isset($_GET['date']) ? $_GET['date'] : '' )
-        ->setCellValue('A3', 'Project')->setCellValue('B3', isset($_GET['Project']) ? $_GET['Project'] : '' )
+        ->setCellValue('A2', 'Date Rang : ' . ( isset($_GET['date']) ? $_GET['date'] : ''))
+        ->setCellValue('A3', 'Project')->setCellValue('B3', !empty($project) ? $project['Name'] : '' )
         ->setCellValue('A4', 'Did Number')->setCellValue('B4', isset($_GET['Did']) ? $_GET['Did'] : '' )
         ->setCellValue('A5', 'Queue Number')->setCellValue('B5', isset($_GET['Queue']) ? $_GET['Queue'] : '' )
-        ->setCellValue('A6', 'DayOrNight')->setCellValue('B6', isset($_GET['DayOrNight']) ? $fn->dayNight[$_GET['DayOrNight']] : '' )
+        ->setCellValue('A6', 'Day Or Night')->setCellValue('B6', isset($_GET['DayOrNight']) ? $fn->dayNight[$_GET['DayOrNight']] : '' )
         ->setCellValue('A7', 'Only Leave Number')->setCellValue('B7', isset($_GET['Leave']) ? "Yes" : "NO" );
 
 
@@ -59,7 +61,7 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('C9', 'Call Number')
         ->setCellValue('D9', 'Leave Number')
         ->setCellValue('E9', 'Queue Number')
-        ->setCellValue('F9', 'DID(VDN)');
+        ->setCellValue('F9', 'DID.(VDN.)');
 
 $i = 10;
 foreach ($list AS $key => $value) {
@@ -76,6 +78,9 @@ foreach ($list AS $key => $value) {
 $objPHPExcel->getActiveSheet()->getStyle('A1:A7')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('A9:F9')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle("A1:A1")->getFont()->setSize(18);
+
+//$objPHPExcel->getActiveSheet()->getStyle('A1:F10000')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+$objPHPExcel->getActiveSheet()->getStyle("A1:F$i")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 // Redirect output to a clientâ€™s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="CallBackReport.xlsx"');

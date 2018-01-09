@@ -31,7 +31,7 @@ $fn = new functionx();
         <link rel="shortcut icon" href="favicon.png">
 
     </head>
-    <body>
+    <body data-active="home">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->
@@ -52,6 +52,7 @@ $fn = new functionx();
         <script src="js/Chart.min.js"></script>
         <script src="js/charts-home.js"></script>
         <script src="js/front.js"></script>
+        <script src="js/customs.js"></script>
 
     </body>
 </html>
