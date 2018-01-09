@@ -56,7 +56,7 @@ if ($_GET['Project'] != 'all') {
                                 <label>Agent Number: </label> <?= isset($_GET['Agent']) ? $_GET['Agent'] : '' ?>
                             </div>
                             <div class="col-md-3">
-                                <label>report Type: </label> <?= isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '' ?>
+                                <label>Report Type: </label> <?= isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '' ?>
                             </div>
 
                             <!--                            <div class="col-md-3">

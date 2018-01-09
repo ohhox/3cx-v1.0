@@ -21,7 +21,7 @@ $pdf->Cell(180, 5, 'DATA DATE: ' . (isset($_GET['date']) ? $_GET['date'] : ''), 
 $pdf->Cell(180, 5, 'Project : ' . ( ($_GET['Project'] != 'all') ? $project['Name'] : '.................')
         . ' | DID Number : ' . (isset($_GET['Did']) ? $_GET['Did'] : '.................')
         . ' | Agent Number : ' . (isset($_GET['Agent']) ? $_GET['Agent'] : '.................')
-        . ' | report Type : ' . (isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '.................')
+        . ' | Report Type : ' . (isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '.................')
         . ' | Rate Score: ' . ((isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 ) . ' - ' . ((isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5)
         . ' | Customer Number: ' . ((isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) ? $_GET['Cusnum'] : "..................")
         , '0', 1, 'L', 0);
