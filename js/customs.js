@@ -1,6 +1,6 @@
-function activeMenu(){
+function activeMenu() {
     var page = $('body').attr('data-active');
-    $('#Active'+ page).addClass('active');
+    $('#Active' + page).addClass('active');
 }
 activeMenu();
 $('.extranalLink').on('click', function (e) {
@@ -86,4 +86,9 @@ $('#manageDIDQForm').on('submit', function (e) {
             window.location = "manage_queses.php";
         }
     });
+});
+
+
+$('.CheckAgent').on('change', function () {
+    $("#AddAgentBage").text($('.CheckAgent:checked').length)
 });

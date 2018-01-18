@@ -74,21 +74,21 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                         </h1>
                         <div id="appdex" >
                             <div class="row" >
-                                <div class="col-md-7"></div>
-                                <div class="col-md-5 ">
+                                
+                                <div class="col-md-12 ">
                                     <form action="_op_main.php?op=saveAgentDid&id=<?= $_GET['id'] ?>" method="post">
                                         <div id="ListAgentForadd">
                                             <p>Choose Agent </p>
-                                            <div>
+                                            <div id="ListNmae" class="row">
                                                 <?php
                                                 $i = 1;
                                                 if (!empty($agent)) {
                                                     foreach ($agent as $key => $value) {
                                                         $value = $fn->ThaiTextToutf($value);
                                                         ?>
-                                                        <div>
+                                                <div class="col-md-3">
                                                             <label>
-                                                                <input type="checkbox" name="agent_id[]" value="<?= $value['agent_id'] ?>">
+                                                                <input type="checkbox" name="agent_id[]" value="<?= $value['agent_id'] ?>" class="CheckAgent">
                                                                 <?= $value['agent_code'] . " : " . $value['name'] . " " . $value['lastname'] ?> 
                                                             </label>
                                                         </div>
@@ -99,10 +99,10 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                                                 }
                                                 ?>
                                             </div>
-                                            <div style="margin-top: 30px;">
-                                                <button type="submit" class="btn btn-success btn-sm" >Add Agent</button>
-                                                <button type="reset"  class="btn btn-warning btn-sm" >Reset</button>
-                                                <button type="reset"  class="btn btn-danger btn-sm"  onclick="$('#appdex').slideToggle();">Close</button>
+                                            <div style="margin-top: 20px;">
+                                                <button type="submit" class="btn btn-success btn-sm" >Add Agent <span id="AddAgentBage" class="badge badge-light"></span></button>
+                                                <button type="reset" onclick=" $('#AddAgentBage').text('');"  class="btn btn-warning btn-sm" >Reset</button>
+                                                <button type="reset" class="btn btn-danger btn-sm"  onclick="$('#appdex').slideToggle(); $('#AddAgentBage').text('');">Close</button>
                                             </div>
                                         </div>
 

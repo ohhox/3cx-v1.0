@@ -53,18 +53,59 @@ $('#Sform.endcall').on('submit', function (e) {
 function checkSelectProject(e) {
     $("#AllertMage").html("").removeClass('active');
     $("#AllertMage2").html("").removeClass('active');
+
+
+    var ScoreMin = $("#score_min").val();
+    var ScoreMax = $("#score_max").val();
+    var timeStart = $("#timeStart").val();
+    var timeEnd = $("#timeEnd").val();
+
     if ($("#Project").val() == "all") {
         e.preventDefault();
         $("#AllertMage").html("<i class='fa fa-info'></i> Please select Project.").addClass('active');
         $("#Project").focus();
         return false;
-    } else if ($("#Did").val() == "all") {
+    }
+//    else if ($("#Did").val() == "all") {
+//        e.preventDefault();
+//        $("#AllertMage2").html("<i class='fa fa-info'></i> Please select  DID(VDN).").addClass('active');
+//        $("#Did").focus();
+//        return false;
+//    }
+    else if (timeStart > timeEnd) {
         e.preventDefault();
-        $("#AllertMage2").html("<i class='fa fa-info'></i> Please select  DID(VDN).").addClass('active');
-        $("#Did").focus();
+        $('.timeerror').remove();
+        $("#timeEnd").focus().after("<div class=timeerror>can't use this format time.</div>");
+        return false;
+    } else if (ScoreMin > ScoreMax) {
+        e.preventDefault();
+        $('.ScoreRateERROR').remove();
+        $("#score_max").focus().after("<div class=ScoreRateERROR>can't use this Rate.</div>");
         return false;
     } else {
-
         return true;
     }
 }
+
+$('.TimeSelectBox').on('change', function () {
+    var timeStart = $("#timeStart").val();
+    var timeEnd = $("#timeEnd").val();
+    $('.timeerror').remove();
+    if(timeEnd == '24:00'){        
+         $("#timeEnd").val('23:59');
+    }
+    if (timeStart > timeEnd) {
+        $("#timeEnd").focus().after("<div class=timeerror>can't use this format time.</div>");
+    }
+});
+
+$('.scoreRate').on('change', function () {
+    var timeStart = $("#score_min").val();
+    var timeEnd = $("#score_max").val();
+    $('.ScoreRateERROR').remove();
+    if (timeStart > timeEnd) {
+        $("#score_max").focus().after("<div class=ScoreRateERROR>can't use this Rate.</div>");
+    }
+});
+
+

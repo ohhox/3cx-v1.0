@@ -66,6 +66,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
         <!-- Custom Scrollbar-->
         <link rel="stylesheet" href="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
         <!-- theme stylesheet-->
+        <link rel="stylesheet" href="node_modules/timepicker/jquery.timepicker.min.css">
         <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
         <!-- Custom stylesheet - for your changes-->
 
@@ -169,17 +170,37 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                     </div>
                                 </div> 
 
+                                <div class="col-md-3" >
+                                      <label>Time Option. </label>    
+                                    <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
+                                        <div class="timeRate">
+                                            <span>Begin<br/> <input type="text" id="timeStart" name="timeStart" value="<?= (isset($_GET['timeStart']) && !empty($_GET['timeStart'])) ? $_GET['timeStart'] : '00:00' ?>" class="form-control TimeSelectBox" ></span>
+                                        </div>
+                                        <div class="timeRate">
+                                            <span>End<br/> <input type="text" id="timeEnd" name="timeEnd" value="<?= (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) ? $_GET['timeEnd'] : '23:59' ?>"  class="form-control TimeSelectBox" ></span>
+                                        </div>
+                                    </div>
 
+
+                                </div>
                                 <div class="col-md-3" id="ScoreRate"   <?php
                                 if (@!isset($_GET['Project']) || $_GET['Project'] == 'all') {
                                     ?> style="display: none;"<?php
                                      }
                                      ?>>
-
-                                    <label>Score Rate </label>   <br/>
-                                    <input type="number" id="score_min" min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= isset($_GET['scorestrat']) ? $_GET['scorestrat'] : (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" name="scorestrat" class="SmallTextBox" > -
-                                    <input type="number" id="score_max"  min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= isset($_GET['scoreend']) ? $_GET['scoreend'] : (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" name="scoreend" class="SmallTextBox">
+                                    <label>Score Rate </label>    
+                                    <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
+                                        <div   class="timeRate">
+                                              <span> Begin</span><br/> 
+                                            <input type="number" id="score_min" min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max']: '0') ?>" value="<?= isset($_GET['scorestrat']) ? $_GET['scorestrat'] : (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" name="scorestrat" class="SmallTextBox scoreRate" > 
+                                        </div>
+                                        <div  class="timeRate">
+                                            <span>End</span> <br/> 
+                                            <input type="number" id="score_max"  min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= isset($_GET['scoreend']) ? $_GET['scoreend'] : (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" name="scoreend" class="SmallTextBox scoreRate">
+                                        </div>
+                                    </div>
                                 </div> 
+
                                 <div class="clear"></div>
                                 <div class="col-md-12" style="height: 0px;margin: 0px;"> 
                                     <div class="btn-group   pull-right" role="group" aria-label="Button group with nested dropdown" style="margin-right:30px;margin-top:-65px;">
@@ -293,15 +314,18 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
         <script src="js/jquery-3.2.1.min.js"></script> 
         <script src="js/popper.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script> 
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
         <script src="bootstrap-daterangepicker/moment.min.js"></script>
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
-        <script src="js/front.js"></script>
+        <script src="node_modules/timepicker/jquery.timepicker.min.js"></script> 
         <script src="js/customs.js"></script>
         <script src="js/endcal.js"></script>
         <script>
 
             $(function () {
+                $('#timeStart,#timeEnd').timepicker({'timeFormat': 'H:i', show2400: true});
+
                 $('#date').daterangepicker({
                     locale: {
                         format: 'DD-MM-YYYY'
@@ -342,6 +366,8 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                     "pageLength": 25
                 });
             });
+
+
         </script>
     </body>
 </html>
