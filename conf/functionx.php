@@ -183,11 +183,9 @@ class functionx extends Crud {
             $where .= " AND c.LeaveNum !=''";
         }
         ///////////////////// Score
-        if (isset($_GET['scorestrat'])) {
-            if (isset($_GET['scoreend']) && !empty($_GET['scoreend'])) {
+        if (isset($_GET['scorestrat']) && isset($_GET['scoreend'])) {            
                 $where .= " AND c.score BETWEEN {$_GET['scorestrat']} AND {$_GET['scoreend']}";
-                $where2 .= " AND score BETWEEN {$_GET['scorestrat']} AND {$_GET['scoreend']}";
-            }
+                $where2 .= " AND score BETWEEN {$_GET['scorestrat']} AND {$_GET['scoreend']}";            
         }
         
          if (isset($_GET['timeStart'])) {
