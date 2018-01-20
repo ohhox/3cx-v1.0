@@ -408,7 +408,7 @@ class functionx extends Crud {
         $sql = " SELECT dq.DIDNumber,dq.QueueNumber,a.* FROM didagent AS d "
                 . "LEFT JOIN agent AS a ON a.agent_id=d.agent_id "
                 . "LEFT JOIN DIDQueues AS dq ON dq.DIDQueueID=d.DIDQueueID "
-                . "WHERE  d.DIDQueueID='$id'";
+                . "WHERE  d.DIDQueueID='$id' ORDER BY a.agent_code";
         return $this->query($sql);
     }
 
