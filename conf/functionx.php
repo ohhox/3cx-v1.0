@@ -408,12 +408,12 @@ class functionx extends Crud {
         $sql = " SELECT dq.DIDNumber,dq.QueueNumber,a.* FROM didagent AS d "
                 . "LEFT JOIN agent AS a ON a.agent_id=d.agent_id "
                 . "LEFT JOIN DIDQueues AS dq ON dq.DIDQueueID=d.DIDQueueID "
-                . "WHERE  d.DIDQueueID='$id' ORDER BY a.agent_code";
+                . "WHERE  d.DIDQueueID='$id' ORDER BY a.agent_code ASC";
         return $this->query($sql);
     }
 
     public function getNotDidAgent($id) {
-        $sql = "SELECT *  FROM agent WHERE agent_id NOT IN(SELECT agent_id FROM didagent WHERE DIDQueueID='$id') AND agent_status='0' ORDER BY agent_code";
+        $sql = "SELECT *  FROM agent WHERE agent_id NOT IN(SELECT agent_id FROM didagent WHERE DIDQueueID='$id') AND agent_status='0' ORDER BY agent_code ASC";
         return $this->query($sql);
     }
 
