@@ -133,7 +133,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
 
 
                                 <div class="col-md-3">
-                                    <label>Agent</label>
+                                    <label>Agent <?= count($agent)?></label>
                                     <select class=" form-control" name="Agent" id="Agent">
                                         <option value="all">ALL</option>
                                         <?php
@@ -159,7 +159,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         <div>
                                             <label style="margin-left: 25px;"> <input type="radio" name="calc" value="indata" checked> With Score </label> 
                                             <div>
-                                                <label style="margin-left: 25px;"> <input type="radio"  name="calc" value="all"  <?= (isset($_GET['calc']) && $_GET['calc'] == "all") ? "checked" : "" ?>> With / With Out Score</label>
+                                                <label style="margin-left: 25px;"> <input type="radio"  name="calc" value="all"  <?= (isset($_GET['calc']) && $_GET['calc'] == "all") ? "checked" : "" ?>> With / WithOut Score</label>
                                             </div>
                                         </div>
                                     </div>

@@ -109,10 +109,10 @@ class functionx extends Crud {
             $where .= " AND c.LeaveNum !=''";
         }
 
-          $sql = " SELECT  convert(date, c.DateLeave) as  DateLeave , c.TimeLeave, c.CallNum,c.LeaveNum,c.FromQueue,c.Project "
-        . " FROM CallBack AS c"
-        . " LEFT JOIN DIDQueues AS d ON d.DIDNumber = c.Project AND d.QueueNumber=c.FromQueue"
-        . "$where";
+        $sql = " SELECT  convert(date, c.DateLeave) as  DateLeave , c.TimeLeave, c.CallNum,c.LeaveNum,c.FromQueue,c.Project "
+                . " FROM CallBack AS c"
+                . " LEFT JOIN DIDQueues AS d ON d.DIDNumber = c.Project AND d.QueueNumber=c.FromQueue"
+                . "$where";
         return $this->query($sql);
     }
 
@@ -167,7 +167,7 @@ class functionx extends Crud {
 
         ///////////////////// Did
         if (isset($_GET['Did']) && !empty($_GET['Did']) && $_GET['Did'] != "all") {
-            $where .= " AND  c.project='{$_GET['Did']}'";
+            $where .= " AND  d.DIDNumber='{$_GET['Did']}'";
             $where2 .= " AND  project='{$_GET['Did']}'";
             $where3 .= " AND d.DIDNumber='{$_GET['Did']}'";
         }
@@ -183,21 +183,22 @@ class functionx extends Crud {
             $where .= " AND c.LeaveNum !=''";
         }
         ///////////////////// Score
-        if (isset($_GET['scorestrat']) && isset($_GET['scoreend'])) {            
-                $where .= " AND c.score BETWEEN {$_GET['scorestrat']} AND {$_GET['scoreend']}";
-                $where2 .= " AND score BETWEEN {$_GET['scorestrat']} AND {$_GET['scoreend']}";            
+        if (isset($_GET['scorestrat']) && isset($_GET['scoreend'])) {
+            $where .= " AND c.score BETWEEN {$_GET['scorestrat']} AND {$_GET['scoreend']}";
+            $where2 .= " AND score BETWEEN {$_GET['scorestrat']} AND {$_GET['scoreend']}";
         }
-        
-         if (isset($_GET['timeStart'])) {
+
+        if (isset($_GET['timeStart'])) {
             if (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) {
-                if($_GET['timeEnd'] == "24:00") $_GET['timeEnd'] = "23:59";
+                if ($_GET['timeEnd'] == "24:00")
+                    $_GET['timeEnd'] = "23:59";
                 $where .= " AND convert(time,  c.time) BETWEEN '{$_GET['timeStart']}' AND '{$_GET['timeEnd']}'";
                 $where2 .= " AND convert(time,time) BETWEEN '{$_GET['timeStart']}' AND '{$_GET['timeEnd']}'";
                 //convert(time,  c.time) BETWEEN '00:00' AND '23:59'
             }
         }
-        
-        
+
+
         if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average
             if (isset($_GET['calc']) && !empty($_GET['calc']) && $_GET['calc'] == 'all') { // ALL Agent
                 $sql = ""
@@ -220,7 +221,7 @@ class functionx extends Crud {
                           ORDER BY agent_code ASC
                     ";
             } else {
-                 $sql = "SELECT ROUND(AVG(CAST(c.score AS FLOAT)), 2)  as score,a.agent_code as agent,d.DIDNumber as DIDNumber,a.name,a.lastname
+                $sql = "SELECT ROUND(AVG(CAST(c.score AS FLOAT)), 2)  as score,a.agent_code as agent,d.DIDNumber as DIDNumber,a.name,a.lastname
                     FROM didagent AS da
                     LEFT JOIN agent AS a ON a.agent_id =da.agent_id
                     LEFT JOIN DIDQueues AS d ON d.DIDQueueID = da.DIDQueueID 
@@ -234,7 +235,7 @@ class functionx extends Crud {
             if (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) {
                 $where .= " AND customernumber LIKE '%{$_GET['Cusnum']}%'";
             }
-         echo    $sql = " SELECT convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber,a.name,a.lastname
+            $sql = " SELECT convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber,a.name,a.lastname
                     FROM didagent AS da
                     LEFT JOIN agent AS a ON a.agent_id =da.agent_id
                     LEFT JOIN DIDQueues AS d ON d.DIDQueueID = da.DIDQueueID 
@@ -412,7 +413,7 @@ class functionx extends Crud {
     }
 
     public function getNotDidAgent($id) {
-        $sql = "SELECT *  FROM agent WHERE agent_id NOT IN( SELECT agent_id FROM didagent WHERE DIDQueueID='$id') AND agent_status='0'";
+        $sql = "SELECT *  FROM agent WHERE agent_id NOT IN(SELECT agent_id FROM didagent WHERE DIDQueueID='$id') AND agent_status='0' ORDER BY agent_code";
         return $this->query($sql);
     }
 
@@ -423,10 +424,10 @@ class functionx extends Crud {
     }
 
     public function getAgentForProjectDID($project = "", $did = "", $queues = "") {
-        $sql = "SELECT * FROM didagent AS da"
+         $sql = "SELECT agent_code FROM didagent AS da"
                 . " LEFT JOIN agent AS a ON a.agent_id=da.agent_id "
                 . " LEFT JOIN DIDQueues AS d ON d.DIDQueueID=da.DIDQueueID "
-                . " WHERE a.agent_status='0' ";
+                . " WHERE a.agent_status='0'  ";
         if ($project != "all" && !empty($project)) {
             $sql .= " AND d.ProjectID='$project'";
         }
@@ -436,6 +437,7 @@ class functionx extends Crud {
         if ($queues != "all" && !empty($queues)) {
             $sql .= " AND d.QueueNumber='$queues'";
         }
+        $sql .= ' GROUP BY  agent_code ORDER BY agent_code';
         return $this->query($sql);
     }
 

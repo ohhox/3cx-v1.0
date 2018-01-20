@@ -100,9 +100,10 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                                                 ?>
                                             </div>
                                             <div style="margin-top: 20px;">
-                                                <button type="submit" class="btn btn-success btn-sm" >Add Agent <span id="AddAgentBage" class="badge badge-light"></span></button>
-                                                <button type="reset" onclick=" $('#AddAgentBage').text('');"  class="btn btn-warning btn-sm" >Reset</button>
-                                                <button type="reset" class="btn btn-danger btn-sm"  onclick="$('#appdex').slideToggle(); $('#AddAgentBage').text('');">Close</button>
+                                                <a class="btn btn-default btn-sm" > <input type="checkbox" id="CheckALl"> Check All</a>
+                                                <button type="submit" class="btn btn-success btn-sm" ><i class="fa fa-save"></i> Save <span id="AddAgentBage" class="badge badge-light"></span></button>
+                                                <button type="reset" onclick=" $('#AddAgentBage').text('');"  class="btn btn-warning btn-sm" ><i class="fa fa-resistance"></i>  Reset</button>
+                                                <button type="reset" class="btn btn-danger btn-sm"  onclick="$('#appdex').slideToggle(); $('#AddAgentBage').text('');"><i class="fa fa-close"></i>  Close</button>
                                             </div>
                                         </div>
 

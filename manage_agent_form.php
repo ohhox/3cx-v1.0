@@ -80,7 +80,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                                 </div>
                                                 <div>
                                                     <label>
-                                                        <input type="radio" name="gender"  value="female" <?= (isset($list) && $list['gender'] == 'female') ? 'checked' : '' ?> required> Female
+                                                        <input type="radio" name="gender"  value="female" <?= (isset($list) && $list['gender'] == 'female') ? 'checked' : isset($list) ? '' : 'checked' ?> required> Female
                                                     </label>
                                                 </div>
                                             </div>
@@ -136,7 +136,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="js/front.js"></script>
         <script src="js/customs.js"></script>
-       
+
 
     </body>
 </html>

@@ -90,5 +90,15 @@ $('#manageDIDQForm').on('submit', function (e) {
 
 
 $('.CheckAgent').on('change', function () {
-    $("#AddAgentBage").text($('.CheckAgent:checked').length)
+    $("#AddAgentBage").text($('.CheckAgent:checked').length);
+});
+
+$('#CheckALl').on('change', () => {
+    if ($('#CheckALl').prop("checked")) {
+        $('.CheckAgent').prop("checked", true);
+          $("#AddAgentBage").text($('.CheckAgent:checked').length)
+    } else {
+        $('.CheckAgent').prop("checked", false);
+          $("#AddAgentBage").text($('.CheckAgent:checked').length)
+    }
 });
