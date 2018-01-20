@@ -133,7 +133,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
 
 
                                 <div class="col-md-3">
-                                    <label>Agent <?= count($agent)?></label>
+                                    <label>Agent </label>
                                     <select class=" form-control" name="Agent" id="Agent">
                                         <option value="all">ALL</option>
                                         <?php
