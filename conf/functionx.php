@@ -109,7 +109,7 @@ class functionx extends Crud {
             $where .= " AND c.LeaveNum !=''";
         }
 
-     echo   $sql = " SELECT  convert(date, c.DateLeave) as  DateLeave , c.TimeLeave, c.CallNum,c.LeaveNum,c.FromQueue,c.Project "
+         $sql = " SELECT  convert(date, c.DateLeave) as  DateLeave , c.TimeLeave, c.CallNum,c.LeaveNum,c.FromQueue,c.Project "
                 . " FROM CallBack AS c"
                 . " LEFT JOIN DIDQueues AS d ON d.DIDNumber = c.Project AND d.QueueNumber=c.FromQueue"
                 . "$where";
