@@ -9,7 +9,7 @@ $('.extranalLink2').on('click', function (e) {
 $('#Did,#Project').on('change', function () { // Get Agent
     $("#Agent option[data-status=remove]").remove();
 
-    var did = $(this).val();
+    var did = $('#Did').val();
     var project = $('#Project').val();
 
     $.getJSON('_op_ajax.php?op=getAgent&did=' + did + "&project=" + project, function (data) {

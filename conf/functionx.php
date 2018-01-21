@@ -437,7 +437,7 @@ class functionx extends Crud {
         if ($queues != "all" && !empty($queues)) {
             $sql .= " AND d.QueueNumber='$queues'";
         }
-        $sql .= ' GROUP BY  agent_code ORDER BY agent_code';
+         $sql .= ' GROUP BY  agent_code ORDER BY agent_code';
         return $this->query($sql);
     }
 
