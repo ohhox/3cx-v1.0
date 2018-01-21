@@ -19,7 +19,11 @@ if (isset($_GET['Did'])) {
 if (isset($_GET['Queue'])) {
     $QueuesID = $_GET['Queue'];
 }
+if(!empty($projectId)){
 $agent = $fn->getAgentForProjectDID($projectId, $DIDID, $QueuesID);
+}else{
+    $agent = array();
+}
 
 $did = array();
 $Queue = array();
