@@ -1,6 +1,7 @@
 <?php
 
 //header($strExcelFileName);
+
 include './conf.php';
 $fn = new functionx();
 $strExcelFileName = "ReportEndCall.xls";
@@ -40,21 +41,25 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A3', 'Project')->setCellValue('B3', isset($project) ? $project['Name'] : '' )
         ->setCellValue('A4', 'DID Number')->setCellValue('B4', isset($_GET['Did']) ? $_GET['Did'] : '' )
         ->setCellValue('A5', 'Agent Number')->setCellValue('B5', isset($_GET['Agent']) ? $_GET['Agent'] : '' )
-        ->setCellValue('A6', 'Report Type')->setCellValue('B6', isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '')
+        ->setCellValue('A6', 'Report Type')->setCellValue('B6', isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score ' . ($_GET['calc'] == 'all' ? ' (With / WithOut Score)' : ' (With Score)') : 'Total Score') : '')
         ->setCellValue('A7', 'Score Rate')->setCellValue('B7', ((isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : '1' ) . " - " . ((isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5 ))
-        ->setCellValue('A8', 'Customer Number')->setCellValue('B8', (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) ? $_GET['Cusnum'] : "..............." );
+        ->setCellValue('A8', 'Customer Number')->setCellValue('B8', (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) ? $_GET['Cusnum'] : "NULL" )
+        ->setCellValue('A9', 'Time Option')->setCellValue('B9', ((isset($_GET['timeStart'])) ? $_GET['timeStart'] : 'NULL' ) . " - " . ((isset($_GET['timeEnd'])) ? $_GET['timeEnd'] : 'NULL' ));
+
 // Rename worksheet
 $objPHPExcel->getActiveSheet()->setTitle('EndCallSurveyReports');
 
 if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average 
     $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A10', 'Agent Number')
-            ->setCellValue('B10', 'Agent Name')
-            ->setCellValue('C10', 'DID. (VDN.)')
-            ->setCellValue('D10', 'Score(AVG)');
+            ->setCellValue('A11', 'Agent Number')
+            ->setCellValue('B11', 'Agent Name')
+            ->setCellValue('C11', 'DID. (VDN.)')
+            ->setCellValue('D11', 'Score(AVG)');
 
-    $i = 11;
+    $i = 12;
     foreach ($list AS $key => $value) {
+        if (empty($value['score']))
+            $value['score'] = "0";
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue("A$i", $value['agent'])
                 ->setCellValue("B$i", $value['name'] . ' ' . $value['lastname'])
@@ -72,8 +77,10 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
             ->setCellValue('F10', 'DID. (VDN.)')
             ->setCellValue('G10', 'Score');
 
-    $i = 11;
+    $i = 12;
     foreach ($list AS $key => $value) {
+        if (empty($value['score']))
+            $value['score'] = "0";
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue("A$i", $fn->redate($value['DateLeave'], 'no'))
                 ->setCellValue("B$i", $fn->retime($value['time']))
@@ -85,8 +92,8 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
         $i++;
     }
 }
-$objPHPExcel->getActiveSheet()->getStyle('A1:A8')->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('A10:G10')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A1:A9')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A11:G11')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle("A1:A1")->getFont()->setSize(18);
 $objPHPExcel->getActiveSheet()->getStyle("A1:G$i")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 // Redirect output to a clientâ€™s web browser (Excel2007)

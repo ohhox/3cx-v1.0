@@ -56,22 +56,18 @@ if ($_GET['Project'] != 'all') {
                                 <label>Agent Number: </label> <?= isset($_GET['Agent']) ? $_GET['Agent'] : '' ?>
                             </div>
                             <div class="col-md-3">
-                                <label>Report Type: </label> <?= isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' : 'Total Score') : '' ?>
+                                <label>Report Type: </label> <?= isset($_GET['report']) ? (($_GET['report'] == 'sum') ? ' Average Score' . ($_GET['calc'] == 'all' ? ' (With / WithOut Score)' : ' (With Score)') : 'Total Score') : '' ?>
                             </div>
-
-                            <!--                            <div class="col-md-3">
-                                                            <label>Queue Number: </label> <?= isset($_GET['Queue']) ? $_GET['Queue'] : '' ?>     
-                            
-                                                        </div>-->
-
                             <div class="col-md-3">
                                 <label><span>Score Rate: </span></label> <?= (isset($_GET['scorestrat'])) ? $_GET['scorestrat'] : 1 ?> - <?= (isset($_GET['scoreend'])) ? $_GET['scoreend'] : 5 ?>
                             </div>
                             <div class="col-md-3">
-                                <label><span>Customer Number: </span></label> <?=  (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) ? $_GET['Cusnum'] : ".................."?>
+                                <label><span>Time Option: </span></label> <?= (((isset($_GET['timeStart'])) ? $_GET['timeStart'] : 'NULL' ) . " - " . ((isset($_GET['timeEnd'])) ? $_GET['timeEnd'] : 'NULL' )) ?>
+                            </div>
+                            <div class="col-md-3">
+                                <label><span>Customer Number: </span></label> <?= (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) ? $_GET['Cusnum'] : ".................." ?>
                             </div>
                         </div>
-
                     </header>
 
                     <div class="row"> 
