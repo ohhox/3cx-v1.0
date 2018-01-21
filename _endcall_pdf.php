@@ -69,7 +69,7 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
         $pdf->Cell(25, 5, $value['agent'], 'LT', 0, 'L', 0);
         $pdf->Cell(60, 5, $valuex['name'] . ' ' . $valuex['lastname'], 'LT', 0, 'L', 0);
         $pdf->Cell(20, 5, $value['DIDNumber'], 'LTR', 0, 'L', 0);
-        $pdf->Cell(15, 5, number_format($value['score'], 2), 'LTR', 0, 'L', 0);
+        $pdf->Cell(15, 5, $value['score'], 'LTR', 0, 'L', 0);
     }
     $pdf->ln();
     $pdf->Cell(22, 5, '', 'T', 0, 'C', 0);   // empty cell with left,top, and right borders

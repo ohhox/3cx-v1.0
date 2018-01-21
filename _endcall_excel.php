@@ -64,7 +64,7 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
                 ->setCellValue("A$i", $value['agent'])
                 ->setCellValue("B$i", $value['name'] . ' ' . $value['lastname'])
                 ->setCellValue("C$i", $value['DIDNumber'])
-                ->setCellValue("D$i", $value['score']);
+                ->setCellValue("D$i", number_format($value['score'], 2));
         $i++;
     }
 } else {
