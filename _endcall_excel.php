@@ -69,13 +69,13 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
     }
 } else {
     $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A10', 'Date')
-            ->setCellValue('B10', 'Time')
-            ->setCellValue('C10', 'Customer Number')
-            ->setCellValue('D10', 'Agent Number')
-            ->setCellValue('E10', 'Agent Name')
-            ->setCellValue('F10', 'DID. (VDN.)')
-            ->setCellValue('G10', 'Score');
+            ->setCellValue('A11', 'Date')
+            ->setCellValue('B11', 'Time')
+            ->setCellValue('C11', 'Customer Number')
+            ->setCellValue('D11', 'Agent Number')
+            ->setCellValue('E11', 'Agent Name')
+            ->setCellValue('F11', 'DID. (VDN.)')
+            ->setCellValue('G11', 'Score');
 
     $i = 12;
     foreach ($list AS $key => $value) {
