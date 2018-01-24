@@ -79,7 +79,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
             </div>
 
             <section class="charts">
-                <div class="container-fluid">
+                <div class="container-fluid" id="MainPosion">
                     <header id="formSearc"  > 
                         <h1 class="h3">Call Back Reports</h1>
                         <form id="Sform">
@@ -145,7 +145,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         <span>Only Leave Number</span>
                                     </label>
                                 </div>
-                                 <div class="col-md-12" style="height: 0px;margin: 0px;"> 
+                                <div class="col-md-12" style="height: 0px;margin: 0px;"> 
                                     <div class="btn-group   pull-right" role="group" aria-label="Button group with nested dropdown" style="margin-right:30px;margin-top:-65px;">
                                         <button type="submit" class="btn btn-primary btn-lg">Generate</button>
                                         <div class="btn-group" role="group">
@@ -167,12 +167,13 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                         </form>
                     </header>
 
-                    <div class="row"> 
-                        <div class="card col-12">                             
-                            <div class="card-body">
+                    <div class="row" id="DetailPabel"> 
+                        <div class="  col-12">                             
+                            <div class=" ">
                                 <table class="table" id="tablex">
                                     <thead>
                                         <tr> 
+                                            <th>NO.</th>
                                             <th>Date</th>
                                             <th>Time</th> 
                                             <th>Call Number</th>
@@ -186,7 +187,8 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         $i = 1;
                                         foreach ($list AS $key => $value) {
                                             ?>
-                                            <tr>                                                
+                                            <tr>                                  
+                                                <td><?= $i++; ?></td>
                                                 <td><?= $fn->redate($value['DateLeave']); ?></td>
                                                 <td><?= $fn->retime($value['TimeLeave']); ?></td>
                                                 <td><?= $value['CallNum']; ?></td>

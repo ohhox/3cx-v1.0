@@ -79,8 +79,16 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
 
     $i = 12;
     foreach ($list AS $key => $value) {
-        if (empty($value['score']))
-            $value['score'] = "0";
+        $score = "";
+        if (empty($value['score'])) {
+            if ($value['score'] === "0") {
+                $score = $value['score'];
+            } else {
+                $score = "NULL";
+            }
+        } else {
+            $score = $value['score'];
+        }
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue("A$i", $fn->redate($value['DateLeave'], 'no'))
                 ->setCellValue("B$i", $fn->retime($value['time']))
@@ -88,7 +96,7 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
                 ->setCellValue("D$i", $value['agent'])
                 ->setCellValue("E$i", $value['name'] . ' ' . $value['lastname'])
                 ->setCellValue("F$i", $value['DIDNumber'])
-                ->setCellValue("G$i", $value['score']);
+                ->setCellValue("G$i", $score);
         $i++;
     }
 }

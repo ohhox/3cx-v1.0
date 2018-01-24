@@ -73,6 +73,7 @@ if ($_GET['Project'] != 'all') {
                                 <table class="table" id="tablex" style="width: 100%;">
                                     <thead>
                                         <tr> 
+                                            <th>NO.</th>
                                             <th>Date</th>
                                             <th>Time</th> 
                                             <th>Call Number</th>
@@ -86,7 +87,8 @@ if ($_GET['Project'] != 'all') {
                                         $i = 1;
                                         foreach ($list AS $key => $value) {
                                             ?>
-                                            <tr>                                                
+                                            <tr>    
+                                                <td><?= $i++; ?></td>
                                                 <td><?= $fn->redate($value['DateLeave']); ?></td>
                                                 <td><?= $fn->retime($value['TimeLeave']); ?></td>
                                                 <td><?= $value['CallNum']; ?></td>

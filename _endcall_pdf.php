@@ -62,6 +62,16 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
 
     foreach ($list as $key => $value) {
         $valuex = $fn->ThaiTextToutf($value);
+        $score = "";
+        if (empty($value['score'])) {
+            if ($value['score'] === "0") {
+                $score = $value['score'];
+            } else {
+                $score = "NULL";
+            }
+        } else {
+            $score = $value['score'];
+        }
         $pdf->ln();
         $pdf->Cell(22, 5, $fn->redate($value['DateLeave'], 'No'), 'LT', 0, 'L', 0);   // empty cell with left,top, and right borders
         $pdf->Cell(15, 5, $fn->retime($value['time']), 'LT', 0, 'L', 0);
@@ -69,7 +79,7 @@ if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum
         $pdf->Cell(25, 5, $value['agent'], 'LT', 0, 'L', 0);
         $pdf->Cell(60, 5, $valuex['name'] . ' ' . $valuex['lastname'], 'LT', 0, 'L', 0);
         $pdf->Cell(20, 5, $value['DIDNumber'], 'LTR', 0, 'L', 0);
-        $pdf->Cell(15, 5, $value['score'], 'LTR', 0, 'L', 0);
+        $pdf->Cell(15, 5, $score, 'LTR', 0, 'L', 0);
     }
     $pdf->ln();
     $pdf->Cell(22, 5, '', 'T', 0, 'C', 0);   // empty cell with left,top, and right borders

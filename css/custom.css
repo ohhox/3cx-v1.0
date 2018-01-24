@@ -1,8 +1,7 @@
 #formSearc{
-    padding:5px;
-    padding-left: 10px;
-    border: 1px #b3b3b3 solid;
-    background: #e4e4e4;
+    padding: 14px 50px;    
+    border-bottom: 1px #b3b3b3 solid;
+    background: #e9ecef;
 }
 .daterangepicker{
     box-shadow: 1px 1px 13px 0px #717171;
@@ -140,4 +139,13 @@ nav.side-navbar li.active a {
 }
 .ScoreRateERROR{
     width: 120px;
+}
+#MainPosion{
+    background: #ffffff;
+    padding: 0px;    
+    border-top: 2px #33b35a solid;
+}
+#DetailPabel{    
+  padding: 30px 50px;
+  padding-left: 60px;
 }

@@ -56,31 +56,32 @@ $objPHPExcel->getActiveSheet()->setTitle('Call Back Report');
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('A9', 'Date')
-        ->setCellValue('B9', 'Time')
-        ->setCellValue('C9', 'Call Number')
-        ->setCellValue('D9', 'Leave Number')
-        ->setCellValue('E9', 'Queue Number')
-        ->setCellValue('F9', 'DID. (VDN.)');
+        ->setCellValue('A9', 'NO.')
+        ->setCellValue('B9', 'Date')
+        ->setCellValue('C9', 'Time')
+        ->setCellValue('D9', 'Call Number')
+        ->setCellValue('E9', 'Leave Number')
+        ->setCellValue('F9', 'Queue Number')
+        ->setCellValue('G9', 'DID. (VDN.)');
 
 $i = 10;
+$count = 1;
 foreach ($list AS $key => $value) {
     $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue("A$i", $fn->redate($value['DateLeave']))
-            ->setCellValue("B$i", $fn->retime($value['TimeLeave']))
-            ->setCellValue("C$i", $value['CallNum'])
-            ->setCellValue("D$i", $value['LeaveNum'])
-            ->setCellValue("E$i", $value['FromQueue'])
-            ->setCellValue("F$i", $value['Project']);
+            ->setCellValue("A$i", $count++)
+            ->setCellValue("B$i", $fn->redate($value['DateLeave']))
+            ->setCellValue("C$i", $fn->retime($value['TimeLeave']))
+            ->setCellValue("D$i", $value['CallNum'])
+            ->setCellValue("E$i", $value['LeaveNum'])
+            ->setCellValue("F$i", $value['FromQueue'])
+            ->setCellValue("G$i", $value['Project']);
     $i++;
 }
 
 $objPHPExcel->getActiveSheet()->getStyle('A1:A7')->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('A9:F9')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A9:G9')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle("A1:A1")->getFont()->setSize(18);
-
-//$objPHPExcel->getActiveSheet()->getStyle('A1:F10000')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-$objPHPExcel->getActiveSheet()->getStyle("A1:F$i")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+$objPHPExcel->getActiveSheet()->getStyle("A1:G$i")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 // Redirect output to a clientâ€™s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="CallBackReport.xlsx"');

@@ -19,9 +19,9 @@ if (isset($_GET['Did'])) {
 if (isset($_GET['Queue'])) {
     $QueuesID = $_GET['Queue'];
 }
-if(!empty($projectId)){
-$agent = $fn->getAgentForProjectDID($projectId, $DIDID, $QueuesID);
-}else{
+if (!empty($projectId)) {
+    $agent = $fn->getAgentForProjectDID($projectId, $DIDID, $QueuesID);
+} else {
     $agent = array();
 }
 
@@ -96,7 +96,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
             </div>
 
             <section class="charts">
-                <div class="container-fluid">
+                <div class="container-fluid" id="MainPosion">
                     <header id="formSearc"> 
                         <h1 class="h3">End Call Survey Reports</h1>
                         <form id="Sform" class="endcall">
@@ -175,7 +175,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                 </div> 
 
                                 <div class="col-md-3" >
-                                      <label>Time Option. </label>    
+                                    <label>Time Option. </label>    
                                     <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
                                         <div class="timeRate">
                                             <span>Begin<br/> <input type="text" id="timeStart" name="timeStart" value="<?= (isset($_GET['timeStart']) && !empty($_GET['timeStart'])) ? $_GET['timeStart'] : '00:00' ?>" class="form-control TimeSelectBox" ></span>
@@ -187,16 +187,38 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
 
 
                                 </div>
+                                <div class="col-md-3" >
+                                    <label>Dialin  Option. </label>    
+                                    <div  style="display: flex;flex-direction: column;flex: 1;justify-content: flex-start;align-items: stretch;">
+                                        <label style="margin-left: 25px;margin-bottom: 5px;">
+                                            <input type="radio" name="dialin" value="ALL" <?php echo (isset($_GET['dialin']) && $_GET['dialin'] == 'ALL') ? 'checked' : (!isset($_GET['dialin']) ? 'checked' : '') ?> > All
+                                        </label>
+                                        <label style="margin-left: 25px;margin-bottom: 5px;">
+                                            <input type="radio" name="dialin" value="1" <?php echo (isset($_GET['dialin']) && $_GET['dialin'] == '1') ? 'checked' : "" ?> > Call In. 
+                                        </label>
+                                        <label style="margin-left: 25px;margin-bottom: 5px;">
+                                            <input type="radio" name="dialin" value="0" <?php echo (isset($_GET['dialin']) && $_GET['dialin'] == '0') ? 'checked' : "" ?> >  Call Out.
+                                        </label>
+
+                                    </div>
+
+
+                                </div>
                                 <div class="col-md-3" id="ScoreRate"   <?php
                                 if (@!isset($_GET['Project']) || $_GET['Project'] == 'all') {
                                     ?> style="display: none;"<?php
                                      }
                                      ?>>
-                                    <label>Score Rate </label>    
+                                    <label>Score Rate </label>  
+                                    <div>
+                                        <label style="margin-left: 25px;margin-bottom: 5px;">
+                                            <input type="checkbox" name="scoreNull" value="yes" <?php echo (isset($_GET['scoreNull']) && $_GET['scoreNull'] == 'yes') ? 'checked' : "" ?> > Null Only
+                                        </label>
+                                    </div>
                                     <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
                                         <div   class="timeRate">
-                                              <span> Begin</span><br/> 
-                                            <input type="number" id="score_min" min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max']: '0') ?>" value="<?= isset($_GET['scorestrat']) ? $_GET['scorestrat'] : (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" name="scorestrat" class="SmallTextBox scoreRate" > 
+                                            <span> Begin</span><br/> 
+                                            <input type="number" id="score_min" min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= isset($_GET['scorestrat']) ? $_GET['scorestrat'] : (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" name="scorestrat" class="SmallTextBox scoreRate" > 
                                         </div>
                                         <div  class="timeRate">
                                             <span>End</span> <br/> 
@@ -206,8 +228,8 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                 </div> 
 
                                 <div class="clear"></div>
-                                <div class="col-md-12" style="height: 0px;margin: 0px;"> 
-                                    <div class="btn-group   pull-right" role="group" aria-label="Button group with nested dropdown" style="margin-right:30px;margin-top:-65px;">
+                                <div class="col-md-12" style="margin: 0px;"> 
+                                    <div class="btn-group   pull-right" role="group" aria-label="Button group with nested dropdown" style="margin-right:30px;margin-top:-45px;">
                                         <button type="submit" class="btn btn-primary btn-lg">Generate</button>
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -221,15 +243,16 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         </div>
                                     </div>
                                 </div>
+                                <div class="clear"></div>
 
 
                             </div>
                         </form>
                     </header>
 
-                    <div class="row"> 
-                        <div class="card col-12">                             
-                            <div class="card-body">
+                    <div class="row" id="DetailPabel"  > 
+                        <div class=" col-12">                             
+                            <div  >
 
                                 <?php
                                 if (isset($_GET['report']) && !empty($_GET['report']) && $_GET['report'] == 'sum') { // Average
@@ -286,8 +309,25 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         <tbody>
                                             <?php
                                             $i = 1;
+
                                             foreach ($list AS $key => $value) {
                                                 $valuex = $fn->ThaiTextToutf($value);
+                                                $score = "";
+                                                if (empty($value['score'])) {
+                                                    if ($value['score'] === "0") {
+                                                        $score = $value['score'];
+                                                    } else {
+                                                        $score = "NULL";
+                                                    }
+                                                } else {
+                                                    $score = $value['score'];
+                                                }
+
+                                                if (empty($data[$score])) {
+                                                    $data[$score] = 1;
+                                                } else {
+                                                    $data[$score] += 1;
+                                                }
                                                 ?>
                                                 <tr>                                                
                                                     <td><?= $fn->redate($value['DateLeave'], 'no'); ?></td>
@@ -296,7 +336,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                                     <td><?= $value['agent']; ?></td>   
                                                     <td><?= $valuex['name'] . ' ' . $valuex['lastname']; ?></td> 
                                                     <td><?= $value['DIDNumber']; ?></td>    
-                                                    <td><?= $value['score']; ?></td>
+                                                    <td><?= $score ?></td>
 
                                                 </tr>
                                                 <?php
@@ -306,9 +346,114 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         </tbody>
                                     </table>
                                 <?php } ?>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Detail</th>
+                                                    <th>Total</th>
+                                                    <th>%</th>
+                                                    <th>Score</th>
+                                                    <th>%</th>
+                                                </tr>                                            
+                                            </thead>
+
+                                            <?php
+                                            $all = 0;
+                                            $all += $press1 = !empty($data[1]) ? $data[1] : 0;
+                                            $all += $press2 = !empty($data[2]) ? $data[2] : 0;
+                                            $all += $press3 = !empty($data[3]) ? $data[3] : 0;
+
+
+                                            switch ($_GET['Project']) {
+                                                case 2:
+                                                    ?>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Press 1 </td>
+                                                            <td><?= number_format($press1) ?></td>
+                                                            <td  class="text-info"><?= ($press1 > 0) ? $rowPer1 = number_format(($press1 * 100 ) / $all, 2) : $rowPer1 = 0 ?></td>
+                                                            <td><?= number_format($press1) ?></td>                                                            
+                                                            <td  class="text-info"><?= ($press1 > 0) ? $persent1 = number_format(($press1 * 100 ) / ($all), 2) : $persent1 = 0 ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Press 2 </td>
+                                                            <td><?= $press2 ?></td>
+                                                            <td  class="text-info"><?= ($press2 > 0) ? $rowPer2 = number_format(($press2 * 100 ) / $all, 2) : $rowPer2 += 0 ?></td>
+                                                            <td><?= number_format($press2 * 0.5, 2); ?></td>
+                                                            <td  class="text-info"><?= ($press2 > 0) ? $persent2 = number_format((($press2 * 0.5) * 100 ) / $all * 1, 2) : $persent2 = 0 ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Press 3 </td>
+                                                            <td><?= $press3 ?></td>
+                                                            <td  class="text-info"><?= ($press3 > 0) ? $rowPer3 = number_format(($press3 * 100 ) / $all, 2) : $rowPer3 = 0 ?></td>
+                                                            <td> 0 </td>
+                                                            <td  class="text-info"> 0 </td>
+                                                        </tr>
+
+
+                                                    </tbody>
+                                                    <tfoot class="text-bold ">
+                                                        <tr>
+                                                            <td>Sumary </td>
+                                                            <td><?= number_format($all); ?></td>
+                                                            <td  class="text-info"> <?= $rowPer1 + $rowPer2 + $rowPer3 ?> </td>
+                                                            <td><?= number_format($press1 + ($press2 * 0.5), 2) ?></td>
+                                                            <td  class="text-info"><?= $persent1 + $persent2 ?> </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <?php
+                                                    break;
+
+                                                case 3:
+                                                    $all = 0;
+                                                    $all += $press1 = !empty($data[1]) ? $data[1] : 0;
+                                                    $all += $press3 = !empty($data[0]) ? $data[0] : 0;
+                                                    ?>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Press 1 </td>
+                                                            <td><?= number_format($press1) ?></td>
+                                                            <td  class="text-info"><?= ($press1 > 0) ? $rowPer1 = number_format(($press1 * 100 ) / $all, 2) : $rowPer1 = 0 ?></td>
+                                                            <td><?= number_format($press1) ?></td>                                                            
+                                                            <td  class="text-info"><?= ($press1 > 0) ? $persent1 = number_format(($press1 * 100 ) / ($all), 2) : $persent1 = 0 ?></td>
+                                                        </tr>
+
+                                                       <tr>
+                                                            <td>Press 0 </td>
+                                                            <td><?= $press3 ?></td>
+                                                            <td  class="text-info"><?= ($press3 > 0) ? $rowPer3 = number_format(($press3 * 100 ) / $all, 2) : $rowPer3 = 0 ?></td>
+                                                            <td> 0 </td>
+                                                            <td  class="text-info"> 0 </td>
+                                                        </tr>
+
+
+                                                    </tbody>
+                                                    <tfoot class="text-bold ">
+                                                        <tr>
+                                                            <td>Sumary </td>
+                                                            <td><?= number_format($all); ?></td>
+                                                            <td  class="text-info"> <?= $rowPer1 + $rowPer3 ?> </td>
+                                                            <td><?= number_format($press1) ?></td>
+                                                            <td  class="text-info"><?= $persent1  ?> </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <?php
+                                                    break;
+                                            }
+                                            ?>
+
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <?php ?>
                             </div>
                         </div>
                     </div>
+                </div>
             </section>
 
             <?php include './_foot.php'; ?>   
@@ -323,6 +468,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
         <script src="bootstrap-daterangepicker/moment.min.js"></script>
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="node_modules/timepicker/jquery.timepicker.min.js"></script> 
+        <script src="js/front.js"></script>
         <script src="js/customs.js"></script>
         <script src="js/endcal.js"></script>
         <script>

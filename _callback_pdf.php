@@ -17,17 +17,17 @@ $pdf->AddFont('angsa', '', 'angsa.php');
 $pdf->AddFont('angsab', '', 'angsab.php');
 $pdf->SetFont('angsa', '', 16);
 $pdf->Cell(180, 5, 'Call Back Reports', '0', 1, 'C', 0);
-$pdf->SetFont('angsa', '', 14);
+$pdf->SetFont('angsa', '', 15);
 $pdf->Cell(180, 5, 'DATA DATE: ' . (isset($_GET['date']) ? $_GET['date'] : ''), '0', 1, 'L', 0);
 $pdf->Cell(180, 5, 'Project : ' . ( ($_GET['Project'] != 'all') ? $project['Name'] : '.................')
-    . ' | DID Number : ' . (isset($_GET['Did']) ? $_GET['Did'] : '.................')
+        . ' | DID Number : ' . (isset($_GET['Did']) ? $_GET['Did'] : '.................')
         . ' | Queue Number : ' . (isset($_GET['Queue']) ? $_GET['Queue'] : '.................')
         . ' | Day Or Night : ' . (isset($_GET['DayOrNight']) ? $fn->dayNight[$_GET['DayOrNight']] : '................')
         . ' | Only Leave Number: ' . (isset($_GET['Leave']) ? "Yes" : "NO" )
         , '0', 1, 'L', 0);
 $pdf->ln();
 ///-----------------Headder--------------------------------------------------////////////
-
+$pdf->Cell(10, 5, 'NO.', 'LT', 0, 'C', 0);
 $pdf->Cell(30, 5, 'Date', 'LT', 0, 'C', 0);   // empty cell with left,top, and right borders
 $pdf->Cell(30, 5, 'Time', 'LT', 0, 'C', 0);
 $pdf->Cell(30, 5, 'Call Number', 'LT', 0, 'C', 0);
@@ -35,16 +35,34 @@ $pdf->Cell(30, 5, 'Leave Number', 'LT', 0, 'C', 0);  // cell with left and right
 $pdf->Cell(30, 5, 'Queue Number', 'LT', 0, 'C', 0);
 $pdf->Cell(30, 5, 'DID. (VDN.)', 'LTR', 0, 'C', 0);
 
+$i = 1;
+$page = 1;
+$count = 1;
 foreach ($list as $key => $value) {
     $pdf->ln();
+    $pdf->Cell(10, 5, $i++, 'LT', 0, 'L', 0);
     $pdf->Cell(30, 5, $fn->redate($value['DateLeave']), 'LT', 0, 'L', 0);   // empty cell with left,top, and right borders
     $pdf->Cell(30, 5, $fn->retime($value['TimeLeave']), 'LT', 0, 'L', 0);
     $pdf->Cell(30, 5, $value['CallNum'], 'LT', 0, 'L', 0);
     $pdf->Cell(30, 5, $value['LeaveNum'], 'LT', 0, 'L', 0);  // cell with left and right borders
     $pdf->Cell(30, 5, $value['FromQueue'], 'LT', 0, 'L', 0);
     $pdf->Cell(30, 5, $value['Project'], 'LTR', 0, 'L', 0);
+    $count++;
+    if (($count == 48 && $page == 1) || ($count == 53 && $page > 1)) {
+        $count = 1;
+        $page++;
+        $pdf->ln();
+        $pdf->Cell(10, 5, '', 'T', 0, 'C', 0);
+        $pdf->Cell(30, 5, '', 'T', 0, 'C', 0);   // empty cell with left,top, and right borders
+        $pdf->Cell(30, 5, '', 'T', 0, 'C', 0);
+        $pdf->Cell(30, 5, '', 'T', 0, 'C', 0);
+        $pdf->Cell(30, 5, '', 'T', 0, 'C', 0);  // cell with left and right borders
+        $pdf->Cell(30, 5, '', 'T', 0, 'C', 0);
+        $pdf->Cell(30, 5, '', 'T', 0, 'C', 0);
+    }
 }
 $pdf->ln();
+$pdf->Cell(10, 5, '', 'T', 0, 'C', 0);
 $pdf->Cell(30, 5, '', 'T', 0, 'C', 0);   // empty cell with left,top, and right borders
 $pdf->Cell(30, 5, '', 'T', 0, 'C', 0);
 $pdf->Cell(30, 5, '', 'T', 0, 'C', 0);
