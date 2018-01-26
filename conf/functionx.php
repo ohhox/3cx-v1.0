@@ -259,6 +259,32 @@ class functionx extends Crud {
         return $this->query($sql);
     }
 
+    public function getAuxtime() {
+        $d = array(); // FOR SHOW IN INPUT
+
+        if (isset($_GET['date']) && !empty($_GET['date'])) {
+            $date = explode('-', $_GET['date']);
+
+            $stardate = trim($date[2]) . '-' . $date[1] . '-' . $date[0];
+            $enddate = trim($date[5]) . '-' . $date[4] . '-' . ltrim(trim($date[3]));
+            $d = array(
+                '1' => $date[0] . '-' . $date[1] . '-' . trim($date[2]),
+                '2' => ltrim(trim($date[3])) . '-' . $date[4] . '-' . ltrim(trim($date[5])),
+            );
+        } else {
+            $enddate = $stardate = date('Y-m-d');
+            $d = array(
+                '1' => date('d-m-Y'),
+                '2' => date('d-m-Y'),
+            );
+        }
+
+
+        $where = "WHERE DATEADD(year,-543,convert(date,DateAux)) BETWEEN '$stardate' AND '$enddate' ";
+        echo $sql = "SELECT TOP 2000 * FROM AuxTime $where";
+        return $this->query($sql);
+    }
+
     public function getCallBackAgent() {
         $sql = "SELECT FromQueue FROM CallBack GROUP BY FromQueue";
         return $this->query($sql);

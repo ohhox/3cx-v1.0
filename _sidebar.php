@@ -9,11 +9,13 @@
         </div>
 
         <div class="admin-menu">
-            <ul id="side-admin-menu" class="side-menu list-unstyled"> 
-
+            <ul id="side-admin-menu" class="side-menu list-unstyled">
                 <li id="Activehome"  > <a href="index.php"> <i class="icon-screen"> </i><span>Home</span></a></li>
                 <li id="Activecallback"> <a href="callback.php"> <i class="icon-rss-feed"> </i><span>Call Back Reports</span></a></li>
                 <li id="Activeendcall"> <a href="endcall.php"> <i class="icon-rss-feed"> </i><span>End call survey Reports</span></a></li> 
+                <li id="ActiveAuxtime"> <a href="auxtime.php"> <i class="icon-rss-feed">  </i><span>Auxilary Time Report</span></a></li> 	
+
+                
                 <li id="Activeproject"> <a href="manage_project.php"> <i class="fa fa-cog"> </i><span>Project Management</span></a></li> 	 				 
                 <li id="Activeuser"> <a href="user_management.php"> <i class="fa fa-user-secret"> </i><span>User Management</span></a></li> 	 				 
             </ul>
