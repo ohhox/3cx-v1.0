@@ -194,10 +194,10 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             <input type="radio" name="dialin" value="ALL" <?php echo (isset($_GET['dialin']) && $_GET['dialin'] == 'ALL') ? 'checked' : (!isset($_GET['dialin']) ? 'checked' : '') ?> > All
                                         </label>
                                         <label style="margin-left: 25px;margin-bottom: 5px;">
-                                            <input type="radio" name="dialin" value="1" <?php echo (isset($_GET['dialin']) && $_GET['dialin'] == '1') ? 'checked' : "" ?> > Call In. 
+                                            <input type="radio" name="dialin" value="0" <?php echo (isset($_GET['dialin']) && $_GET['dialin'] == '0') ? 'checked' : "" ?> > Call In. 
                                         </label>
                                         <label style="margin-left: 25px;margin-bottom: 5px;">
-                                            <input type="radio" name="dialin" value="0" <?php echo (isset($_GET['dialin']) && $_GET['dialin'] == '0') ? 'checked' : "" ?> >  Call Out.
+                                            <input type="radio" name="dialin" value="1" <?php echo (isset($_GET['dialin']) && $_GET['dialin'] == '1') ? 'checked' : "" ?> >  Call Out.
                                         </label>
 
                                     </div>
