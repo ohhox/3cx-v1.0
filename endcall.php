@@ -345,114 +345,126 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
 
                                         </tbody>
                                     </table>
-                                <?php } ?>
+                                    <?php
+                                }
 
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Detail</th>
-                                                    <th>Total</th>
-                                                    <th>%</th>
-                                                    <th>Score</th>
-                                                    <th>%</th>
-                                                </tr>                                            
-                                            </thead>
+                                if (isset($_GET['report']) && $_GET['report'] == 'data') {
+                                    ?>
 
-                                            <?php
-                                            if (isset($_GET['Project'])) {
-                                                $all = 0;
-                                                $all += $press1 = !empty($data[1]) ? $data[1] : 0;
-                                                $all += $press2 = !empty($data[2]) ? $data[2] : 0;
-                                                $all += $press3 = !empty($data[3]) ? $data[3] : 0;
-                                                $rowPer2 = 0;
+                                    <div class="row">
+                                        <div class="col-md-5"  >
+                                            <h3 style="padding: 0px;padding-bottom: 10px;margin: 0px;margin-top: 30px;">  More Description </h3>
+                                            <table class="table table-striped" style="border-top: 2px #33b35a solid;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Detail</th>
+                                                        <th>Total</th>
+                                                        <th>%</th>
+                                                        <th>Score</th>
+                                                        <th>%</th>
+                                                    </tr>                                            
+                                                </thead>
 
-
-                                                switch ($_GET['Project']) {
-                                                    case 2:
-                                                        ?>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Press 1 </td>
-                                                                <td><?= number_format($press1) ?></td>
-                                                                <td  class="text-info"><?= ($press1 > 0) ? $rowPer1 = number_format(($press1 * 100 ) / $all, 2) : $rowPer1 = 0 ?></td>
-                                                                <td><?= number_format($press1) ?></td>                                                            
-                                                                <td  class="text-info"><?= ($press1 > 0) ? $persent1 = number_format(($press1 * 100 ) / ($all), 2) : $persent1 = 0 ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Press 2 </td>
-                                                                <td><?= $press2 ?></td>
-                                                                <td  class="text-info"><?= ($press2 > 0) ? $rowPer2 = number_format(($press2 * 100 ) / $all, 2) : $rowPer2 = 0 ?></td>
-                                                                <td><?= number_format($press2 * 0.5, 2); ?></td>
-                                                                <td  class="text-info"><?= ($press2 > 0) ? $persent2 = number_format((($press2 * 0.5) * 100 ) / $all * 1, 2) : $persent2 = 0 ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Press 3 </td>
-                                                                <td><?= $press3 ?></td>
-                                                                <td  class="text-info"><?= ($press3 > 0) ? $rowPer3 = number_format(($press3 * 100 ) / $all, 2) : $rowPer3 = 0 ?></td>
-                                                                <td> 0 </td>
-                                                                <td  class="text-info"> 0 </td>
-                                                            </tr>
+                                                <?php
+                                                if (isset($_GET['Project'])) {
+                                                    $all = 0;
+                                                    $all += $press1 = !empty($data[1]) ? $data[1] : 0;
+                                                    $all += $press2 = !empty($data[2]) ? $data[2] : 0;
+                                                    $all += $press3 = !empty($data[3]) ? $data[3] : 0;
+                                                    $rowPer2 = 0;
 
 
-                                                        </tbody>
-                                                        <tfoot class="text-bold ">
-                                                            <tr>
-                                                                <td>Sumary </td>
-                                                                <td><?= number_format($all); ?></td>
-                                                                <td  class="text-info"> <?= $rowPer1 + $rowPer2 + $rowPer3 ?> </td>
-                                                                <td><?= number_format($press1 + ($press2 * 0.5), 2) ?></td>
-                                                                <td  class="text-info"><?= $persent1 + $persent2 ?> </td>
-                                                            </tr>
-                                                        </tfoot>
-                                                        <?php
-                                                        break;
-
-                                                    case 3:
-                                                        $all = 0;
-                                                        $all += $press1 = !empty($data[1]) ? $data[1] : 0;
-                                                        $all += $press3 = !empty($data[0]) ? $data[0] : 0;
-                                                        ?>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Press 1 </td>
-                                                                <td><?= number_format($press1) ?></td>
-                                                                <td  class="text-info"><?= ($press1 > 0) ? $rowPer1 = number_format(($press1 * 100 ) / $all, 2) : $rowPer1 = 0 ?></td>
-                                                                <td><?= number_format($press1) ?></td>                                                            
-                                                                <td  class="text-info"><?= ($press1 > 0) ? $persent1 = number_format(($press1 * 100 ) / ($all), 2) : $persent1 = 0 ?></td>
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td>Press 0 </td>
-                                                                <td><?= $press3 ?></td>
-                                                                <td  class="text-info"><?= ($press3 > 0) ? $rowPer3 = number_format(($press3 * 100 ) / $all, 2) : $rowPer3 = 0 ?></td>
-                                                                <td> 0 </td>
-                                                                <td  class="text-info"> 0 </td>
-                                                            </tr>
+                                                    switch ($_GET['Project']) {
+                                                        case 2:
+                                                            ?>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Press 1 </td>
+                                                                    <td><?= number_format($press1) ?></td>
+                                                                    <td  class="text-info"><?= ($press1 > 0) ? $rowPer1 = number_format(($press1 * 100 ) / $all, 2) : $rowPer1 = 0 ?></td>
+                                                                    <td><?= number_format($press1) ?></td>                                                            
+                                                                    <td  class="text-info"><?= ($press1 > 0) ? $persent1 = number_format(($press1 * 100 ) / ($all), 2) : $persent1 = 0 ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Press 2 </td>
+                                                                    <td><?= $press2 ?></td>
+                                                                    <td  class="text-info"><?= ($press2 > 0) ? $rowPer2 = number_format(($press2 * 100 ) / $all, 2) : $rowPer2 = 0 ?></td>
+                                                                    <td><?= number_format($press2 * 0.5, 2); ?></td>
+                                                                    <td  class="text-info"><?= ($press2 > 0) ? $persent2 = number_format((($press2 * 0.5) * 100 ) / $all * 1, 2) : $persent2 = 0 ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Press 3 </td>
+                                                                    <td><?= $press3 ?></td>
+                                                                    <td  class="text-info"><?= ($press3 > 0) ? $rowPer3 = number_format(($press3 * 100 ) / $all, 2) : $rowPer3 = 0 ?></td>
+                                                                    <td> 0 </td>
+                                                                    <td  class="text-info"> 0 </td>
+                                                                </tr>
 
 
-                                                        </tbody>
-                                                        <tfoot class="text-bold ">
-                                                            <tr>
-                                                                <td>Sumary </td>
-                                                                <td><?= number_format($all); ?></td>
-                                                                <td  class="text-info"> <?= $rowPer1 + $rowPer3 ?> </td>
-                                                                <td><?= number_format($press1) ?></td>
-                                                                <td  class="text-info"><?= $persent1 ?> </td>
-                                                            </tr>
-                                                        </tfoot>
-                                                        <?php
-                                                        break;
+                                                            </tbody>
+                                                            <tfoot class="text-bold ">
+                                                                <tr>
+                                                                    <td>Sumary </td>
+                                                                    <td><?= number_format($all); ?></td>
+                                                                    <td  class="text-info"> <?= $rowPer1 + $rowPer2 + $rowPer3 ?> </td>
+                                                                    <td><?= number_format($press1 + ($press2 * 0.5), 2) ?></td>
+                                                                    <td  class="text-info"><?= $persent1 + $persent2 ?> </td>
+                                                                </tr>
+                                                                  <tr>
+                                                                    <td colspan="5"  >The Total Customer Satisfaction : <?= $persent1 + $persent2 ?>%</td>
+                                                                </tr>
+                                                            </tfoot>
+                                                            <?php
+                                                            break;
+
+                                                        case 3:
+                                                            $all = 0;
+                                                            $all += $press1 = !empty($data[1]) ? $data[1] : 0;
+                                                            $all += $press3 = !empty($data[0]) ? $data[0] : 0;
+                                                            ?>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Press 1 </td>
+                                                                    <td><?= number_format($press1) ?></td>
+                                                                    <td  class="text-info"><?= ($press1 > 0) ? $rowPer1 = number_format(($press1 * 100 ) / $all, 2) : $rowPer1 = 0 ?></td>
+                                                                    <td><?= number_format($press1) ?></td>                                                            
+                                                                    <td  class="text-info"><?= ($press1 > 0) ? $persent1 = number_format(($press1 * 100 ) / ($all), 2) : $persent1 = 0 ?></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td>Press 0 </td>
+                                                                    <td><?= $press3 ?></td>
+                                                                    <td  class="text-info"><?= ($press3 > 0) ? $rowPer3 = number_format(($press3 * 100 ) / $all, 2) : $rowPer3 = 0 ?></td>
+                                                                    <td> 0 </td>
+                                                                    <td  class="text-info"> 0 </td>
+                                                                </tr>
+
+
+                                                            </tbody>
+                                                            <tfoot class="text-bold ">
+                                                                <tr>
+                                                                    <td>Sumary </td>
+                                                                    <td><?= number_format($all); ?></td>
+                                                                    <td  class="text-info"> <?= $rowPer1 + $rowPer3 ?> </td>
+                                                                    <td><?= number_format($press1) ?></td>
+                                                                    <td  class="text-info"><?= $persent1 ?> </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="5"  >The Total Customer Satisfaction : <?=$persent1?>%</td>
+                                                                </tr>
+                                                            </tfoot>
+                                                            
+                                                            <?php
+                                                            break;
+                                                    }
                                                 }
-                                            }
-                                            ?>
+                                                ?>
 
-                                        </table>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <?php ?>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
