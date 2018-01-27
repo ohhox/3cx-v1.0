@@ -191,8 +191,8 @@ class functionx extends Crud {
         
         
         if (isset($_GET['dialin']) && $_GET['dialin'] != 'ALL') {
-            $where .= " AND c.Dialin='{$_GET['scoreend']}'";
-            $where2 .= " AND Dialin='{$_GET['scoreend']}'";
+            $where .= " AND c.Dialin='{$_GET['dialin']}'";
+            $where2 .= " AND Dialin='{$_GET['dialin']}'";
         }
 
         if (isset($_GET['scoreNull'])) {
