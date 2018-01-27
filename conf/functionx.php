@@ -248,7 +248,7 @@ class functionx extends Crud {
             if (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) {
                 $where .= " AND customernumber LIKE '%{$_GET['Cusnum']}%'";
             }
-          echo  $sql = " SELECT convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber,a.name,a.lastname
+             $sql = " SELECT convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber,a.name,a.lastname
                     FROM didagent AS da
                     LEFT JOIN agent AS a ON a.agent_id =da.agent_id
                     LEFT JOIN DIDQueues AS d ON d.DIDQueueID = da.DIDQueueID  
