@@ -29,6 +29,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <link rel="stylesheet" href="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
         <!-- theme stylesheet-->
         <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+        <link rel="stylesheet" href="node_modules/timepicker/jquery.timepicker.min.css">
         <!-- Custom stylesheet - for your changes-->
 
         <!-- Favicon-->
@@ -83,6 +84,19 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <div  class="form-group" >
+                                            <label>Work Hours * </label>    
+                                            <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
+                                                <div class="timeRate">
+                                                    <span>Start Time.<br/> <input type="text" id="timeStart" name="timeStart" value="<?= (isset($list)) ? date('H:i', strtotime($list['timeStart'])) : '00:00' ?>" class="form-control TimeSelectBox" ></span>
+                                                </div>
+                                                <div class="timeRate">
+                                                    <span>End Time.<br/> <input type="text" id="timeEnd" name="timeEnd" value="<?= (isset($list)) ? date('H:i', strtotime($list['timeEnd'])) : '23:59' ?>"  class="form-control TimeSelectBox" ></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                         <div class="form-group">
                                             <label>DID Number * </label>
                                             <div>
@@ -126,6 +140,24 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="js/front.js"></script>
         <script src="js/customs.js"></script>
-         
+
+        <script src="node_modules/timepicker/jquery.timepicker.min.js"></script> 
+        <script>
+            $('#timeStart,#timeEnd').timepicker({'timeFormat': 'H:i', show2400: true});
+
+            $('.TimeSelectBox').on('change', function () {
+                var timeStart = $("#timeStart").val();
+                var timeEnd = $("#timeEnd").val();
+
+                $('.timeerror').remove();
+                if (timeEnd == '24:00') {
+                    $("#timeEnd").val('23:59');
+                }
+                if (timeStart > timeEnd) {
+                    $("#timeEnd").focus().after("<div class=timeerror style=padding:0px;>can't use this format time.</div>");
+                }
+            });
+
+        </script>
     </body>
 </html>

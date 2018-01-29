@@ -4,6 +4,37 @@ $fn = new functionx();
 $list = $fn->getAuxtime();
 
 
+$project = $fn->getProjectList();
+$thisProject = "";
+
+$projectId = "";
+$DIDID = "";
+$QueuesID = "";
+if (isset($_GET['Project'])) {
+    $projectId = $_GET['Project'];
+    $thisProject = $fn->getProject($_GET['Project']);
+}
+if (isset($_GET['Did'])) {
+    $DIDID = $_GET['Did'];
+}
+if (isset($_GET['Queue'])) {
+    $QueuesID = $_GET['Queue'];
+}
+if (!empty($projectId)) {
+    $agent = $fn->getAgentForProjectDID($projectId, $DIDID, $QueuesID);
+} else {
+    $agent = array();
+}
+
+$did = array();
+$Queue = array();
+if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
+
+    $did = $fn->getDid($_GET['Project']);
+}
+if (isset($_GET['Did']) && $_GET['Did'] != 'all') {
+    $Queue = $fn->getQueue($_GET['Did']);
+}
 if (isset($_GET['date']) && !empty($_GET['date'])) {
     $date = explode('-', $_GET['date']);
 
@@ -17,11 +48,10 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
         '2' => date('d-m-Y'),
     );
 }
-
 ?>
 <!DOCTYPE html>
 <html>
-       <head>
+    <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>3CX WEB REPORT SYSTEM.</title>
@@ -41,6 +71,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
         <!-- Custom Scrollbar-->
         <link rel="stylesheet" href="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
         <!-- theme stylesheet-->
+        <link rel="stylesheet" href="node_modules/timepicker/jquery.timepicker.min.css">
         <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
         <!-- Custom stylesheet - for your changes-->
 
@@ -72,9 +103,82 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                         <form id="Sform">
                             <div class="row">
                                 <div class="col-md-3">
+                                    <div  >
+                                        <label>Agent Name</label>
+                                        <input type="text" name="Cusnum" placeholder="Agent Name" class="form-control" value="<?= (isset($_GET['Cusnum'])) ? $_GET['Cusnum'] : "" ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <label>Date Rang</label>
                                     <input type="text" class="form-control" id="date" name="date">
                                 </div>
+                               
+                                <div class="col-md-3">
+                                    <label>Project</label>
+                                    <select class=" form-control" name="Project" id="Project">
+                                        <option value="all">ALL</option>
+                                        <?php
+                                        foreach ($project AS $key => $value) {
+                                            ?>
+                                            <option value="<?php echo $value['ProjectID']; ?>" <?= @($_GET['Project'] == $value['ProjectID']) ? 'selected' : '' ?>> 
+                                                <?php echo $value['Name']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                    <div id="AllertMage"></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>DID. (VDN.)</label>
+                                    <select class=" form-control" name="Did" id="Did" >
+                                        <option value="all">ALL</option>
+                                        <?php
+                                        foreach ($did AS $key => $value) {
+                                            ?>
+                                            <option data-status="remove" value="<?php echo $value['DIDNumber']; ?>" <?= @($_GET['Did'] == $value['DIDNumber']) ? 'selected' : '' ?>> 
+                                                <?php echo $value['DIDNumber']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                    <div id="AllertMage2"></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Queue Number</label>
+                                    <select class=" form-control" name="Queue" id="Queue" >
+                                        <option value="all">ALL</option>
+                                        <?php
+                                        foreach ($Queue AS $key => $value) {
+                                            ?>
+                                            <option data-status="remove"  value="<?php echo $value['QueueNumber']; ?>" <?= @($_GET['Queue'] == $value['QueueNumber']) ? 'selected' : '' ?>> 
+                                                <?php echo $value['QueueNumber']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>      
+                                 <div class="col-md-3" >
+                                    <label>Time Option. </label>    
+                                    <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
+                                        <div class="timeRate">
+                                            <span>Begin<br/> <input type="text" id="timeStart" name="timeStart" value="<?= (isset($_GET['timeStart']) && !empty($_GET['timeStart'])) ? $_GET['timeStart'] : '00:00' ?>" class="form-control TimeSelectBox" ></span>
+                                        </div>
+                                        <div class="timeRate">
+                                            <span>End<br/> <input type="text" id="timeEnd" name="timeEnd" value="<?= (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) ? $_GET['timeEnd'] : '23:59' ?>"  class="form-control TimeSelectBox" ></span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Agent Number </label>
+                                    <select class=" form-control" name="Agent" id="Agent">
+                                        <option value="all">ALL</option>
+                                        <?php
+                                        foreach ($agent AS $key => $value) {
+                                            ?>
+                                            <option data-status='remove' value="<?php echo $value['agent_code']; ?>" <?= @($_GET['Agent'] == $value['agent_code']) ? 'selected' : '' ?>>  <?php echo $value['agent_code']; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div> 
+                                
                                 <div class="col-md-12" style="height: 0px;margin: 0px;"> 
                                     <div class="btn-group   pull-right" role="group" aria-label="Button group with nested dropdown" style="margin-right:30px;margin-top:-65px;">
                                         <button type="submit" class="btn btn-primary btn-lg">Generate</button>
@@ -102,27 +206,32 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             <th>No.</th>
                                             <th>Date</th>
                                             <th>Time</th>
+
+                                            <th>Agent Number</th>
+
+                                            <th>Agent Name</th>
                                             <th>Line In / out</th>
                                             <th>Aux Number</th>
                                             <th>Aux Description</th>
                                             <th>Dial Code</th> 
-                                            <th>Agent Number</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $i = 1;
                                         foreach ($list AS $key => $value) {
+                                            $valuex = $fn->ThaiTextToutf($value);
                                             ?>
                                             <tr>
                                                 <td scope="row"><?= $i++ ?></td>
                                                 <td><?= $value['DateAux']; ?></td>
-                                                <td><?= $value['TimeAux']; ?></td>
+                                                <td><?= $value['TimeAux']; ?></td>                                                
+                                                <td><?= $value['Agent']; ?></td>
+                                                <td><?= $valuex['name'] . ' ' . $valuex['lastname']; ?></td> 
                                                 <td><?= $value['Loginout']; ?></td>
                                                 <td><?= $value['AuxNum']; ?></td>
                                                 <td><?= $value['AuxDes']; ?></td>
                                                 <td><?= $value['Dialcode']; ?></td> 
-                                                <td><?= $value['Agent']; ?></td>
                                             </tr>
                                             <?php
                                         }
@@ -140,19 +249,21 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
 
         </div>
         <!-- Javascript files-->
-          <script src="js/jquery-3.2.1.min.js"></script> 
+        <script src="js/jquery-3.2.1.min.js"></script> 
         <script src="js/popper.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script> 
-
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
-
         <script src="bootstrap-daterangepicker/moment.min.js"></script>
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
+        <script src="node_modules/timepicker/jquery.timepicker.min.js"></script> 
         <script src="js/front.js"></script>
         <script src="js/customs.js"></script>
-      <script>
+        <script src="js/endcal.js"></script>
+        <script>
 
             $(function () {
+                $('#timeStart,#timeEnd').timepicker({'timeFormat': 'H:i', show2400: true});
                 $('#date').daterangepicker({
                     locale: {
                         format: 'DD-MM-YYYY'

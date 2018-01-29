@@ -96,7 +96,8 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                                     <th>Project Code</th>
                                     <th>Project Name</th>
                                     <th>DID Number</th>
-                                    <th>Queue Number</th>  
+                                    <th>Queue Number</th>                                    
+                                    <th> Work Hours</th>
                                     <th>Total Agent </th>
                                     <th>manage</th> 
                                 </tr>
@@ -111,6 +112,15 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                                         <td><?= $value['Name']; ?></td>
                                         <td><?= $value['DIDNumber']; ?></td>
                                         <td><?= $value['QueueNumber']; ?></td> 
+                                        <td>
+                                            <?php
+                                            if (!empty($value['timeStart'])) {
+                                                echo date('H:i', strtotime($value['timeStart']));
+                                                echo " TO ";
+                                                echo date('H:i', strtotime($value['timeEnd']));
+                                            } 
+                                            ?>
+                                        </td> 
                                         <td><?= $fn->countDidAgent($value['DIDQueueID']); ?></td> 
                                         <td>                                                  
                                             <a class="btn btn-primary btn-sm"  href="manage_did_agent.php?id=<?= $value['DIDQueueID']; ?>"> <i class="fa fa-user-md"></i> Manage Agent</a>

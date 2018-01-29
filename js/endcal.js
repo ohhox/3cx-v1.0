@@ -21,6 +21,22 @@ $('#Did,#Project').on('change', function () { // Get Agent
 
 });
 
+$('#Queue').on('change', function () { // Get Agent
+    $("#Agent option[data-status=remove]").remove();
+
+    var did = $('#Did').val();
+    var project = $('#Project').val();
+    var Queue = $('#Queue').val();
+
+    $.getJSON('_op_ajax.php?op=getAgent&did=' + did + "&project=" + project +'&Qid='+Queue, function (data) {
+        var items = [];
+        $.each(data, function (key, val) {
+            $("#Agent").append('<option data-status="remove" value="' + val.agent_code + '"> ' + val.agent_code + '</option>');
+        });
+    });
+
+});
+
 $('#Project').on('change', function () { // Get Score
     var project = $('#Project').val();
     if (project != "all") {

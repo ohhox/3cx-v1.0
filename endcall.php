@@ -133,11 +133,10 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         <?php } ?>
                                     </select>
                                     <div id="AllertMage2"></div>
-                                </div> 
-
+                                </div>  
 
                                 <div class="col-md-3">
-                                    <label>Agent </label>
+                                    <label>Agent Number </label>
                                     <select class=" form-control" name="Agent" id="Agent">
                                         <option value="all">ALL</option>
                                         <?php
@@ -167,7 +166,6 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             </div>
                                         </div>
                                     </div>
-
                                     <div id="CustermerNumberF" class="<?= (!isset($_GET['report']) || $_GET['report'] != "sum") ? "show" : "" ?>">
                                         <label>Customer Number</label>
                                         <input type="text" name="Cusnum" placeholder="Customer Number" class="form-control" value="<?= (isset($_GET['Cusnum'])) ? $_GET['Cusnum'] : "" ?>">
@@ -184,7 +182,6 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             <span>End<br/> <input type="text" id="timeEnd" name="timeEnd" value="<?= (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) ? $_GET['timeEnd'] : '23:59' ?>"  class="form-control TimeSelectBox" ></span>
                                         </div>
                                     </div>
-
 
                                 </div>
                                 <div class="col-md-3" >

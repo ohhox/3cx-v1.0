@@ -144,15 +144,9 @@ class functionx extends Crud {
             );
         }
 
-        //check Select Project
         if (!isset($_GET['Project']) || $_GET['Project'] == "all" || empty($_GET['Project'])) {
             return array();
         }
-        //check Select Project
-//        if (!isset($_GET['Did']) || $_GET['Did'] == "all" || empty($_GET['Did'])) {
-//            return array();
-//        }
-
 
         $where .= " AND convert(datetime, c.date) BETWEEN '$stardate' AND '$enddate' ";
         $where2 .= " WHERE convert(datetime, date) BETWEEN '$stardate' AND '$enddate' ";
@@ -173,7 +167,7 @@ class functionx extends Crud {
             $where3 .= " AND d.DIDNumber='{$_GET['Did']}'";
         }
 
-///////////////////// DayOrNight
+///////////////////// Agent
         if (isset($_GET['Agent']) && !empty($_GET['Agent']) && $_GET['Agent'] != "all") {
             $where .= " AND c.agent='{$_GET['Agent']}'";
             $where3 .= " AND a.agent_code='{$_GET['Agent']}'";
@@ -188,8 +182,8 @@ class functionx extends Crud {
             $where .= " AND c.score BETWEEN {$_GET['scorestrat']} AND {$_GET['scoreend']}";
             $where2 .= " AND score BETWEEN {$_GET['scorestrat']} AND {$_GET['scoreend']}";
         }
-        
-        
+
+
         if (isset($_GET['dialin']) && $_GET['dialin'] != 'ALL') {
             $where .= " AND c.Dialin='{$_GET['dialin']}'";
             $where2 .= " AND Dialin='{$_GET['dialin']}'";
@@ -248,7 +242,7 @@ class functionx extends Crud {
             if (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) {
                 $where .= " AND customernumber LIKE '%{$_GET['Cusnum']}%'";
             }
-             $sql = " SELECT convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber,a.name,a.lastname
+            $sql = " SELECT convert(date, c.date) as  DateLeave, c.time, c.project,c.customernumber,c.agent,c.score,d.DIDNumber,d.QueueNumber,a.name,a.lastname
                     FROM didagent AS da
                     LEFT JOIN agent AS a ON a.agent_id =da.agent_id
                     LEFT JOIN DIDQueues AS d ON d.DIDQueueID = da.DIDQueueID  
@@ -281,9 +275,51 @@ class functionx extends Crud {
             );
         }
 
+        $sqlGETAGENTID = "
+                SELECT a.agent_code
+                FROM didagent AS da  
+                LEFT JOIN DIDQueues AS dq ON dq.DIDQueueID=da.DIDQueueID 
+                LEFT JOIN agent AS a ON da.agent_id=a.agent_id 
+                WHERE  ";
 
-        $where = "WHERE DATEADD(year,-543,convert(date,DateAux)) BETWEEN '$stardate' AND '$enddate' ";
-        echo $sql = "SELECT TOP 2000 * FROM AuxTime $where";
+
+
+        if (!isset($_GET['Project']) || $_GET['Project'] == "all" || empty($_GET['Project'])) {
+            return array();
+        }
+        if (isset($_GET['Project']) && !empty($_GET['Project']) && $_GET['Project'] != "all") {
+            $sqlGETAGENTID .= " dq.ProjectID='{$_GET['Project']}'";
+        }
+        ///////////////////// Queue
+        if (isset($_GET['Queue']) && !empty($_GET['Queue']) && $_GET['Queue'] != "all") {
+            $sqlGETAGENTID .= " AND dq.QueueNumber='{$_GET['Queue']}'";
+        }
+
+        ///////////////////// Did
+        if (isset($_GET['Did']) && !empty($_GET['Did']) && $_GET['Did'] != "all") {
+            $sqlGETAGENTID .= " AND   dq.DIDNumber='{$_GET['Did']}'";
+        }
+
+        ///////////////////// Agent
+        if (isset($_GET['Agent']) && !empty($_GET['Agent']) && $_GET['Agent'] != "all") {
+            $sqlGETAGENTID .= " AND a.agent_code='{$_GET['Agent']}'";
+        }
+        if (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) {
+            $text = rtrim(ltrim(trim($_GET['Cusnum'])));
+            $sqlGETAGENTID .= " AND(a.name LIKE '%{$text}%' OR lastname LIKE '%{$text}%')";
+        }
+
+
+        $where = "WHERE ax.Agent IN($sqlGETAGENTID) AND  DATEADD(year,-543,convert(date,ax.DateAux)) BETWEEN '$stardate' AND '$enddate' ";
+        if (isset($_GET['timeStart'])) {
+            if (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) {
+                if ($_GET['timeEnd'] == "24:00")
+                    $_GET['timeEnd'] = "23:59";
+                $where .= " AND convert(time,  ax.TimeAux) BETWEEN '{$_GET['timeStart']}' AND '{$_GET['timeEnd']}'";
+            }
+        }
+
+        echo $sql = "SELECT * FROM AuxTime AS ax LEfT JOIN agent AS a ON a.agent_code=ax.Agent  $where ";
         return $this->query($sql);
     }
 
@@ -318,7 +354,8 @@ class functionx extends Crud {
     public function getDIDQueues($id = '') {
         $where = "";
         if (!empty($id)) {
-            $sql = "SELECT d.*,j.Name,j.Code FROM DIDQueues AS  d"
+            $sql = "SELECT d.*,j.Name,j.Code "
+                    . " FROM DIDQueues AS  d"
                     . " LEFT JOIN Projects AS j ON j.ProjectID=d.ProjectID"
                     . " WHERE d.DIDQueueID='$id' ";
 
