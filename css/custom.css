@@ -149,3 +149,11 @@ nav.side-navbar li.active a {
   padding: 30px 50px;
   padding-left: 60px;
 }
+.Padding-left20{
+    margin-left: 20px;
+}
+.form-control[readonly] {
+    background-color: #ffffff;
+     cursor: no-drop;
+    opacity: 1;
+}

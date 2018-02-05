@@ -301,25 +301,39 @@ class functionx extends Crud {
         }
 
         ///////////////////// Agent
-        if (isset($_GET['Agent']) && !empty($_GET['Agent']) && $_GET['Agent'] != "all") {
-            $sqlGETAGENTID .= " AND a.agent_code='{$_GET['Agent']}'";
-        }
-        if (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) {
-            $text = rtrim(ltrim(trim($_GET['Cusnum'])));
-            $sqlGETAGENTID .= " AND(a.name LIKE '%{$text}%' OR lastname LIKE '%{$text}%')";
+        if ($_GET['agentOption'] == 'number') {
+            if (isset($_GET['Agent']) && !empty($_GET['Agent']) && $_GET['Agent'] != "all") {
+                $sqlGETAGENTID .= " AND a.agent_code='{$_GET['Agent']}'";
+            }
+        } else {
+
+            if (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) {
+                $text = rtrim(ltrim(trim($_GET['Cusnum'])));
+                $sqlGETAGENTID .= " AND(a.name LIKE '%{$text}%' OR lastname LIKE '%{$text}%')";
+            }
         }
 
 
         $where = "WHERE ax.Agent IN($sqlGETAGENTID) AND  DATEADD(year,-543,convert(date,ax.DateAux)) BETWEEN '$stardate' AND '$enddate' ";
-        if (isset($_GET['timeStart'])) {
-            if (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) {
-                if ($_GET['timeEnd'] == "24:00")
-                    $_GET['timeEnd'] = "23:59";
-                $where .= " AND convert(time,  ax.TimeAux) BETWEEN '{$_GET['timeStart']}' AND '{$_GET['timeEnd']}'";
+        if (isset($_GET['timeOption'])) {
+            if (isset($_GET['timeStart']) && $_GET['timeOption'] == 'Custom') {
+                if (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) {
+                    if ($_GET['timeEnd'] == "24:00")
+                        $_GET['timeEnd'] = "23:59";
+                    $where .= " AND convert(time,  ax.TimeAux) BETWEEN '{$_GET['timeStart']}' AND '{$_GET['timeEnd']}'";
+                }
+            }else if (isset($_GET['whs']) && $_GET['timeOption'] == 'whTime') {
+                if (isset($_GET['whe']) && !empty($_GET['whe'])) {
+                    if ($_GET['whe'] == "24:00")
+                        $_GET['whe'] = "23:59";
+                    $where .= " AND convert(time,  ax.TimeAux) BETWEEN '{$_GET['whs']}' AND '{$_GET['whe']}'";
+                }
             }
         }
 
-        echo $sql = "SELECT * FROM AuxTime AS ax LEfT JOIN agent AS a ON a.agent_code=ax.Agent  $where ";
+
+
+        echo $sql = "SELECT *,convert(date, DateAux) as  date FROM AuxTime AS ax LEfT JOIN agent AS a ON a.agent_code=ax.Agent  $where ";
         return $this->query($sql);
     }
 
@@ -516,6 +530,15 @@ class functionx extends Crud {
         }
         $sql .= ' GROUP BY  agent_code ORDER BY agent_code';
         return $this->query($sql);
+    }
+
+    public function getWorkhoursX($project = "", $did = "", $queues = "") {
+        if (empty($project) || empty($did) || empty($queues)) {
+            return array();
+        } else {
+            $sql = "SELECT * FROM DIDQueues WHERE ProjectID='$project' AND DIDNumber='$did' AND QueueNumber='$queues'";
+            return $this->query($sql);
+        }
     }
 
 }

@@ -35,6 +35,33 @@ class op_ajax extends functionx {
         echo json_encode($res);
     }
 
+    public function getWorkhours() {
+        $project = "";
+        $DID = "";
+        $Queues = "";
+        if (isset($_GET['project'])) {
+            $project = $_GET['project'];
+        }
+        if (isset($_GET['did'])) {
+            $DID = $_GET['did'];
+        }
+        if (isset($_GET['Qid'])) {
+            $Queues = $_GET['Qid'];
+        }
+        $res = $this->getWorkhoursX($project, $DID, $Queues);
+        if (!empty($res)) {
+            $res = $res[0];
+            if (!empty($res['timeStart'])) {
+                
+                $res['timeStart'] = $this->retime($res['timeStart']);
+            }
+             if (!empty($res['timeEnd'])) {
+                $res['timeEnd'] = $this->retime($res['timeEnd']);
+            }
+        } 
+        echo json_encode($res);
+    }
+
     public function getScore() {
         if (isset($_GET['project'])) {
             $did = $this->getProject($_GET['project']);

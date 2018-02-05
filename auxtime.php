@@ -20,6 +20,7 @@ if (isset($_GET['Did'])) {
 if (isset($_GET['Queue'])) {
     $QueuesID = $_GET['Queue'];
 }
+$wh = $fn->getWorkhoursX($projectId, $DIDID, $QueuesID);
 if (!empty($projectId)) {
     $agent = $fn->getAgentForProjectDID($projectId, $DIDID, $QueuesID);
 } else {
@@ -102,17 +103,12 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                         <h1 class="h3">Auxilary Time Report</h1>
                         <form id="Sform">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div  >
-                                        <label>Agent Name</label>
-                                        <input type="text" name="Cusnum" placeholder="Agent Name" class="form-control" value="<?= (isset($_GET['Cusnum'])) ? $_GET['Cusnum'] : "" ?>">
-                                    </div>
-                                </div>
+
                                 <div class="col-md-3">
                                     <label>Date Rang</label>
                                     <input type="text" class="form-control" id="date" name="date">
                                 </div>
-                               
+
                                 <div class="col-md-3">
                                     <label>Project</label>
                                     <select class=" form-control" name="Project" id="Project">
@@ -154,31 +150,67 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         <?php } ?>
                                     </select>
                                 </div>      
-                                 <div class="col-md-3" >
-                                    <label>Time Option. </label>    
-                                    <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
-                                        <div class="timeRate">
-                                            <span>Begin<br/> <input type="text" id="timeStart" name="timeStart" value="<?= (isset($_GET['timeStart']) && !empty($_GET['timeStart'])) ? $_GET['timeStart'] : '00:00' ?>" class="form-control TimeSelectBox" ></span>
+                                <div class="col-md-3" >
+                                    <label>Time Option. </label> 
+                                    <div > 
+                                        <div>
+                                            <label style="margin-left: 25px;margin-bottom: 5px;">
+                                                <input type="radio" class="timeCheck" name="timeOption" value="all" <?php echo (isset($_GET['timeOption']) && $_GET['timeOption'] == 'all') ? 'checked' : ((!isset($_GET['timeOption'])) ? 'checked' : '') ?> > All Time.                                            
+                                            </label>
                                         </div>
-                                        <div class="timeRate">
-                                            <span>End<br/> <input type="text" id="timeEnd" name="timeEnd" value="<?= (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) ? $_GET['timeEnd'] : '23:59' ?>"  class="form-control TimeSelectBox" ></span>
-                                        </div>
+                                        <label style="margin-left: 25px;margin-bottom: 5px;">
+                                            <input type="radio" class="timeCheck" id="whTime" checkDid="<?= empty($wh) ? 'No' : 'Yes' ?>" name="timeOption" value="workHours" 
+                                                   <?php echo (isset($_GET['timeOption']) && $_GET['timeOption'] == 'workHours') ? 'checked' : "" ?> > Work Hours <span id="QnumberaAlert" class="errorMsg  text-danger"></span>
+                                            <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
+                                                <div class="timeRate">
+                                                    <span>Begin<br/> <input type="text" readonly id="whStart" name="whs" class="form-control TimeSelectBox workhours" value="<?= (isset($_GET['whs']) && !empty($_GET['whs'])) ? $_GET['whs'] : (!empty($wh) ? $wh['timeStart'] : '00:00') ?>"  ></span>
+                                                </div>
+                                                <div class="timeRate">
+                                                    <span>End<br/> <input type="text" readonly id="whend" name="whe" class="form-control TimeSelectBox workhours"  value="<?= (isset($_GET['whe']) && !empty($_GET['whe'])) ? $_GET['whe'] : (!empty($wh) ? $wh['timeEnd'] : '00:00') ?>"  ></span>
+                                                </div>
+                                            </div> 
+                                        </label>
+
+                                        <label style="margin-left: 25px;margin-bottom: 5px;">
+                                            <input class="timeCheck" type="radio" name="timeOption" value="Custom" <?php echo (isset($_GET['timeOption']) && $_GET['timeOption'] == 'Custom') ? 'checked' : "" ?> > Custom Time.
+                                            <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
+                                                <div class="timeRate">
+                                                    <span>Begin<br/> <input type="text" id="timeStart" name="timeStart" value="<?= (isset($_GET['timeStart']) && !empty($_GET['timeStart'])) ? $_GET['timeStart'] : '00:00' ?>" class="form-control TimeSelectBox" ></span>
+                                                </div>
+                                                <div class="timeRate">
+                                                    <span>End<br/> <input type="text" id="timeEnd" name="timeEnd" value="<?= (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) ? $_GET['timeEnd'] : '23:59' ?>"  class="form-control TimeSelectBox" ></span>
+                                                </div>
+                                            </div>
+                                        </label>
                                     </div>
 
-
                                 </div>
-                                <div class="col-md-3">
-                                    <label>Agent Number </label>
-                                    <select class=" form-control" name="Agent" id="Agent">
-                                        <option value="all">ALL</option>
-                                        <?php
-                                        foreach ($agent AS $key => $value) {
-                                            ?>
-                                            <option data-status='remove' value="<?php echo $value['agent_code']; ?>" <?= @($_GET['Agent'] == $value['agent_code']) ? 'selected' : '' ?>>  <?php echo $value['agent_code']; ?></option>
-                                        <?php } ?>
-                                    </select>
+
+                                <div class="col-md-3">   
+                                    <label>Agent  Option. </label>    
+                                    <div style="display: flex;flex-direction: column;flex: 1;justify-content: flex-start;align-items: stretch;"> 
+                                        <label style="margin-left: 25px;margin-bottom: 5px;">
+                                            <input type="radio" class="AgentCheck" name="agentOption" value="name" <?php echo (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name') ? 'checked' : ((!isset($_GET['agentOption'])) ? 'checked' : '') ?> > Agent Name
+                                            <div class="Padding-left20"> 
+                                                <input id="AgentName" type="text" name="Cusnum"  placeholder="Agent Name" class="form-control" value="<?= (isset($_GET['Cusnum'])) ? $_GET['Cusnum'] : "" ?>" <?= isset($_GET['agentOption']) && $_GET['agentOption'] != 'name' ? 'disabled' : '' ?>>
+                                            </div>
+                                        </label>
+                                        <label style="margin-left: 25px;margin-bottom: 5px;">
+                                            <input class="AgentCheck" type="radio" name="agentOption" value="number" <?php echo (isset($_GET['agentOption']) && $_GET['agentOption'] == 'number') ? 'checked' : "" ?> > Agent  Number
+                                            <div class="Padding-left20">
+                                                <select class=" form-control" name="Agent" id="Agent" <?= (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' ) || !isset($_GET['agentOption']) ? 'disabled' : '' ?>>
+                                                    <option value="all">ALL</option>
+                                                    <?php
+                                                    foreach ($agent AS $key => $value) {
+                                                        ?>
+                                                        <option data-status='remove' value="<?php echo $value['agent_code']; ?>" <?= @($_GET['Agent'] == $value['agent_code']) ? 'selected' : '' ?>>  <?php echo $value['agent_code']; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </label>
+                                    </div> 
                                 </div> 
-                                
+
                                 <div class="col-md-12" style="height: 0px;margin: 0px;"> 
                                     <div class="btn-group   pull-right" role="group" aria-label="Button group with nested dropdown" style="margin-right:30px;margin-top:-65px;">
                                         <button type="submit" class="btn btn-primary btn-lg">Generate</button>
@@ -212,8 +244,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             <th>Agent Name</th>
                                             <th>Line In / out</th>
                                             <th>Aux Number</th>
-                                            <th>Aux Description</th>
-                                            <th>Dial Code</th> 
+                                            <th>Aux Description</th> 
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -224,14 +255,13 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             ?>
                                             <tr>
                                                 <td scope="row"><?= $i++ ?></td>
-                                                <td><?= $value['DateAux']; ?></td>
-                                                <td><?= $value['TimeAux']; ?></td>                                                
+                                                <td><?= $fn->redate($value['date']); ?></td>
+                                                <td><?= $fn->retime($value['TimeAux']); ?></td>                                                
                                                 <td><?= $value['Agent']; ?></td>
                                                 <td><?= $valuex['name'] . ' ' . $valuex['lastname']; ?></td> 
                                                 <td><?= $value['Loginout']; ?></td>
                                                 <td><?= $value['AuxNum']; ?></td>
-                                                <td><?= $value['AuxDes']; ?></td>
-                                                <td><?= $value['Dialcode']; ?></td> 
+                                                <td><?= $value['AuxDes']; ?></td> 
                                             </tr>
                                             <?php
                                         }
@@ -258,6 +288,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="node_modules/timepicker/jquery.timepicker.min.js"></script> 
         <script src="js/front.js"></script>
+        <script src="js/auxTime.js"></script>
         <script src="js/customs.js"></script>
         <script src="js/endcal.js"></script>
         <script>
