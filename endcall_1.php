@@ -47,6 +47,8 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
         '2' => date('d-m-Y'),
     );
 }
+
+$data = array();
 ?>
 <!DOCTYPE html>
 <html>
@@ -202,8 +204,8 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
 
                                 </div>
                                 <div class="col-md-3" id="ScoreRate"   <?php
-                                if (@!isset($_GET['Project']) || $_GET['Project'] == 'all') {
-                                    ?> style="display: none;"<?php
+                                        if (@!isset($_GET['Project']) || $_GET['Project'] == 'all') {
+                                            ?> style="display: none;"<?php
                                      }
                                      ?>>
                                     <label>Score Rate </label>  
@@ -233,9 +235,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                                 Export
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item extranalLink2"  href="_endcall_excel.php"><i class="fa fa-file-excel-o"></i> Excel</a>
-                                                <a class="dropdown-item extranalLink2" href="_endcall_pdf.php"><i class="fa fa-file-pdf-o"></i> PDF</a>
-                                                <a class="dropdown-item extranalLink2" href="_endcall_print.php"><i class="fa fa-print"></i> Print</a>
+                                                <a class="dropdown-item extranalLink2"  href="_endcall_excel_2.php"><i class="fa fa-file-excel-o"></i> Excel</a> 
                                             </div>
                                         </div>
                                     </div>
