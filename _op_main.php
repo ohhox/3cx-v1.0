@@ -181,6 +181,41 @@ class op_main extends functionx {
         $this->Go("manage_did_agent.php?id=" . $_GET['didid']);
     }
 
+    public function saveAuxTime() {
+
+        $this->table = "Auxtype";
+        $this->pk = 'aux_id';
+        if (!empty($_POST)) {
+            $data = $this->toThaiText($_POST);
+            $this->__setMultiple($data);
+            $this->create();
+        }
+        $this->Go("manage_auxtime.php");
+    }
+
+    public function editAuxTimet() {
+        $this->table = "Auxtype";
+        $this->pk = 'aux_id';
+        $data = $this->toThaiText($_POST);
+        $this->__setMultiple($data);
+        $this->save($_GET['id']);
+        $this->Go("manage_auxtime.php");
+    }
+
+    public function removeAuxTime() {
+        $this->table = "Auxtype";
+        $this->pk = 'aux_id';
+
+        if (!empty($_GET['id'])) {
+            $array = array(
+                'status' => 1
+            );
+            $this->__setMultiple($array);
+            $this->save($_GET['id']);
+        }
+        $this->Go("manage_auxtime.php");
+    }
+
 }
 
 $op = $_GET['op'];

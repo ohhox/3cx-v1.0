@@ -85,18 +85,18 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                             </div>
                                         </div>
 
-                                        <div  class="form-group" >
-                                            <label>Work Hours * </label>    
-                                            <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
-                                                <div class="timeRate">
-                                                    <span>Start Time.<br/> <input type="text" id="timeStart" name="timeStart" value="<?= (isset($list)) ? date('H:i', strtotime($list['timeStart'])) : '00:00' ?>" class="form-control TimeSelectBox" ></span>
-                                                </div>
-                                                <div class="timeRate">
-                                                    <span>End Time.<br/> <input type="text" id="timeEnd" name="timeEnd" value="<?= (isset($list)) ? date('H:i', strtotime($list['timeEnd'])) : '23:59' ?>"  class="form-control TimeSelectBox" ></span>
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                        <!--                                        <div  class="form-group" >
+                                                                                    <label>Work Hours * </label>    
+                                                                                    <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
+                                                                                        <div class="timeRate">
+                                                                                            <span>Start Time.<br/> <input type="text" id="timeStart" name="timeStart" value="<?= (isset($list)) ? date('H:i', strtotime($list['timeStart'])) : '00:00' ?>" class="form-control TimeSelectBox" ></span>
+                                                                                        </div>
+                                                                                        <div class="timeRate">
+                                                                                            <span>End Time.<br/> <input type="text" id="timeEnd" name="timeEnd" value="<?= (isset($list)) ? date('H:i', strtotime($list['timeEnd'])) : '23:59' ?>"  class="form-control TimeSelectBox" ></span>
+                                                                                        </div>
+                                                                                    </div>
+                                        
+                                                                                </div>-->
                                         <div class="form-group">
                                             <label>DID Number * </label>
                                             <div>
@@ -110,6 +110,18 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label>Total Work Hours </label>
+                                            <div>
+                                                <input type="time"  placeholder="ex. 08:00" class="form-control" name="TotalWorkHours" value="<?= (isset($list) & !empty($list['TotalWorkHours'])) ? $list['TotalWorkHours'] : '08:00' ?>" required>
+                                            </div>
+                                        </div>
+                                         <div class="form-group">
+                                            <label>Total Lunch  Hours </label>
+                                            <div>
+                                                <input type="time"  class="form-control" name="TotalLunchHours" value="<?= (isset($list) & !empty($list['TotalLunchHours'])) ? $list['TotalLunchHours'] : '01:00' ?>" required>
+                                            </div>
+                                        </div>
+                                         <div class="form-group">
                                             <label>Description </label>
                                             <div>
                                                 <textarea  class="form-control"   rows="5" name="DidDescription"><?= isset($list) ? $list['DidDescription'] : '' ?></textarea>

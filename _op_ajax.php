@@ -52,13 +52,19 @@ class op_ajax extends functionx {
         if (!empty($res)) {
             $res = $res[0];
             if (!empty($res['timeStart'])) {
-                
+
                 $res['timeStart'] = $this->retime($res['timeStart']);
             }
-             if (!empty($res['timeEnd'])) {
+            if (!empty($res['timeEnd'])) {
                 $res['timeEnd'] = $this->retime($res['timeEnd']);
             }
-        } 
+            if (!empty($res['TotalWorkHours'])) {
+                $res['TotalWorkHours'] = $this->retime($res['TotalWorkHours']);
+            }
+            if (!empty($res['TotalLunchHours'])) {
+                $res['TotalLunchHours'] = $this->retime($res['TotalLunchHours']);
+            }
+        }
         echo json_encode($res);
     }
 

@@ -2,15 +2,7 @@
 include './conf.php';
 $fn = new functionx();
 
-$list = $fn->getDIDQueues();
-$project = $fn->getProjectList();
-
-$did = array();
-$Queue = array();
-if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
-
-    $did = $fn->getDid($_GET['Project']);
-}
+$list = $fn->getAuxType();
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,7 +36,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
         <link rel="stylesheet" href="bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="css/custom.css">
     </head>
-    <body  data-active="project" data-id="DIDQ">
+    <body  data-active="project" data-id="Auxtime">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->
@@ -53,7 +45,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                 <div class="container-fluid">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item active"> DID & Queues Lists</li>
+                        <li class="breadcrumb-item active"> Auxilary Type</li>
                     </ul>
                 </div>
             </div>
@@ -63,8 +55,9 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                     include './_TapFake.php';
                     ?>
                     <div  id="porjectDetail">
-                        <h1 class="page-header"> DID & Queues Lists. <a class="pull-right btn btn-sm btn-success" href="manage_queses_form.php">
-                                <i class="fa fa-plus"></i> New  DID & Queues 
+                        <h1 class="page-header"> Auxilary Type Lists. <a class="pull-right btn btn-sm btn-success" 
+                                                                         href="manage_auxtime_form.php">
+                                <i class="fa fa-plus"></i> New  Auxilary Type
                             </a>
                         </h1>
 
@@ -74,7 +67,7 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                             <div class="row"> 
                                 <div class="col-md-5">
                                     <label>Search </label>
-                                    <input type="search" autocomplete name="text" class="form-control" placeholder=" Project Name,DID,Queue Number" value="<?= isset($_GET['text']) ? $_GET['text'] : '' ?>">
+                                    <input type="search" autocomplete name="text" class="form-control" placeholder=" Description , Number " value="<?= isset($_GET['text']) ? $_GET['text'] : '' ?>">
                                 </div>
 
                                 <div class="col-md-3">
@@ -85,59 +78,44 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
                                 </div>
 
 
+
                             </div>
                         </form> 
-
 
                         <div class="clear"></div>
                         <table class="table" id="tablex">
                             <thead>
-                                <tr>
-                                    <th>Project Code</th>
-                                    <th>Project Name</th>
-                                    <th>DID Number</th>
-                                    <th>Queue Number</th>     
-                                     <th>Total Work Hours </th>
-                                      <th>Total Lunch Hours</th>
-                                       
-                                    <th>Total Agent </th>
+                                <tr> 
+                                    <th>Aux Number</th>
+                                    <th>Description</th> 
                                     <th>manage</th> 
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
+                                  <?php
                                 $i = 1;
                                 foreach ($list AS $key => $value) {
+                                    $value = $fn->ThaiTextToutf($value);
                                     ?>
                                     <tr>               
-                                        <td><?= $value['Code']; ?></td>
-                                        <td><?= $value['Name']; ?></td>
-                                        <td><?= $value['DIDNumber']; ?></td>
-                                        <td><?= $value['QueueNumber']; ?></td>  
-                                        <td><?= !empty($value['TotalWorkHours'])? $fn->retime($value['TotalWorkHours']) :''; ?></td>  
-                                        <td><?= !empty($value['TotalLunchHours'])? $fn->retime($value['TotalLunchHours']) :''; ?></td>  
-                                        <td><?= $fn->countDidAgent($value['DIDQueueID']); ?></td> 
+                                        <td><?= $value['aux_number']; ?></td>
+                                        <td><?= $value['aux_description']; ?></td> 
                                         <td>                                                  
-                                            <a class="btn btn-primary btn-sm"  href="manage_did_agent.php?id=<?= $value['DIDQueueID']; ?>"> <i class="fa fa-user-md"></i> Manage Agent</a>
-                                            <a class="btn btn-warning btn-sm"  href="manage_queses_form.php?id=<?= $value['DIDQueueID']; ?>"> <i class="fa fa-edit"></i> edit</a>
-                                            <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeDidQueres&id=<?= $value['DIDQueueID']; ?>"> <i class="fa fa-remove"></i> Remove</a>
+                                            <a class="btn btn-warning btn-sm"  href="manage_auxtime_form.php?id=<?= $value['aux_id']; ?>"> <i class="fa fa-edit"></i> edit</a>
+                                            <a class="btn btn-danger btn-sm removeAlert"  href="_op_main.php?op=removeAuxTime&id=<?= $value['aux_id']; ?>"> <i class="fa fa-remove"></i> Remove</a>
                                         </td>
 
                                     </tr>
                                     <?php
                                 }
                                 ?>
-
                             </tbody>
                         </table>
 
                     </div>
-                </div>
-
 
 
             </section>
-
 
             <?php include './_foot.php'; ?>   
 
@@ -153,11 +131,10 @@ if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
         <script src="js/customs.js"></script>
 
         <script>
-            $('#tablex').DataTable({
-                "pageLength": 25,
-                "searching": false
-
-            });
+                        $('#tablex').DataTable({
+                            "pageLength": 25, 
+            
+                        });
         </script>
 
     </body>

@@ -16,9 +16,16 @@
                 <li id="ActiveAuxtime"> <a href="auxtime.php"> <i class="icon-rss-feed">  </i><span>Auxilary Time Report</span></a></li> 
                 <li id="ActiveAuxtime2"> <a href="auxtimeSummary.php"> <i class="icon-rss-feed">  </i><span>Auxilary Time Report 2</span></a></li> 
 
-                
-                <li id="Activeproject"> <a href="manage_project.php"> <i class="fa fa-cog"> </i><span>Project Management</span></a></li> 	 				 
-                <li id="Activeuser"> <a href="user_management.php"> <i class="fa fa-user-secret"> </i><span>User Management</span></a></li> 	 				 
+                <?php
+                if ($fn->user['user_type'] == 'admin' || $fn->user['user_type'] == 'outsource') {
+                    ?>
+                    <li id="Activeproject"> <a href="manage_project.php"> <i class="fa fa-cog"> </i><span>Project Management</span></a></li> 	
+                    <?php
+                }
+                if ($fn->user['user_type'] == 'admin') {
+                    ?>
+                    <li id="Activeuser"> <a href="user_management.php"> <i class="fa fa-user-secret"> </i><span>User Management</span></a></li> 	 				 
+                    <?php } ?>
             </ul>
         </div>
     </div>

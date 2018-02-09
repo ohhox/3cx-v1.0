@@ -331,9 +331,11 @@ class functionx extends Crud {
             }
         }
 
+        if (isset($_GET['aux']) && ($_GET['aux'] != 'all')) {
+            $where .= " AND ax.AuxNum='{$_GET['aux']}'";
+        }
 
-
-        echo $sql = "SELECT *,convert(date, DateAux) as  date FROM AuxTime AS ax LEfT JOIN agent AS a ON a.agent_code=ax.Agent  $where ";
+        $sql = "SELECT *,convert(date, DateAux) as  date FROM AuxTime AS ax LEfT JOIN agent AS a ON a.agent_code=ax.Agent  $where ";
         return $this->query($sql);
     }
 
@@ -537,6 +539,27 @@ class functionx extends Crud {
             return array();
         } else {
             $sql = "SELECT * FROM DIDQueues WHERE ProjectID='$project' AND DIDNumber='$did' AND QueueNumber='$queues'";
+            return $this->query($sql);
+        }
+    }
+
+    public function getAuxType($id = 0) {
+        $this->table = "Auxtype";
+        $this->pk = 'aux_id';
+        if (!empty($id)) {
+            $sql = "SELECT * FROM Auxtype WHERE aux_id='$id'";
+            $res = $this->query($sql);
+            if (!empty($res)) {
+                return $res[0];
+            } else {
+                return array();
+            }
+        } else {
+            $w = "";
+            if (isset($_GET['text']) && !empty($_GET['text'])) {
+                $w .= " AND (aux_number LIKE '%{$_GET['text']}%' OR aux_description LIKE '%{$_GET['text']}%')";
+            }
+            $sql = "SELECT * FROM Auxtype WHERE status !='1' $w ORDER BY aux_number ASC ";
             return $this->query($sql);
         }
     }

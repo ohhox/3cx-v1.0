@@ -29,15 +29,16 @@ $('#Queue').on('change', function () { // Get Work Hours
     var Queue = $('#Queue').val();
 
     $.getJSON('_op_ajax.php?op=getWorkhours&did=' + did + "&project=" + project + '&Qid=' + Queue, function (data) {
-        if (data.timeEnd != '' && data.timeStart) {
-            $("#whStart").val(data.timeStart);
-            $("#whend").val(data.timeEnd);
+        if (data) {
+            $("#TotalWH").html(data.TotalWorkHours);
+            $("#TotalLH").html(data.TotalLunchHours);
+            /*
             $("#whTime").attr('checkDid', 'yes');
-            $('#QnumberaAlert').html('');
+            $('#QnumberaAlert').html('');*/
         } else {
-            $('#QnumberaAlert').html('Not found Work Hours.');
+          /*  $('#QnumberaAlert').html('Not found Work Hours.');
              $("#whTime").attr('checkDid', 'No');
-             $('#whTime').prop('checked', false);
+             $('#whTime').prop('checked', false);*/
         }
     });
 

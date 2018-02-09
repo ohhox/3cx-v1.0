@@ -27,6 +27,7 @@ if (!empty($projectId)) {
     $agent = array();
 }
 
+
 $did = array();
 $Queue = array();
 if (isset($_GET['Project']) && $_GET['Project'] != 'all') {
@@ -49,6 +50,8 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
         '2' => date('d-m-Y'),
     );
 }
+
+$AuxType = $fn->getAuxType();
 ?>
 <!DOCTYPE html>
 <html>
@@ -158,18 +161,18 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                                 <input type="radio" class="timeCheck" name="timeOption" value="all" <?php echo (isset($_GET['timeOption']) && $_GET['timeOption'] == 'all') ? 'checked' : ((!isset($_GET['timeOption'])) ? 'checked' : '') ?> > All Time.                                            
                                             </label>
                                         </div>
-                                        <label style="margin-left: 25px;margin-bottom: 5px;">
-                                            <input type="radio" class="timeCheck" id="whTime" checkDid="<?= empty($wh) ? 'No' : 'Yes' ?>" name="timeOption" value="workHours" 
-                                                   <?php echo (isset($_GET['timeOption']) && $_GET['timeOption'] == 'workHours') ? 'checked' : "" ?> > Work Hours <span id="QnumberaAlert" class="errorMsg  text-danger"></span>
-                                            <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
-                                                <div class="timeRate">
-                                                    <span>Begin<br/> <input type="text" readonly id="whStart" name="whs" class="form-control TimeSelectBox workhours" value="<?= (isset($_GET['whs']) && !empty($_GET['whs'])) ? $_GET['whs'] : (!empty($wh) ? $wh['timeStart'] : '00:00') ?>"  ></span>
-                                                </div>
-                                                <div class="timeRate">
-                                                    <span>End<br/> <input type="text" readonly id="whend" name="whe" class="form-control TimeSelectBox workhours"  value="<?= (isset($_GET['whe']) && !empty($_GET['whe'])) ? $_GET['whe'] : (!empty($wh) ? $wh['timeEnd'] : '00:00') ?>"  ></span>
-                                                </div>
-                                            </div> 
-                                        </label>
+                                        <!--                                        <label style="margin-left: 25px;margin-bottom: 5px;">
+                                                                                    <input type="radio" class="timeCheck" id="whTime" checkDid="<?= empty($wh) ? 'No' : 'Yes' ?>" name="timeOption" value="workHours" 
+                                        <?php echo (isset($_GET['timeOption']) && $_GET['timeOption'] == 'workHours') ? 'checked' : "" ?> > Work Hours <span id="QnumberaAlert" class="errorMsg  text-danger"></span>
+                                                                                    <div  style="display: flex;flex-direction: row;flex: 1;justify-content: flex-start;align-items: stretch;">
+                                                                                        <div class="timeRate">
+                                                                                            <span>Begin<br/> <input type="text" readonly id="whStart" name="whs" class="form-control TimeSelectBox workhours" value="<?= (isset($_GET['whs']) && !empty($_GET['whs'])) ? $_GET['whs'] : (!empty($wh) ? $wh['timeStart'] : '00:00') ?>"  ></span>
+                                                                                        </div>
+                                                                                        <div class="timeRate">
+                                                                                            <span>End<br/> <input type="text" readonly id="whend" name="whe" class="form-control TimeSelectBox workhours"  value="<?= (isset($_GET['whe']) && !empty($_GET['whe'])) ? $_GET['whe'] : (!empty($wh) ? $wh['timeEnd'] : '00:00') ?>"  ></span>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                </label>-->
 
                                         <label style="margin-left: 25px;margin-bottom: 5px;">
                                             <input class="timeCheck" type="radio" name="timeOption" value="Custom" <?php echo (isset($_GET['timeOption']) && $_GET['timeOption'] == 'Custom') ? 'checked' : "" ?> > Custom Time.
@@ -210,7 +213,24 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                         </label>
                                     </div> 
                                 </div> 
-
+                                <div class="col-md-3">
+                                    <label>Auxilary  Type</label>
+                                    <select class=" form-control" name="aux" id="Queue" >
+                                        <option value="all">ALL</option>
+                                        <?php
+                                        foreach ($AuxType AS $key => $value) {
+                                            $valuex = $fn->ThaiTextToutf($value);
+                                            ?>
+                                            <option data-status="remove"  value="<?php echo $value['aux_number']; ?>" <?= @($_GET['aux'] == $value['aux_number']) ? 'selected' : '' ?>> 
+                                                <?php echo $value['aux_number']; ?> : <?php echo $valuex['aux_description']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    Total Work Hours : <span id="TotalWH">.......</span> <br/>
+                                    Total Lunch Hours : <span id="TotalLH">......</span>
+                                </div>
                                 <div class="col-md-12" style="height: 0px;margin: 0px;"> 
                                     <div class="btn-group   pull-right" role="group" aria-label="Button group with nested dropdown" style="margin-right:30px;margin-top:-65px;">
                                         <button type="submit" class="btn btn-primary btn-lg">Generate</button>

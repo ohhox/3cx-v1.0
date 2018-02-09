@@ -74,6 +74,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                                         <input type="radio" name="user_type"  value="outsource" <?= (isset($list) && $list['user_type'] == 'outsource') ? 'checked' : '' ?> required> Outsource
                                                     </label>
                                                 </div>
+                                                <div>
+                                                    <label>
+                                                        <input type="radio" name="user_type"  value="guest" <?= (isset($list) && $list['user_type'] == 'guest') ? 'checked' : '' ?> required> Guest
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -82,7 +87,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                                 <input type="text" class="form-control" name="name_lastname" value="<?= isset($list) ? $list['name_lastname'] : '' ?>" required>
                                             </div>
                                         </div>
-                                         <div class="form-group">
+                                        <div class="form-group">
                                             <label>email.</label>
                                             <div>
                                                 <input type="email" class="form-control" name="email" value="<?= isset($list) ? $list['email'] : '' ?>" required>

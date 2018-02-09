@@ -3,6 +3,7 @@
         <li class="liTap Project"><a href="manage_project.php">Project</a></li>
         <li class="liTap DIDQ"><a href="manage_queses.php">DID & Queues</a></li>
         <li class="liTap Agent"><a href="manage_agent.php">Agent</a></li>
+        <li class="liTap Auxtime"><a href="manage_auxtime.php">Auxilary Type</a></li>
         <div class="clear"></div>
     </ul>
     <div class="clear"></div>
