@@ -76,10 +76,16 @@ foreach ($list AS $key => $value) {
     if (empty($data[$value['agent']])) {
         $data[$value['agent']] = array(
             "name" => $value['name'] . ' ' . $value['lastname'],
-            'count' => 1
+            'agent' => $value['agent'],
+            'count' => 1,
+            'score' => array(
+                "NULL" => 0, 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0
+            )
         );
+        $data[$value['agent']]['score'][$score] ++;
     } else {
         $data[$value['agent']]['count'] ++;
+        $data[$value['agent']]['score'][$score] ++;
     }
     $i++;
 }
@@ -97,7 +103,7 @@ $objPHPExcel->setActiveSheetIndex(2)->getStyle("A1:K$i")->getAlignment()->setHor
 /* * ************* END PAGE 3 ************ */
 
 /* * ************* PAGE 2 ************ */
-
+ 
 if (($_GET['Project']) == 2) {
     $objPHPExcel->setActiveSheetIndex(1)
             ->setCellValue('A1', 'Name Agent')
@@ -107,7 +113,7 @@ if (($_GET['Project']) == 2) {
             ->setCellValue('E1', '% สายที่โอนประเมิน')
             ->setCellValue('F1', 'จำนวนสายลูกค้าวางสายไปก่อนประเมินเสร็จ (3CX)')
             ->setCellValue('G1', 'จำนวนสายลูกค้ากดประเมิน')
-            ->setCellValue('I1', 'ผลการประเมิน');
+            ->setCellValue('H1', 'ผลการประเมิน');
     $objPHPExcel->setActiveSheetIndex(1)
             ->mergeCells('A1:A2')
             ->mergeCells('B1:B2')
@@ -116,14 +122,32 @@ if (($_GET['Project']) == 2) {
             ->mergeCells('E1:E2')
             ->mergeCells('F1:F2')
             ->mergeCells('G1:G2')
-            ->mergeCells('H1:H2')
-            ->mergeCells('I1:M1');
+            ->mergeCells('H1:N1');
     $objPHPExcel->setActiveSheetIndex(1)
-            ->setCellValue('I2', 'พึงพอใจ')
-            ->setCellValue('J2', '%')
-            ->setCellValue('K2', 'ไม่พึงพอใจ')
-            ->setCellValue('L2', ' ')
-            ->setCellValue('M2', '% ความพึงพอใจ');
+            ->setCellValue('H2', 'Pess 1')
+            ->setCellValue('I2', '%')
+            ->setCellValue('J2', 'Pess 2')
+            ->setCellValue('K2', '%')
+            ->setCellValue('L2', 'Pess 3')
+            ->setCellValue('M2', '%')
+            ->setCellValue('N2', '% ความพึงพอใจ');
+
+
+
+    $x = 3;
+    foreach ($data as $key => $value) {
+        $all = $value['score'][1] + $value['score'][2] + $value['score'][3] + $value['score']['NULL'];
+        $objPHPExcel->setActiveSheetIndex(1)
+                ->setCellValue("A$x", $value['name'])
+                ->setCellValue("B$x", $value['agent'])
+                ->setCellValue("D$x", $value['count'])
+                ->setCellValue("F$x", $value['score']['NULL'])
+                ->setCellValue("G$x", $value['score'][1] + $value['score'][2] + $value['score'][3])
+                ->setCellValue("H$x", $value['score'][1])
+                ->setCellValue("J$x", $value['score'][2])
+                ->setCellValue("L$x", $value['score'][3]);
+        $x++;
+    }
 } else if ($_GET['Project'] == 3) {
     $objPHPExcel->setActiveSheetIndex(1)
             ->setCellValue('A1', 'Name Agent')
@@ -133,7 +157,7 @@ if (($_GET['Project']) == 2) {
             ->setCellValue('E1', '% สายที่โอนประเมิน')
             ->setCellValue('F1', 'จำนวนสายลูกค้าวางสายไปก่อนประเมินเสร็จ (3CX)')
             ->setCellValue('G1', 'จำนวนสายลูกค้ากดประเมิน')
-            ->setCellValue('I1', 'ผลการประเมิน');
+            ->setCellValue('H1', 'ผลการประเมิน');
     $objPHPExcel->setActiveSheetIndex(1)
             ->mergeCells('A1:A2')
             ->mergeCells('B1:B2')
@@ -142,16 +166,28 @@ if (($_GET['Project']) == 2) {
             ->mergeCells('E1:E2')
             ->mergeCells('F1:F2')
             ->mergeCells('G1:G2')
-            ->mergeCells('H1:H2')
-            ->mergeCells('I1:M1');
+            ->mergeCells('H1:L1');
     $objPHPExcel->setActiveSheetIndex(1)
-            ->setCellValue('I2', 'พึงพอใจ')
-            ->setCellValue('J2', '%')
-            ->setCellValue('K2', 'ไม่พึงพอใจ')
-            ->setCellValue('L2', ' ')
-            ->setCellValue('M2', '% ความพึงพอใจ');
+            ->setCellValue('H2', 'พึงพอใจ')
+            ->setCellValue('I2', '%')
+            ->setCellValue('J2', 'ไม่พึงพอใจ')
+            ->setCellValue('K2', '%')
+            ->setCellValue('L2', '% ความพึงพอใจ');
+     $x = 3;
+    foreach ($data as $key => $value) {
+        $all = $value['score'][1] + $value['score'][2] + $value['score'][3] + $value['score']['NULL'];
+        $objPHPExcel->setActiveSheetIndex(1)
+                ->setCellValue("A$x", $value['name'])
+                ->setCellValue("B$x", $value['agent'])
+                ->setCellValue("D$x", $value['count'])
+                ->setCellValue("F$x", $value['score']['NULL'])
+                ->setCellValue("G$x", $value['score'][1]+ $value['score'][0])
+                ->setCellValue("H$x", $value['score'][1])
+                ->setCellValue("J$x", $value['score'][0]);
+        $x++;
+    }
 }
-
+ 
 /* * ************* END PAGE 2 ************ */
 // Redirect output to a clientâ€™s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

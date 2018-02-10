@@ -203,7 +203,7 @@ $data = array();
 
 
                                 </div>
-                                <div class="col-md-3" id="ScoreRate"   <?php
+<!--                                <div class="col-md-3" id="ScoreRate"   <?php
                                         if (@!isset($_GET['Project']) || $_GET['Project'] == 'all') {
                                             ?> style="display: none;"<?php
                                      }
@@ -224,7 +224,7 @@ $data = array();
                                             <input type="number" id="score_max"  min="<?= (!empty($thisProject['score_min']) ? $thisProject['score_min'] : '0') ?>" max="<?= (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" value="<?= isset($_GET['scoreend']) ? $_GET['scoreend'] : (!empty($thisProject['score_max']) ? $thisProject['score_max'] : '0') ?>" name="scoreend" class="SmallTextBox scoreRate">
                                         </div>
                                     </div>
-                                </div> 
+                                </div> -->
 
                                 <div class="clear"></div>
                                 <div class="col-md-12" style="margin: 0px;"> 
