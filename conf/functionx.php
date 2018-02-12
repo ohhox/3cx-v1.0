@@ -339,6 +339,110 @@ class functionx extends Crud {
         return $this->query($sql);
     }
 
+    public function getAuxtime2() {
+        $d = array(); // FOR SHOW IN INPUT
+
+        if (isset($_GET['date']) && !empty($_GET['date'])) {
+            $date = explode('-', $_GET['date']);
+
+            $stardate = trim($date[2]) . '-' . $date[1] . '-' . $date[0];
+            $enddate = trim($date[5]) . '-' . $date[4] . '-' . ltrim(trim($date[3]));
+            $d = array(
+                '1' => $date[0] . '-' . $date[1] . '-' . trim($date[2]),
+                '2' => ltrim(trim($date[3])) . '-' . $date[4] . '-' . ltrim(trim($date[5])),
+            );
+        } else {
+            $enddate = $stardate = date('Y-m-d');
+            $d = array(
+                '1' => date('d-m-Y'),
+                '2' => date('d-m-Y'),
+            );
+        }
+
+        $sqlGETAGENTID = "
+                SELECT a.agent_code
+                FROM didagent AS da  
+                LEFT JOIN DIDQueues AS dq ON dq.DIDQueueID=da.DIDQueueID 
+                LEFT JOIN agent AS a ON da.agent_id=a.agent_id 
+                WHERE  ";
+
+
+
+        if (!isset($_GET['Project']) || $_GET['Project'] == "all" || empty($_GET['Project'])) {
+            return array();
+        }
+        if (isset($_GET['Project']) && !empty($_GET['Project']) && $_GET['Project'] != "all") {
+            $sqlGETAGENTID .= " dq.ProjectID='{$_GET['Project']}'";
+        }
+        ///////////////////// Queue
+        if (isset($_GET['Queue']) && !empty($_GET['Queue']) && $_GET['Queue'] != "all") {
+            $sqlGETAGENTID .= " AND dq.QueueNumber='{$_GET['Queue']}'";
+        }
+
+        ///////////////////// Did
+        if (isset($_GET['Did']) && !empty($_GET['Did']) && $_GET['Did'] != "all") {
+            $sqlGETAGENTID .= " AND   dq.DIDNumber='{$_GET['Did']}'";
+        }
+
+        ///////////////////// Agent
+        if ($_GET['agentOption'] == 'number') {
+            if (isset($_GET['Agent']) && !empty($_GET['Agent']) && $_GET['Agent'] != "all") {
+                $sqlGETAGENTID .= " AND a.agent_code='{$_GET['Agent']}'";
+            }
+        } else {
+
+            if (isset($_GET['Cusnum']) && !empty($_GET['Cusnum'])) {
+                $text = rtrim(ltrim(trim($_GET['Cusnum'])));
+                $sqlGETAGENTID .= " AND(a.name LIKE '%{$text}%' OR lastname LIKE '%{$text}%')";
+            }
+        }
+
+
+        $where = "WHERE ax.Agent IN($sqlGETAGENTID) AND  DATEADD(year,-543,convert(date,ax.DateAux)) BETWEEN '$stardate' AND '$enddate' ";
+        if (isset($_GET['timeOption'])) {
+            if (isset($_GET['timeStart']) && $_GET['timeOption'] == 'Custom') {
+                if (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) {
+                    if ($_GET['timeEnd'] == "24:00")
+                        $_GET['timeEnd'] = "23:59";
+                    $where .= " AND convert(time,  ax.TimeAux) BETWEEN '{$_GET['timeStart']}' AND '{$_GET['timeEnd']}'";
+                }
+            }else if (isset($_GET['whs']) && $_GET['timeOption'] == 'whTime') {
+                if (isset($_GET['whe']) && !empty($_GET['whe'])) {
+                    if ($_GET['whe'] == "24:00")
+                        $_GET['whe'] = "23:59";
+                    $where .= " AND convert(time,  ax.TimeAux) BETWEEN '{$_GET['whs']}' AND '{$_GET['whe']}'";
+                }
+            }
+        }
+
+        if (isset($_GET['aux']) && ($_GET['aux'] != 'all')) {
+            $where .= " AND ax.AuxNum='{$_GET['aux']}'";
+        }
+
+        $sql = "SELECT Agent FROM AuxTime AS ax LEfT JOIN agent AS a ON a.agent_code=ax.Agent  $where  GROUP BY Agent";
+        $res = $this->query($sql);
+        $arra = array();
+        foreach ($res as $key => $value) {
+              $sql = "SELECT   Agent, [Available], [Wrap], [Restroom], [Email], [Lunch] ,[Call out],[Follow Up Case],[Coaching],[Contact Person],[Audit],[Computer Down]
+		FROM   
+		(
+			SELECT Agent, AuxDes, AuxDuration 
+			FROM [dbo].[AuxTime]
+			WHERE DATEADD(year,-543,convert(date,DateAux)) BETWEEN '$stardate' AND '$enddate'  and Agent = '{$value['Agent']}'
+
+		) UP
+		PIVOT
+		(
+   			SUM(AuxDuration)
+			FOR AuxDes IN ([Available], [Wrap], [Restroom], [Email], [Lunch] ,[Call out],[Follow Up Case],[Coaching],[Contact Person],[Audit],[Computer Down])
+		) AS P";
+
+
+            $arra[$value['Agent']] = $this->query($sql)[0];
+        }
+        return $arra;
+    }
+
     public function getCallBackAgent() {
         $sql = "SELECT FromQueue FROM CallBack GROUP BY FromQueue";
         return $this->query($sql);

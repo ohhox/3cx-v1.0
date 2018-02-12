@@ -83,7 +83,7 @@ $data = array();
         <link rel="stylesheet" href="bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="css/custom.css">
     </head>
-    <body data-active="endcall">
+    <body data-active="endcall2">
         <?php include './_sidebar.php'; ?>
         <div class="page home-page">
             <!-- navbar-->
