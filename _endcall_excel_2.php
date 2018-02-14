@@ -1,7 +1,8 @@
 <?php
 
 //header($strExcelFileName);
-
+unset($_GET['scorestrat']);
+unset($_GET['scoreend']);
 include './conf.php';
 $fn = new functionx();
 $strExcelFileName = "ReportEndCall.xls";
@@ -68,14 +69,21 @@ foreach ($list AS $key => $value) {
             $score = $value['score'];
         } else {
             $score = "NULL";
-            $NullValue[$i] = $value;
         }
         $Page3Data['dontSuccess'] ++;
     } else {
         $score = $value['score'];
+    }
+    if ($score !== 'NULL') {
         $Page3Data['success'] ++;
         $Page3Data['score'][$score] ++;
     }
+    if ($score === "0" || $score == 3) {
+        $NullValue[$i] = $value;
+    }
+
+
+
 
 
 
@@ -105,6 +113,7 @@ foreach ($list AS $key => $value) {
     }
     $i++;
 }
+
 
 $x = 2;
 foreach ($data as $key => $value) {
@@ -160,9 +169,36 @@ if (($_GET['Project']) == 2) {
                 ->setCellValue("D$x", $value['count'])
                 ->setCellValue("F$x", $value['score']['NULL'])
                 ->setCellValue("G$x", $value['score'][1] + $value['score'][2] + $value['score'][3])
-                ->setCellValue("H$x", $value['score'][1])
-                ->setCellValue("J$x", $value['score'][2])
-                ->setCellValue("L$x", $value['score'][3]);
+                ->setCellValue("H$x", $value['score'][1])->setCellValue("I$x", "=(H{$x}/G{$x})")
+                ->setCellValue("J$x", $value['score'][2])->setCellValue("K$x", "=(J{$x}/G{$x})")
+                ->setCellValue("L$x", $value['score'][3])->setCellValue("M$x", "=(L{$x}/G{$x})")
+                ->setCellValue("N$x", "=((H$x*1)+(J$x*0.5)+(L$x*0))/G$x");
+
+
+        $objPHPExcel->setActiveSheetIndex(1)->getStyle("N$x")
+                ->getNumberFormat()->applyFromArray(
+                array(
+                    'code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00
+                )
+        );
+        $objPHPExcel->setActiveSheetIndex(1)->getStyle("I$x")
+                ->getNumberFormat()->applyFromArray(
+                array(
+                    'code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00
+                )
+        );
+        $objPHPExcel->setActiveSheetIndex(1)->getStyle("K$x")
+                ->getNumberFormat()->applyFromArray(
+                array(
+                    'code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00
+                )
+        );
+        $objPHPExcel->setActiveSheetIndex(1)->getStyle("M$x")
+                ->getNumberFormat()->applyFromArray(
+                array(
+                    'code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00
+                )
+        );
         $x++;
     }
 } else if ($_GET['Project'] == 3) {
@@ -199,8 +235,28 @@ if (($_GET['Project']) == 2) {
                 ->setCellValue("D$x", $value['count'])
                 ->setCellValue("F$x", $value['score']['NULL'])
                 ->setCellValue("G$x", $value['score'][1] + $value['score'][0])
-                ->setCellValue("H$x", $value['score'][1])
-                ->setCellValue("J$x", $value['score'][0]);
+                ->setCellValue("H$x", $value['score'][1])->setCellValue("I$x", "=(H{$x}/G{$x})")
+                ->setCellValue("J$x", $value['score'][0])->setCellValue("K$x", "=(J{$x}/G{$x})")
+                ->setCellValue("L$x", "=((H$x*1)+(J$x*0))/G$x");
+
+        $objPHPExcel->setActiveSheetIndex(1)->getStyle("I$x")
+                ->getNumberFormat()->applyFromArray(
+                array(
+                    'code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00
+                )
+        );
+        $objPHPExcel->setActiveSheetIndex(1)->getStyle("K$x")
+                ->getNumberFormat()->applyFromArray(
+                array(
+                    'code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00
+                )
+        );
+        $objPHPExcel->setActiveSheetIndex(1)->getStyle("L$x")
+                ->getNumberFormat()->applyFromArray(
+                array(
+                    'code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00
+                )
+        );
         $x++;
     }
 }
@@ -209,7 +265,7 @@ if (($_GET['Project']) == 2) {
 
 /* * ************* PAGE 1 ************ */
 $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('A1', ' รายงานความพึงพอใจลูกค้าด้านบริการ Pruksa Contact Center 1739 ')
+        ->setCellValue('A1', ' รายงานความพึงพอใจลูกค้าด้านบริการ ' . $project['Name'])
         ->setCellValue('A2', 'จำนวนสายที่ Contact Center ให้บริการทั้งหมด (ACD+Transection)')
         ->setCellValue('B2', 'จำนวนสาย ที่พนักงานส่งเข้าประเมิน')
         ->setCellValue('C2', 'สาเหตุที่ไม่ส่งสายประเมิน')
@@ -239,7 +295,7 @@ $objPHPExcel->setActiveSheetIndex(0)
 
 
 $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('A6', ' คะแนนความพึงพอใจลูกค้าต่อการบริการ Pruksa Contact Center 1739 ')
+        ->setCellValue('A6', ' คะแนนความพึงพอใจลูกค้าต่อการบริการ  ' . $project['Name'])
         ->setCellValue('A7', 'จำนวนสายที่ประเมินผลได้สำเร็จ')
         ->setCellValue('B7', 'ภาพรวมการให้บริการทุกประเภท');
 if (($_GET['Project']) == 2) {
@@ -259,7 +315,13 @@ if (($_GET['Project']) == 2) {
             ->setCellValue('B9', $Page3Data['score'][1])
             ->setCellValue('C9', $Page3Data['score'][2])
             ->setCellValue('D9', $Page3Data['score'][3])
-            ->setCellValue('E9', '');
+            ->setCellValue('E9', '=((B9*1)+(C9*0.5)+(D9*0))/J4');
+    $objPHPExcel->setActiveSheetIndex(0)->getStyle("E9")
+            ->getNumberFormat()->applyFromArray(
+            array(
+                'code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00
+            )
+    );
 } else if (($_GET['Project']) == 3) {
 
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C2', 'สาเหตุที่ไม่ส่งสายประเมิน')
@@ -275,7 +337,13 @@ if (($_GET['Project']) == 2) {
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('B9', $Page3Data['score'][1])
             ->setCellValue('C9', $Page3Data['score'][0])
-            ->setCellValue('D9', '');
+            ->setCellValue('D9', '=((B9*1))/J4');
+    $objPHPExcel->setActiveSheetIndex(0)->getStyle("D9")
+            ->getNumberFormat()->applyFromArray(
+            array(
+                'code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00
+            )
+    );
 }
 
 
@@ -289,11 +357,11 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('D12', 'Tel No.')
         ->setCellValue('E12', 'Agent name');
 $i = 13;
- 
+
 foreach ($NullValue AS $k => $v) {
 
     $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue("A$i", $i - 13)
+            ->setCellValue("A$i", $i - 12)
             ->setCellValue("B$i", $fn->redate($v['DateLeave']))
             ->setCellValue("C$i", $fn->retime($v['time']))
             ->setCellValue("D$i", $v['customernumber'])

@@ -13,7 +13,7 @@
                 <li id="Activehome"  > <a href="index.php"> <i class="icon-screen"> </i><span>Home</span></a></li>
                 <li id="Activecallback"> <a href="callback.php"> <i class="icon-rss-feed"> </i><span>Call Back Reports</span></a></li>
                 <li id="Activeendcall"> <a href="endcall.php"> <i class="icon-rss-feed"> </i><span>End call survey Reports</span></a></li> 
-                <li id="Activeendcall2"> <a href="endcall_1.php"> <i class="icon-rss-feed"> </i><span>End call Reports 2 </span></a></li> 
+<!--                <li id="Activeendcall2"> <a href="endcall_1.php"> <i class="icon-rss-feed"> </i><span>End call Reports 2 </span></a></li> -->
                 <li id="ActiveAuxtime"> <a href="auxtime.php"> <i class="icon-rss-feed">  </i><span>Auxilary Time Report</span></a></li> 
                 <li id="ActiveAuxtime2"> <a href="auxtimeSummary.php"> <i class="icon-rss-feed">  </i><span>Auxilary Time Report 2</span></a></li> 
 

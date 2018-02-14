@@ -234,6 +234,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                 <a class="dropdown-item extranalLink2"  href="_endcall_excel.php"><i class="fa fa-file-excel-o"></i> Excel</a>
+                                                <a class="dropdown-item extranalLink2"  href="_endcall_excel_2.php"><i class="fa fa-file-excel-o"></i> Excel Summary</a> 
                                                 <a class="dropdown-item extranalLink2" href="_endcall_pdf.php"><i class="fa fa-file-pdf-o"></i> PDF</a>
                                                 <a class="dropdown-item extranalLink2" href="_endcall_print.php"><i class="fa fa-print"></i> Print</a>
                                             </div>
