@@ -119,7 +119,7 @@ $AuxType = $fn->getAuxType();
                                         <?php
                                         foreach ($project AS $key => $value) {
                                             ?>
-                                            <option value="<?php echo $value['ProjectID']; ?>" <?= @($_GET['Project'] == $value['ProjectID']) ? 'selected' :'0' ?>> 
+                                            <option value="<?php echo $value['ProjectID']; ?>" <?= @($_GET['Project'] == $value['ProjectID']) ? 'selected' : '0' ?>> 
                                                 <?php echo $value['Name']; ?>
                                             </option>
                                         <?php } ?>
@@ -133,7 +133,7 @@ $AuxType = $fn->getAuxType();
                                         <?php
                                         foreach ($did AS $key => $value) {
                                             ?>
-                                            <option data-status="remove" value="<?php echo $value['DIDNumber']; ?>" <?= @($_GET['Did'] == $value['DIDNumber']) ? 'selected' :'0' ?>> 
+                                            <option data-status="remove" value="<?php echo $value['DIDNumber']; ?>" <?= @($_GET['Did'] == $value['DIDNumber']) ? 'selected' : '0' ?>> 
                                                 <?php echo $value['DIDNumber']; ?>
                                             </option>
                                         <?php } ?>
@@ -147,7 +147,7 @@ $AuxType = $fn->getAuxType();
                                         <?php
                                         foreach ($Queue AS $key => $value) {
                                             ?>
-                                            <option data-status="remove"  value="<?php echo $value['QueueNumber']; ?>" <?= @($_GET['Queue'] == $value['QueueNumber']) ? 'selected' :'0' ?>> 
+                                            <option data-status="remove"  value="<?php echo $value['QueueNumber']; ?>" <?= @($_GET['Queue'] == $value['QueueNumber']) ? 'selected' : '0' ?>> 
                                                 <?php echo $value['QueueNumber']; ?>
                                             </option>
                                         <?php } ?>
@@ -158,7 +158,7 @@ $AuxType = $fn->getAuxType();
                                     <div > 
                                         <div>
                                             <label style="margin-left: 25px;margin-bottom: 5px;">
-                                                <input type="radio" class="timeCheck" name="timeOption" value="all" <?php echo (isset($_GET['timeOption']) && $_GET['timeOption'] == 'all') ? 'checked' : ((!isset($_GET['timeOption'])) ? 'checked' :'0') ?> > All Time.                                            
+                                                <input type="radio" class="timeCheck" name="timeOption" value="all" <?php echo (isset($_GET['timeOption']) && $_GET['timeOption'] == 'all') ? 'checked' : ((!isset($_GET['timeOption'])) ? 'checked' : '0') ?> > All Time.                                            
                                             </label>
                                         </div>
                                         <!--                                        <label style="margin-left: 25px;margin-bottom: 5px;">
@@ -193,20 +193,20 @@ $AuxType = $fn->getAuxType();
                                     <label>Agent  Option. </label>    
                                     <div style="display: flex;flex-direction: column;flex: 1;justify-content: flex-start;align-items: stretch;"> 
                                         <label style="margin-left: 25px;margin-bottom: 5px;">
-                                            <input type="radio" class="AgentCheck" name="agentOption" value="name" <?php echo (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name') ? 'checked' : ((!isset($_GET['agentOption'])) ? 'checked' :'0') ?> > Agent Name
+                                            <input type="radio" class="AgentCheck" name="agentOption" value="name" <?php echo (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name') ? 'checked' : ((!isset($_GET['agentOption'])) ? 'checked' : '0') ?> > Agent Name
                                             <div class="Padding-left20"> 
-                                                <input id="AgentName" type="text" name="Cusnum"  placeholder="Agent Name" class="form-control" value="<?= (isset($_GET['Cusnum'])) ? $_GET['Cusnum'] : "" ?>" <?= isset($_GET['agentOption']) && $_GET['agentOption'] != 'name' ? 'disabled' :'0' ?>>
+                                                <input id="AgentName" type="text" name="Cusnum"  placeholder="Agent Name" class="form-control" value="<?= (isset($_GET['Cusnum'])) ? $_GET['Cusnum'] : "" ?>" <?= isset($_GET['agentOption']) && $_GET['agentOption'] != 'name' ? 'disabled' : '0' ?>>
                                             </div>
                                         </label>
                                         <label style="margin-left: 25px;margin-bottom: 5px;">
                                             <input class="AgentCheck" type="radio" name="agentOption" value="number" <?php echo (isset($_GET['agentOption']) && $_GET['agentOption'] == 'number') ? 'checked' : "" ?> > Agent  Number
                                             <div class="Padding-left20">
-                                                <select class=" form-control" name="Agent" id="Agent" <?= (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' ) || !isset($_GET['agentOption']) ? 'disabled' :'0' ?>>
+                                                <select class=" form-control" name="Agent" id="Agent" <?= (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' ) || !isset($_GET['agentOption']) ? 'disabled' : '0' ?>>
                                                     <option value="all">ALL</option>
                                                     <?php
                                                     foreach ($agent AS $key => $value) {
                                                         ?>
-                                                        <option data-status='remove' value="<?php echo $value['agent_code']; ?>" <?= @($_GET['Agent'] == $value['agent_code']) ? 'selected' :'0' ?>>  <?php echo $value['agent_code']; ?></option>
+                                                        <option data-status='remove' value="<?php echo $value['agent_code']; ?>" <?= @($_GET['Agent'] == $value['agent_code']) ? 'selected' : '0' ?>>  <?php echo $value['agent_code']; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -221,7 +221,7 @@ $AuxType = $fn->getAuxType();
                                         foreach ($AuxType AS $key => $value) {
                                             $valuex = $fn->ThaiTextToutf($value);
                                             ?>
-                                            <option data-status="remove"  value="<?php echo $value['aux_number']; ?>" <?= @($_GET['aux'] == $value['aux_number']) ? 'selected' :'0' ?>> 
+                                            <option data-status="remove"  value="<?php echo $value['aux_number']; ?>" <?= @($_GET['aux'] == $value['aux_number']) ? 'selected' : '0' ?>> 
                                                 <?php echo $value['aux_number']; ?> : <?php echo $valuex['aux_description']; ?>
                                             </option>
                                         <?php } ?>
@@ -255,44 +255,55 @@ $AuxType = $fn->getAuxType();
                                 <table class="table table-bordered" id="tablex">
                                     <thead>
                                         <tr>
-                                            <th rowspan="2" class="bg-warning ">No.</th>
-                                            <th rowspan="2" class="bg-warning">Agent</th>
-                                            <th rowspan="2" class="bg-warning">Available</th>
-                                            <th rowspan="2" class="bg-warning">Wrap</th>
-                                            <th colspan="9" class="bg-warning text-center">Aux Time</th>
+                                            <th rowspan="2" class=" ">No.</th>
+                                            <th rowspan="2" class="">Agent</th>
+                                            <th rowspan="2" class="">Available</th>
+                                            <th rowspan="2" class="">Wrap</th>
+                                            <th colspan="9" class=" text-center">Aux Time</th>
                                         </tr>
                                         <tr>
-                                            <th class="bg-warning">Coaching</th>
-                                            <th class="bg-warning">Contact Person</th>
-                                            <th class="bg-warning">Computer Down</th>
-                                            <th class="bg-warning">Restroom</th> 
-                                            <th class="bg-warning">Call out</th> 
-                                            <th class="bg-warning">Audit</th> 
-                                            <th class="bg-warning">Follow Up Case</th> 
-                                            <th class="bg-warning">Lunch</th> 
-                                            <th class="bg-warning">Email</th> 
+                                            <th class="">Coaching</th>
+                                            <th class="">Contact Person</th>
+                                            <th class="">Computer Down</th>
+                                            <th class="">Restroom</th> 
+                                            <th class="">Call out</th> 
+                                            <th class="">Audit</th> 
+                                            <th class="">Follow Up Case</th> 
+                                            <th class="">Lunch</th> 
+                                            <th class="">Email</th> 
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $i = 1;
+                                        $array = array(
+                                            'Available', 'Wrap', 'Coaching', 'Contact Person', 'Computer Down', 'Restroom', 'Call out',
+                                            'Audit', 'Follow Up Case', 'Lunch', 'Email'
+                                        );
                                         foreach ($list AS $key => $value) {
                                             $valuex = $fn->ThaiTextToutf($value);
                                             ?>
                                             <tr>
                                                 <td scope="row"><?= $i++ ?></td>                                            
                                                 <td><?= $value['Agent']; ?></td>
-                                                <td><?= !empty($valuex['Available']) ? $valuex['Available']/* / 60*/ :'0' ?></td> 
-                                                <td><?= !empty($valuex['Wrap']) ? $valuex['Wrap']/* / 60*/ :'0' ?></td> 
-                                                <td><?= !empty($valuex['Coaching']) ? $valuex['Coaching']/* / 60*/ :'0' ?></td> 
-                                                <td><?= !empty($valuex['Contact Person']) ? $valuex['Contact Person']/* / 60*/ :'0' ?></td> 
-                                                <td><?= !empty($valuex['Computer Down']) ? $valuex['Computer Down']/* / 60*/ :'0' ?></td> 
-                                                <td><?= !empty($valuex['Restroom']) ? $valuex['Restroom']/* / 60*/ :'0' ?></td> 
-                                                <td><?= !empty($valuex['Call out']) ? $valuex['Call out']/* / 60*/ :'0' ?></td> 
-                                                <td><?= !empty($valuex['Audit']) ? $valuex['Audit']/* / 60*/ :'0' ?></td> 
-                                                <td><?= !empty($valuex['Follow Up Case']) ? $valuex['Follow Up Case']/* / 60*/ :'0' ?></td> 
-                                                <td><?= !empty($valuex['Lunch']) ? $valuex['Lunch']/* / 60*/ :'0' ?></td> 
-                                                <td><?= !empty($valuex['Email']) ? $valuex['Email']/* / 60*/ :'0' ?></td>   
+                                                <?php
+                                                foreach ($array as $key => $value) {
+                                                    ?>
+                                                    <td><?= !empty($valuex[$value]) ? gmdate("H:i", $valuex[$value]): '0' ?></td> 
+                                                    <?php
+                                                }
+                                                ?>
+
+<!--                                                <td><?= !empty($valuex['Wrap']) ? $valuex['Wrap'] / 3600 : '0' ?></td> 
+                                                <td><?= !empty($valuex['Coaching']) ? $valuex['Coaching'] / 3600 : '0' ?></td> 
+                                                <td><?= !empty($valuex['Contact Person']) ? $valuex['Contact Person'] / 3600 : '0' ?></td> 
+                                                <td><?= !empty($valuex['Computer Down']) ? $valuex['Computer Down'] / 3600 : '0' ?></td> 
+                                                <td><?= !empty($valuex['Restroom']) ? $valuex['Restroom'] / 3600 : '0' ?></td> 
+                                                <td><?= !empty($valuex['Call out']) ? $valuex['Call out'] / 3600 : '0' ?></td> 
+                                                <td><?= !empty($valuex['Audit']) ? $valuex['Audit'] / 3600 : '0' ?></td> 
+                                                <td><?= !empty($valuex['Follow Up Case']) ? $valuex['Follow Up Case'] / 3600 : '0' ?></td> 
+                                                <td><?= !empty($valuex['Lunch']) ? $valuex['Lunch'] / 3600 : '0' ?></td> 
+                                                <td><?= !empty($valuex['Email']) ? $valuex['Email'] / 3600 : '0' ?></td>   -->
                                             </tr>
                                             <?php
                                         }
@@ -360,11 +371,11 @@ $AuxType = $fn->getAuxType();
                         ]
                     },
                 });
-
-                $('#tablex').DataTable({
-                    "pageLength": 25
-                });
-            });
+//
+//                $('#tablex').DataTable({
+//                    "pageLength": 25
+//                });
+//            });
         </script>
     </body>
 </html>

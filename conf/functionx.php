@@ -423,10 +423,14 @@ class functionx extends Crud {
         $res = $this->query($sql);
         $arra = array();
         foreach ($res as $key => $value) {
-              $sql = "SELECT   Agent, [Available], [Wrap], [Restroom], [Email], [Lunch] ,[Call out],[Follow Up Case],[Coaching],[Contact Person],[Audit],[Computer Down]
+               $sql = "SELECT   Agent, [Available], [Wrap], [Restroom], [Email], [Lunch] ,[Call out],[Follow Up Case],[Coaching],[Contact Person],[Audit],[Computer Down]
 		FROM   
 		(
-			SELECT Agent, AuxDes, AuxDuration 
+			SELECT Agent, AuxDes, (
+             ( DATEPART(hh, AuxDuration) * 3600 ) +
+             ( DATEPART(mi, AuxDuration) * 60 ) +
+               DATEPART(ss, AuxDuration)
+          )    AS AuxDuration 
 			FROM [dbo].[AuxTime]
 			WHERE DATEADD(year,-543,convert(date,DateAux)) BETWEEN '$stardate' AND '$enddate'  and Agent = '{$value['Agent']}'
 
@@ -439,6 +443,7 @@ class functionx extends Crud {
 
 
             $arra[$value['Agent']] = $this->query($sql)[0];
+            
         }
         return $arra;
     }
