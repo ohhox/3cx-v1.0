@@ -285,8 +285,11 @@ $AuxType = $fn->getAuxType();
                                         foreach ($list AS $key => $value) {
                                             $TTwrap = $value['Coaching'] + $value['Contact Person'] + $value['Computer Down'] + $value['Restroom'] + $value['Call out'] + $value['Audit'] + $value['Follow Up Case'] + $value['Lunch'] + $value['Email'];
                                             $valuex = $fn->ThaiTextToutf($value);
-                                            
-                                            $tttime = ($value['Available'] + $value['Wrap'] + $TTwrap ) - 3600;
+
+                                            $tttime = ($value['Available'] + $value['Wrap'] + $TTwrap );
+                                            if ($tttime > 0) {
+                                                $tttime = $tttime - 3600;
+                                            }
                                             ?>
                                             <tr>
                                                 <td scope="row"><?= $i++ ?></td>                                            
@@ -297,7 +300,6 @@ $AuxType = $fn->getAuxType();
                                                 <td class="bg-successP2y"><?= gmdate("H:i:s", $TTwrap); ?></td>
                                                 <?php
                                                 foreach ($array as $k => $v) {
-                                                   
                                                     ?>
                                                     <td><?= !empty($valuex[$v]) ? gmdate("H:i:s", $valuex[$v]) : '00:00:00' ?></td> 
                                                     <?php

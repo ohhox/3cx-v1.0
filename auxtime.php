@@ -239,9 +239,9 @@ $AuxType = $fn->getAuxType();
                                                 Export
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-<!--                                                <a class="dropdown-item extranalLink"  href="_callback_excel.php"><i class="fa fa-file-excel-o"></i> Excel</a>
-                                                <a class="dropdown-item extranalLink" href="_callback_pdf.php"><i class="fa fa-file-pdf-o"></i> PDF</a>
-                                                <a class="dropdown-item extranalLink" href="_callback_print.php"><i class="fa fa-print"></i> Print</a>-->
+                                                <a class="dropdown-item extranalLink"  href="_aux_excel.php"><i class="fa fa-file-excel-o"></i> Excel</a>
+                                                <a class="dropdown-item extranalLink" href="_aux_pdf.php"><i class="fa fa-file-pdf-o"></i> PDF</a>
+                                                <a class="dropdown-item extranalLink" href="_aux_print.php"><i class="fa fa-print"></i> Print</a>
                                             </div>
                                         </div>
                                     </div>
