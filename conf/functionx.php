@@ -442,7 +442,7 @@ class functionx extends Crud {
    			SUM(AuxDuration)
 			FOR AuxDes IN ([Available], [Wrap], [Restroom], [Email], [Lunch] ,[Call out],[Follow Up Case],[Coaching],[Contact Person],[Audit],[Computer Down])
 		) AS P";
- 
+
 
             $arra[$value['Agent']] = $this->query($sql)[0];
         }

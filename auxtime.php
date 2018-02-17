@@ -95,7 +95,7 @@ $AuxType = $fn->getAuxType();
                 <div class="container-fluid">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item active">Report Auxilary Time</li>
+                        <li class="breadcrumb-item active">Report Auxiliary Time</li>
                     </ul>
                 </div>
             </div>
@@ -103,7 +103,7 @@ $AuxType = $fn->getAuxType();
             <section class="charts">
                 <div class="container-fluid" id="MainPosion">
                     <header id="formSearc"  > 
-                        <h1 class="h3">Auxilary Time Report</h1>
+                        <h1 class="h3">Auxiliary Time Report</h1>
                         <form id="Sform">
                             <div class="row">
 
@@ -193,15 +193,9 @@ $AuxType = $fn->getAuxType();
                                     <label>Agent  Option. </label>    
                                     <div style="display: flex;flex-direction: column;flex: 1;justify-content: flex-start;align-items: stretch;"> 
                                         <label style="margin-left: 25px;margin-bottom: 5px;">
-                                            <input type="radio" class="AgentCheck" name="agentOption" value="name" <?php echo (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name') ? 'checked' : ((!isset($_GET['agentOption'])) ? 'checked' : '') ?> > Agent Name
-                                            <div class="Padding-left20"> 
-                                                <input id="AgentName" type="text" name="Cusnum"  placeholder="Agent Name" class="form-control" value="<?= (isset($_GET['Cusnum'])) ? $_GET['Cusnum'] : "" ?>" <?= isset($_GET['agentOption']) && $_GET['agentOption'] != 'name' ? 'disabled' : '' ?>>
-                                            </div>
-                                        </label>
-                                        <label style="margin-left: 25px;margin-bottom: 5px;">
-                                            <input class="AgentCheck" type="radio" name="agentOption" value="number" <?php echo (isset($_GET['agentOption']) && $_GET['agentOption'] == 'number') ? 'checked' : "" ?> > Agent  Number
+                                            <input class="AgentCheck" type="radio" name="agentOption" value="number" <?php echo (isset($_GET['agentOption']) && $_GET['agentOption'] == 'number') ? 'checked' : ((!isset($_GET['agentOption'])) ? 'checked' : '') ?> > Agent  Number
                                             <div class="Padding-left20">
-                                                <select class=" form-control" name="Agent" id="Agent" <?= (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' ) || !isset($_GET['agentOption']) ? 'disabled' : '' ?>>
+                                                <select class=" form-control" name="Agent" id="Agent" <?= (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' )   ? 'disabled' : '' ?>>
                                                     <option value="all">ALL</option>
                                                     <?php
                                                     foreach ($agent AS $key => $value) {
@@ -211,6 +205,13 @@ $AuxType = $fn->getAuxType();
                                                 </select>
                                             </div>
                                         </label>
+                                        <label style="margin-left: 25px;margin-bottom: 5px;">
+                                            <input type="radio" class="AgentCheck" name="agentOption" value="name" <?php echo (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name') ? 'checked' : '' ?> > Agent Name
+                                            <div class="Padding-left20"> 
+                                                <input id="AgentName" type="text" name="Cusnum"  placeholder="Agent Name" class="form-control" value="<?= (isset($_GET['Cusnum'])) ? $_GET['Cusnum'] : "" ?>" <?= isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' || ((!isset($_GET['agentOption'])) ? 'checked' : '') ? 'disabled' : '' ?>>
+                                            </div>
+                                        </label>
+                                        
                                     </div> 
                                 </div> 
                                 <div class="col-md-3">
