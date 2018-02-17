@@ -75,6 +75,21 @@ class op_ajax extends functionx {
         }
     }
 
+    public function checkAuxNumber() {
+
+        if (!empty($_GET['aid']) && !empty($_GET['aux'])) {
+            $sql = "SELECT * FROM Auxtype WHERE aux_number='{$_GET['aux']}' AND aux_id != '{$_GET['aid']}'";
+            if (!empty($this->query($sql))) {
+                echo 1;
+            }
+        } else if (!empty($_GET['aux'])) {
+            $sql = "SELECT * FROM Auxtype WHERE aux_number='{$_GET['aux']}'";
+            if (!empty($this->query($sql))) {
+                echo 1;
+            }
+        }
+    }
+
 }
 
 $op = $_GET['op'];

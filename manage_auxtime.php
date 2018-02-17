@@ -92,7 +92,7 @@ $list = $fn->getAuxType();
                                 </tr>
                             </thead>
                             <tbody>
-                                  <?php
+                                <?php
                                 $i = 1;
                                 foreach ($list AS $key => $value) {
                                     $value = $fn->ThaiTextToutf($value);
@@ -131,10 +131,10 @@ $list = $fn->getAuxType();
         <script src="js/customs.js"></script>
 
         <script>
-                        $('#tablex').DataTable({
-                            "pageLength": 25, 
-            
-                        });
+            $('#tablex').DataTable({
+                "pageLength": 25,
+
+            });
         </script>
 
     </body>

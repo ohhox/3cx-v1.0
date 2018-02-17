@@ -1,11 +1,10 @@
 <?php
 include './conf.php';
-$fn = new functionx(); 
+$fn = new functionx();
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $list = $fn->getAuxType($_GET['id']);
     $list = $fn->ThaiTextToutf($list);
 }
- 
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,11 +62,12 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         <div class="row"> 
                             <div class="card col-8">                             
                                 <div class="card-body">
-                                    <form  class="form" action="_op_main.php?op=<?= isset($list) ? 'editAuxTimet&id=' . $_GET['id'] : 'saveAuxTime' ?>" method="post">                                        
+                                    <form  class="form" id="AuxTypeForm"action="_op_main.php?op=<?= isset($list) ? 'editAuxTimet&id=' . $_GET['id'] : 'saveAuxTime' ?>" method="post">                                        
                                         <div class="form-group">
                                             <label>Auxilary Number* </label>
                                             <div>
-                                                <input type="number" class="form-control" name="aux_number" value="<?= isset($list) ? $list['aux_number'] : '' ?>" required placeholder="Auxilary Number">
+                                                <input type="number" aid="<?= isset($list) ?  $_GET['id'] : '' ?>" class="form-control" data-check="" id="aux_number" name="aux_number" value="<?= isset($list) ? $list['aux_number'] : '' ?>" required placeholder="Auxilary Number">
+                                                <div class="text-danger" id="auxAlert"></div>
                                             </div>
                                         </div> 
                                         <div class="form-group">
@@ -100,7 +100,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="js/front.js"></script>
         <script src="js/customs.js"></script>
-
+        
 
     </body>
 </html>

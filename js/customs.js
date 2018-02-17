@@ -93,12 +93,36 @@ $('.CheckAgent').on('change', function () {
     $("#AddAgentBage").text($('.CheckAgent:checked').length);
 });
 
-$('#CheckALl').on('change', () => {
+$('#CheckALl').on('change', function () {
     if ($('#CheckALl').prop("checked")) {
         $('.CheckAgent').prop("checked", true);
-          $("#AddAgentBage").text($('.CheckAgent:checked').length)
+        $("#AddAgentBage").text($('.CheckAgent:checked').length)
     } else {
         $('.CheckAgent').prop("checked", false);
-          $("#AddAgentBage").text($('.CheckAgent:checked').length)
+        $("#AddAgentBage").text($('.CheckAgent:checked').length)
+    }
+});
+
+
+$("#aux_number").on('change', function () {
+    var obj = $(this);
+    var aid = $(this).attr('aid');
+    var auxnumber = $(this).val();
+    var url = '_op_ajax.php?op=checkAuxNumber&aux=' + auxnumber + '&aid=' + aid;
+    $.ajax(url).done(function (data) {
+        if (data == 1) {
+            $(obj).attr('data-check', 'exit');
+            $("#auxAlert").html("This number already exists.")
+        } else {
+            $("#auxAlert").html("");
+            $(obj).attr('data-check', 'OK');
+        }
+    });
+});
+
+$("#AuxTypeForm").on('submit', function (e) {
+    if ($("#aux_number").attr('data-check') != "OK") {
+        e.preventDefault();
+        $("#aux_number").focus();
     }
 });
