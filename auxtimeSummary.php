@@ -289,21 +289,12 @@ $AuxType = $fn->getAuxType();
                                                 <?php
                                                 foreach ($array as $key => $value) {
                                                     ?>
-                                                    <td><?= !empty($valuex[$value]) ? gmdate("H:i", $valuex[$value]): '0' ?></td> 
+                                                    <td><?= !empty($valuex[$value]) ? gmdate("H:i:s", $valuex[$value]): '00:00:00' ?></td> 
                                                     <?php
                                                 }
                                                 ?>
 
-<!--                                                <td><?= !empty($valuex['Wrap']) ? $valuex['Wrap'] / 3600 : '0' ?></td> 
-                                                <td><?= !empty($valuex['Coaching']) ? $valuex['Coaching'] / 3600 : '0' ?></td> 
-                                                <td><?= !empty($valuex['Contact Person']) ? $valuex['Contact Person'] / 3600 : '0' ?></td> 
-                                                <td><?= !empty($valuex['Computer Down']) ? $valuex['Computer Down'] / 3600 : '0' ?></td> 
-                                                <td><?= !empty($valuex['Restroom']) ? $valuex['Restroom'] / 3600 : '0' ?></td> 
-                                                <td><?= !empty($valuex['Call out']) ? $valuex['Call out'] / 3600 : '0' ?></td> 
-                                                <td><?= !empty($valuex['Audit']) ? $valuex['Audit'] / 3600 : '0' ?></td> 
-                                                <td><?= !empty($valuex['Follow Up Case']) ? $valuex['Follow Up Case'] / 3600 : '0' ?></td> 
-                                                <td><?= !empty($valuex['Lunch']) ? $valuex['Lunch'] / 3600 : '0' ?></td> 
-                                                <td><?= !empty($valuex['Email']) ? $valuex['Email'] / 3600 : '0' ?></td>   -->
+ 
                                             </tr>
                                             <?php
                                         }
