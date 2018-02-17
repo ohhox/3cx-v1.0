@@ -257,8 +257,10 @@ $AuxType = $fn->getAuxType();
                                         <tr>
                                             <th rowspan="2" class=" ">No.</th>
                                             <th rowspan="2" class="">Agent</th>
-                                            <th rowspan="2" class="">Available</th>
-                                            <th rowspan="2" class="">Wrap</th>
+                                            <th rowspan="2" class="bg-successP2y">Staff Time</th>
+                                            <th rowspan="2" class="">Total Available</th>
+                                            <th rowspan="2" class="">Total Wrap</th>
+                                            <th rowspan="2" class="bg-successP2y">Total Aux Time</th>
                                             <th colspan="9" class=" text-center">Aux Time</th>
                                         </tr>
                                         <tr>
@@ -277,24 +279,32 @@ $AuxType = $fn->getAuxType();
                                         <?php
                                         $i = 1;
                                         $array = array(
-                                            'Available', 'Wrap', 'Coaching', 'Contact Person', 'Computer Down', 'Restroom', 'Call out',
+                                            'Coaching', 'Contact Person', 'Computer Down', 'Restroom', 'Call out',
                                             'Audit', 'Follow Up Case', 'Lunch', 'Email'
                                         );
                                         foreach ($list AS $key => $value) {
+                                            $TTwrap = $value['Coaching'] + $value['Contact Person'] + $value['Computer Down'] + $value['Restroom'] + $value['Call out'] + $value['Audit'] + $value['Follow Up Case'] + $value['Lunch'] + $value['Email'];
                                             $valuex = $fn->ThaiTextToutf($value);
+                                            
+                                            $tttime = ($value['Available'] + $value['Wrap'] + $TTwrap ) - 3600;
                                             ?>
                                             <tr>
                                                 <td scope="row"><?= $i++ ?></td>                                            
-                                                <td><?= $value['Agent']; ?></td>
+                                                <td ><?= $value['Agent']; ?></td>
+                                                <td class="bg-successP2y"><?= gmdate("H:i:s", $tttime); ?></td>
+                                                <td><?= !empty($valuex['Available']) ? gmdate("H:i:s", $valuex['Available']) : '00:00:00' ?></td>
+                                                <td><?= !empty($valuex['Wrap']) ? gmdate("H:i:s", $valuex['Wrap']) : '00:00:00' ?></td>
+                                                <td class="bg-successP2y"><?= gmdate("H:i:s", $TTwrap); ?></td>
                                                 <?php
-                                                foreach ($array as $key => $value) {
+                                                foreach ($array as $k => $v) {
+                                                   
                                                     ?>
-                                                    <td><?= !empty($valuex[$value]) ? gmdate("H:i:s", $valuex[$value]): '00:00:00' ?></td> 
+                                                    <td><?= !empty($valuex[$v]) ? gmdate("H:i:s", $valuex[$v]) : '00:00:00' ?></td> 
                                                     <?php
                                                 }
                                                 ?>
 
- 
+
                                             </tr>
                                             <?php
                                         }
@@ -366,7 +376,7 @@ $AuxType = $fn->getAuxType();
 //                $('#tablex').DataTable({
 //                    "pageLength": 25
 //                });
-             });
+            });
         </script>
     </body>
 </html>
