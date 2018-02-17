@@ -371,11 +371,11 @@ $AuxType = $fn->getAuxType();
                         ]
                     },
                 });
-//
+
 //                $('#tablex').DataTable({
 //                    "pageLength": 25
 //                });
-//            });
+             });
         </script>
     </body>
 </html>
