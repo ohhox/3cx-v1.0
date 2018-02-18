@@ -425,7 +425,7 @@ class functionx extends Crud {
         foreach ($res as $key => $value) {
             $sql = "SELECT   Agent, [Available], [Wrap], [Restroom], [Email], [Lunch] ,[Call out],[Follow Up Case],[Coaching],[Contact Person],[Audit],[Computer Down],
                  ([Available]+[Wrap]+[Restroom]+ [Email] + [Lunch] +[Call out]+[Follow Up Case]+[Coaching]+[Contact Person]+[Audit]+[Computer Down]) AS AllTime , 
-                  ([Restroom]+ [Email] + [Lunch] +[Call out]+[Follow Up Case]+[Coaching]+[Contact Person]+[Audit]+[Computer Down]) AS AllAux 
+                  ([Restroom]+ [Email] + [Lunch] +[Call out]+[Follow Up Case]+[Coaching]+[Contact Person]+[Audit]+[Computer Down]) AS AllAux,[login]
 		FROM   
 		(
 			SELECT Agent, AuxDes, (
@@ -440,7 +440,7 @@ class functionx extends Crud {
 		PIVOT
 		(
    			SUM(AuxDuration)
-			FOR AuxDes IN ([Available], [Wrap], [Restroom], [Email], [Lunch] ,[Call out],[Follow Up Case],[Coaching],[Contact Person],[Audit],[Computer Down])
+			FOR AuxDes IN ([Available], [Wrap], [Restroom], [Email], [Lunch] ,[Call out],[Follow Up Case],[Coaching],[Contact Person],[Audit],[Computer Down],[login])
 		) AS P";
 
 

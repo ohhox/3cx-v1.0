@@ -54,9 +54,7 @@ $objPHPExcel->setActiveSheetIndex(0)
 
 // Rename worksheet
 $objPHPExcel->getActiveSheet()->setTitle('Auxiliary Time Report');
-
-
-// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+ 
 $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A10', 'NO.')
         ->setCellValue('B10', 'Date')
