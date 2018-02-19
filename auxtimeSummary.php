@@ -189,13 +189,13 @@ $AuxType = $fn->getAuxType();
 
                                 </div>
 
-                               <div class="col-md-3">   
+                                <div class="col-md-3">   
                                     <label>Agent  Option. </label>    
                                     <div style="display: flex;flex-direction: column;flex: 1;justify-content: flex-start;align-items: stretch;"> 
                                         <label style="margin-left: 25px;margin-bottom: 5px;">
                                             <input class="AgentCheck" type="radio" name="agentOption" value="number" <?php echo (isset($_GET['agentOption']) && $_GET['agentOption'] == 'number') ? 'checked' : ((!isset($_GET['agentOption'])) ? 'checked' : '') ?> > Agent  Number
                                             <div class="Padding-left20">
-                                                <select class=" form-control" name="Agent" id="Agent" <?= (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' )   ? 'disabled' : '' ?>>
+                                                <select class=" form-control" name="Agent" id="Agent" <?= (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' ) ? 'disabled' : '' ?>>
                                                     <option value="all">ALL</option>
                                                     <?php
                                                     foreach ($agent AS $key => $value) {
@@ -211,7 +211,7 @@ $AuxType = $fn->getAuxType();
                                                 <input id="AgentName" type="text" name="Cusnum"  placeholder="Agent Name" class="form-control" value="<?= (isset($_GET['Cusnum'])) ? $_GET['Cusnum'] : "" ?>" <?= isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' || ((!isset($_GET['agentOption'])) ? 'checked' : '') ? 'disabled' : '' ?>>
                                             </div>
                                         </label>
-                                        
+
                                     </div> 
                                 </div>  
                                 <div class="col-md-3">
@@ -240,9 +240,9 @@ $AuxType = $fn->getAuxType();
                                                 Export
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-<!--                                                <a class="dropdown-item extranalLink"  href="_callback_excel.php"><i class="fa fa-file-excel-o"></i> Excel</a>
-                                                <a class="dropdown-item extranalLink" href="_callback_pdf.php"><i class="fa fa-file-pdf-o"></i> PDF</a>
-                                                <a class="dropdown-item extranalLink" href="_callback_print.php"><i class="fa fa-print"></i> Print</a>-->
+                                                <a class="dropdown-item extranalLink"  href="_aux2_excel.php"><i class="fa fa-file-excel-o"></i> Excel</a>
+                                                  <!--        <a class="dropdown-item extranalLink" href="_callback_pdf.php"><i class="fa fa-file-pdf-o"></i> PDF</a>
+                                                     <a class="dropdown-item extranalLink" href="_callback_print.php"><i class="fa fa-print"></i> Print</a>-->
                                             </div>
                                         </div>
                                     </div>

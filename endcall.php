@@ -207,6 +207,11 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                      }
                                      ?>>
                                     <label>Score Rate </label>  
+                                     <div>
+                                        <label style="margin-left: 25px;margin-bottom: 5px;">
+                                            <input type="checkbox" name="disScore" value="yes" <?php echo (isset($_GET['disScore']) && $_GET['disScore'] == 'yes') ? 'checked' : "" ?> > Disable Score Rate.
+                                        </label>
+                                    </div>
                                     <div>
                                         <label style="margin-left: 25px;margin-bottom: 5px;">
                                             <input type="checkbox" name="scoreNull" value="yes" <?php echo (isset($_GET['scoreNull']) && $_GET['scoreNull'] == 'yes') ? 'checked' : "" ?> > Null Only
@@ -225,7 +230,7 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
                                 </div> 
 
                                 <div class="clear"></div>
-                                <div class="col-md-12" style="margin: 0px;"> 
+                                <div class="col-md-12" style="margin: 0px;padding-top: 50px;"> 
                                     <div class="btn-group   pull-right" role="group" aria-label="Button group with nested dropdown" style="margin-right:30px;margin-top:-45px;">
                                         <button type="submit" class="btn btn-primary btn-lg">Generate</button>
                                         <div class="btn-group" role="group">

@@ -105,7 +105,7 @@ for ($i = $begin; $i <= $end; $i->modify('+1 day')) {
     $today = $i->format('Y-m-d');
      $objPHPExcel->createSheet($count)->setTitle($today); 
     $objPHPExcel->setActiveSheetIndex($count)
-            ->setCellValue('A1', $today)
+            ->setCellValue('A1','Date Of Result. '. $today)
             ->setCellValue('A2', 'NO.')
             ->setCellValue('B2', 'Agent')
             ->setCellValue('C2', 'Staff Time')
