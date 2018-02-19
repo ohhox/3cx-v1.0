@@ -36,7 +36,7 @@ $pdf->Cell(20, 5, 'Date', 'LT', 0, 'C', 0);   // empty cell with left,top, and r
 $pdf->Cell(15, 5, 'Time', 'LT', 0, 'C', 0);
 $pdf->Cell(22, 5, 'Agent Number', 'LT', 0, 'C', 0);
 $pdf->Cell(60, 5, 'Agent Name', 'LT', 0, 'C', 0);  // cell with left and right borders
-$pdf->Cell(20, 5, 'Line In / out', 'LT', 0, 'C', 0);
+$pdf->Cell(20, 5, 'Login / Logout', 'LT', 0, 'C', 0);
 $pdf->Cell(20, 5, 'Aux Number', 'LTR', 0, 'C', 0);
 $pdf->Cell(25, 5, 'Aux Description', 'LTR', 0, 'C', 0);
 

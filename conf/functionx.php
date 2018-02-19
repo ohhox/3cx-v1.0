@@ -677,7 +677,7 @@ class functionx extends Crud {
     }
 
     public function calcDate($seconds) {
-        
+
         $hours = 0;
         $mins = 0;
 

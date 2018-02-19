@@ -263,7 +263,7 @@ $AuxType = $fn->getAuxType();
                                             <th>Agent Number</th>
 
                                             <th>Agent Name</th>
-                                            <th>Line In / out</th>
+                                            <th>Login / Logout</th>
                                             <th>Aux Number</th>
                                             <th>Aux Description</th> 
                                         </tr>

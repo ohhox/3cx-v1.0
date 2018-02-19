@@ -71,7 +71,7 @@ foreach ($list AS $key => $value) {
 
     $tttime = ($value['Available'] + $value['Wrap'] + $TTwrap );
     if ($tttime > 0) {
-          // $tttime = $tttime - 3600;
+        // $tttime = $tttime - 3600;
     }
 
     $objPHPExcel->setActiveSheetIndex(0)

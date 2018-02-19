@@ -61,7 +61,7 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('C10', 'Time')
         ->setCellValue('D10', 'Agent Number')
         ->setCellValue('E10', 'Agent Name')
-        ->setCellValue('F10', 'Line In / out')
+        ->setCellValue('F10', 'Login / Logout')
         ->setCellValue('G10', 'Aux Number')
         ->setCellValue('H10', 'Aux Description');
 
