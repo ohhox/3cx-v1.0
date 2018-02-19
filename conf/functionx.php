@@ -676,4 +676,25 @@ class functionx extends Crud {
         }
     }
 
+    public function calcDate($seconds) {
+        
+        $hours = 0;
+        $mins = 0;
+
+        if ($seconds >= 3600 || $seconds <= -3600)
+            $hours = floor($seconds / 3600);
+
+
+        $mins = floor($seconds / 60 % 60);
+        $secs = floor($seconds % 60);
+        if ($seconds < 0) {
+            echo "<span style='color:red'>";
+            $seconds = $seconds * -1;
+        }
+        return sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
+        if ($seconds < 0) {
+            echo "</span>";
+        }
+    }
+
 }

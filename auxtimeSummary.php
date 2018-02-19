@@ -50,7 +50,23 @@ if (isset($_GET['date']) && !empty($_GET['date'])) {
         '2' => date('d-m-Y'),
     );
 }
+if (isset($_GET['date']) && !empty($_GET['date'])) {
+    $date = explode('-', $_GET['date']);
 
+    $stardate = trim($date[2]) . '-' . $date[1] . '-' . $date[0];
+    $enddate = trim($date[5]) . '-' . $date[4] . '-' . ltrim(trim($date[3]));
+
+    $startTimeStamp = strtotime($stardate);
+    $endTimeStamp = strtotime($enddate);
+
+    $timeDiff = abs($endTimeStamp - $startTimeStamp);
+
+    $numberDays = $timeDiff / 86400;  // 86400 seconds in one day
+// and you might want to convert to integer
+    $numberDays = intval($numberDays) + 1;
+} else {
+    $enddate = $stardate = date('Y-m-d');
+}
 $AuxType = $fn->getAuxType();
 ?>
 <!DOCTYPE html>
@@ -290,25 +306,26 @@ $AuxType = $fn->getAuxType();
 
                                             $tttime = ($value['Available'] + $value['Wrap'] + $TTwrap );
                                             if ($tttime > 0) {
-                                                $tttime = $tttime - 3600;
+
+                                                //$tttime = $tttime - (3600 * $numberDays);
                                             }
                                             ?>
                                             <tr>
                                                 <td scope="row"><?= $i++ ?></td>                                            
                                                 <td ><?= $value['Agent']; ?></td>
-                                                <td class="bg-successP2y"><?= gmdate("H:i:s", $tttime); ?></td>
-                                                <td><?= !empty($valuex['Available']) ? gmdate("H:i:s", $valuex['Available']) : '00:00:00' ?></td>
-                                                <td><?= !empty($valuex['Wrap']) ? gmdate("H:i:s", $valuex['Wrap']) : '00:00:00' ?></td>
-                                                <td class="bg-successP2y"><?= gmdate("H:i:s", $TTwrap); ?></td>
+                                                <td class="bg-successP2y"><?= $fn->calcDate($tttime); ?></td>
+                                                <td><?= !empty($valuex['Available']) ? $fn->calcDate($valuex['Available']) : '00:00:00' ?></td>
+                                                <td><?= !empty($valuex['Wrap']) ? $fn->calcDate($valuex['Wrap']) : '00:00:00' ?></td>
+                                                <td class="bg-successP2y"><?= $fn->calcDate($TTwrap); ?></td>
                                                 <?php
                                                 foreach ($array as $k => $v) {
                                                     ?>
-                                                    <td><?= !empty($valuex[$v]) ? gmdate("H:i:s", $valuex[$v]) : '00:00:00' ?></td> 
+                                                    <td><?= !empty($valuex[$v]) ? $fn->calcDate($valuex[$v]) : '00:00:00' ?></td> 
                                                     <?php
                                                 }
                                                 ?>
                                                 <td class="bg-successP2y">
-                                                    <?= !empty($valuex['login']) ? gmdate("H:i:s", $valuex['login']) : '00:00:00' ?> 
+                                                    <?= !empty($valuex['login']) ? $fn->calcDate($valuex['login']) : '00:00:00' ?> 
                                                 </td>
 
 

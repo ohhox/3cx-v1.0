@@ -31,7 +31,7 @@ $objPHPExcel = new PHPExcel();
 
 
 $begin = new DateTime($stardate);
-$end = new DateTime($enddate); 
+$end = new DateTime($enddate);
 
 // --------------------------------- BEGIN SHEET 0 ----------------------------
 $objPHPExcel->createSheet(0)->setTitle("Summary ");
@@ -71,26 +71,26 @@ foreach ($list AS $key => $value) {
 
     $tttime = ($value['Available'] + $value['Wrap'] + $TTwrap );
     if ($tttime > 0) {
-        $tttime = $tttime - 3600;
+          // $tttime = $tttime - 3600;
     }
 
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A' . $row, $countrow++)
             ->setCellValue('B' . $row, $valuex['Agent'])
-            ->setCellValue('C' . $row, gmdate("H:i:s", $tttime))
-            ->setCellValue('D' . $row, !empty($valuex['Available']) ? gmdate("H:i:s", $valuex['Available']) : '00:00:00' )
-            ->setCellValue('E' . $row, !empty($valuex['Wrap']) ? gmdate("H:i:s", $valuex['Wrap']) : '00:00:00')
-            ->setCellValue('F' . $row, gmdate("H:i:s", $TTwrap))
-            ->setCellValue('G' . $row, !empty($valuex['Coaching']) ? gmdate("H:i:s", $valuex['Coaching']) : '00:00:00' )
-            ->setCellValue('H' . $row, !empty($valuex['Contact Person']) ? gmdate("H:i:s", $valuex['Contact Person']) : '00:00:00')
-            ->setCellValue('I' . $row, !empty($valuex['Computer Down']) ? gmdate("H:i:s", $valuex['Computer Down']) : '00:00:00')
-            ->setCellValue('J' . $row, !empty($valuex['Restroom']) ? gmdate("H:i:s", $valuex['Restroom']) : '00:00:00')
-            ->setCellValue('K' . $row, !empty($valuex['Call out']) ? gmdate("H:i:s", $valuex['Call out']) : '00:00:00')
-            ->setCellValue('L' . $row, !empty($valuex['Audit']) ? gmdate("H:i:s", $valuex['Audit']) : '00:00:00')
-            ->setCellValue('M' . $row, !empty($valuex['Follow Up Case']) ? gmdate("H:i:s", $valuex['Follow Up Case']) : '00:00:00')
-            ->setCellValue('N' . $row, !empty($valuex['Lunch']) ? gmdate("H:i:s", $valuex['Lunch']) : '00:00:00')
-            ->setCellValue('O' . $row, !empty($valuex['Email']) ? gmdate("H:i:s", $valuex['Email']) : '00:00:00')
-            ->setCellValue('P' . $row, !empty($valuex['Undefined AuxTime']) ? gmdate("H:i:s", $valuex['Undefined AuxTime']) : '00:00:00');
+            ->setCellValue('C' . $row, $fn->calcDate($tttime))
+            ->setCellValue('D' . $row, !empty($valuex['Available']) ? $fn->calcDate($valuex['Available']) : '00:00:00' )
+            ->setCellValue('E' . $row, !empty($valuex['Wrap']) ? $fn->calcDate($valuex['Wrap']) : '00:00:00')
+            ->setCellValue('F' . $row, $fn->calcDate($TTwrap))
+            ->setCellValue('G' . $row, !empty($valuex['Coaching']) ? $fn->calcDate($valuex['Coaching']) : '00:00:00' )
+            ->setCellValue('H' . $row, !empty($valuex['Contact Person']) ? $fn->calcDate($valuex['Contact Person']) : '00:00:00')
+            ->setCellValue('I' . $row, !empty($valuex['Computer Down']) ? $fn->calcDate($valuex['Computer Down']) : '00:00:00')
+            ->setCellValue('J' . $row, !empty($valuex['Restroom']) ? $fn->calcDate($valuex['Restroom']) : '00:00:00')
+            ->setCellValue('K' . $row, !empty($valuex['Call out']) ? $fn->calcDate($valuex['Call out']) : '00:00:00')
+            ->setCellValue('L' . $row, !empty($valuex['Audit']) ? $fn->calcDate($valuex['Audit']) : '00:00:00')
+            ->setCellValue('M' . $row, !empty($valuex['Follow Up Case']) ? $fn->calcDate($valuex['Follow Up Case']) : '00:00:00')
+            ->setCellValue('N' . $row, !empty($valuex['Lunch']) ? $fn->calcDate($valuex['Lunch']) : '00:00:00')
+            ->setCellValue('O' . $row, !empty($valuex['Email']) ? $fn->calcDate($valuex['Email']) : '00:00:00')
+            ->setCellValue('P' . $row, !empty($valuex['Undefined AuxTime']) ? $fn->calcDate($valuex['Undefined AuxTime']) : '00:00:00');
 
     $row++;
 }
@@ -103,9 +103,9 @@ $end = new DateTime($enddate);
 
 for ($i = $begin; $i <= $end; $i->modify('+1 day')) {
     $today = $i->format('Y-m-d');
-     $objPHPExcel->createSheet($count)->setTitle($today); 
+    $objPHPExcel->createSheet($count)->setTitle($today);
     $objPHPExcel->setActiveSheetIndex($count)
-            ->setCellValue('A1','Date Of Result. '. $today)
+            ->setCellValue('A1', 'Date Of Result. ' . $today)
             ->setCellValue('A2', 'NO.')
             ->setCellValue('B2', 'Agent')
             ->setCellValue('C2', 'Staff Time')
@@ -158,32 +158,32 @@ for ($i = $begin; $i <= $end; $i->modify('+1 day')) {
 
         @$tttime = ($value['Available'] + $value['Wrap'] + $TTwrap );
         if ($tttime > 0) {
-            $tttime = $tttime - 3600;
+            //  $tttime = $tttime - 3600;
         }
 
         $objPHPExcel->setActiveSheetIndex($count)
                 ->setCellValue('A' . $row, $countrow++)
                 ->setCellValue('B' . $row, $v['Agent'])
-                ->setCellValue('C' . $row, gmdate("H:i:s", $tttime))
-                ->setCellValue('D' . $row, !empty($valuex['Available']) ? gmdate("H:i:s", $valuex['Available']) : '00:00:00' )
-                ->setCellValue('E' . $row, !empty($valuex['Wrap']) ? gmdate("H:i:s", $valuex['Wrap']) : '00:00:00')
-                ->setCellValue('F' . $row, gmdate("H:i:s", $TTwrap))
-                ->setCellValue('G' . $row, !empty($valuex['Coaching']) ? gmdate("H:i:s", $valuex['Coaching']) : '00:00:00' )
-                ->setCellValue('H' . $row, !empty($valuex['Contact Person']) ? gmdate("H:i:s", $valuex['Contact Person']) : '00:00:00')
-                ->setCellValue('I' . $row, !empty($valuex['Computer Down']) ? gmdate("H:i:s", $valuex['Computer Down']) : '00:00:00')
-                ->setCellValue('J' . $row, !empty($valuex['Restroom']) ? gmdate("H:i:s", $valuex['Restroom']) : '00:00:00')
-                ->setCellValue('K' . $row, !empty($valuex['Call out']) ? gmdate("H:i:s", $valuex['Call out']) : '00:00:00')
-                ->setCellValue('L' . $row, !empty($valuex['Audit']) ? gmdate("H:i:s", $valuex['Audit']) : '00:00:00')
-                ->setCellValue('M' . $row, !empty($valuex['Follow Up Case']) ? gmdate("H:i:s", $valuex['Follow Up Case']) : '00:00:00')
-                ->setCellValue('N' . $row, !empty($valuex['Lunch']) ? gmdate("H:i:s", $valuex['Lunch']) : '00:00:00')
-                ->setCellValue('O' . $row, !empty($valuex['Email']) ? gmdate("H:i:s", $valuex['Email']) : '00:00:00')
-                ->setCellValue('P' . $row, !empty($valuex['Undefined AuxTime']) ? gmdate("H:i:s", $valuex['Undefined AuxTime']) : '00:00:00');
+                ->setCellValue('C' . $row, $fn->calcDate($tttime))
+                ->setCellValue('D' . $row, !empty($valuex['Available']) ? $fn->calcDate($valuex['Available']) : '00:00:00' )
+                ->setCellValue('E' . $row, !empty($valuex['Wrap']) ? $fn->calcDate($valuex['Wrap']) : '00:00:00')
+                ->setCellValue('F' . $row, $fn->calcDate($TTwrap))
+                ->setCellValue('G' . $row, !empty($valuex['Coaching']) ? $fn->calcDate($valuex['Coaching']) : '00:00:00' )
+                ->setCellValue('H' . $row, !empty($valuex['Contact Person']) ? $fn->calcDate($valuex['Contact Person']) : '00:00:00')
+                ->setCellValue('I' . $row, !empty($valuex['Computer Down']) ? $fn->calcDate($valuex['Computer Down']) : '00:00:00')
+                ->setCellValue('J' . $row, !empty($valuex['Restroom']) ? $fn->calcDate($valuex['Restroom']) : '00:00:00')
+                ->setCellValue('K' . $row, !empty($valuex['Call out']) ? $fn->calcDate($valuex['Call out']) : '00:00:00')
+                ->setCellValue('L' . $row, !empty($valuex['Audit']) ? $fn->calcDate($valuex['Audit']) : '00:00:00')
+                ->setCellValue('M' . $row, !empty($valuex['Follow Up Case']) ? $fn->calcDate($valuex['Follow Up Case']) : '00:00:00')
+                ->setCellValue('N' . $row, !empty($valuex['Lunch']) ? $fn->calcDate($valuex['Lunch']) : '00:00:00')
+                ->setCellValue('O' . $row, !empty($valuex['Email']) ? $fn->calcDate($valuex['Email']) : '00:00:00')
+                ->setCellValue('P' . $row, !empty($valuex['Undefined AuxTime']) ? $fn->calcDate($valuex['Undefined AuxTime']) : '00:00:00');
 
         $row++;
     }
     $count++;
 }
- 
+
 
 // Redirect output to a clientâ€™s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -194,7 +194,7 @@ header('Cache-Control: max-age=1');
 
 // If you're serving to IE over SSL, then the following may be needed
 header('Expires: Mon, 26 Jul 110107 05:00:00 GMT'); // Date in the past
-header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+header('Last-Modified: ' . $fn->calcDate('D, d M Y H:i:s') . ' GMT'); // always modified
 header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header('Pragma: public'); // HTTP/1.0
 
