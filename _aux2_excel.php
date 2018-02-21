@@ -90,7 +90,7 @@ foreach ($list AS $key => $value) {
             ->setCellValue('M' . $row, !empty($valuex['Follow Up Case']) ? $fn->calcDate($valuex['Follow Up Case']) : '00:00:00')
             ->setCellValue('N' . $row, !empty($valuex['Lunch']) ? $fn->calcDate($valuex['Lunch']) : '00:00:00')
             ->setCellValue('O' . $row, !empty($valuex['Email']) ? $fn->calcDate($valuex['Email']) : '00:00:00')
-            ->setCellValue('P' . $row, !empty($valuex['Undefined AuxTime']) ? $fn->calcDate($valuex['Undefined AuxTime']) : '00:00:00');
+            ->setCellValue('P' . $row, !empty($valuex['login']) ? $fn->calcDate($valuex['login']) : '00:00:00');
 
     $row++;
 }
@@ -177,7 +177,7 @@ for ($i = $begin; $i <= $end; $i->modify('+1 day')) {
                 ->setCellValue('M' . $row, !empty($valuex['Follow Up Case']) ? $fn->calcDate($valuex['Follow Up Case']) : '00:00:00')
                 ->setCellValue('N' . $row, !empty($valuex['Lunch']) ? $fn->calcDate($valuex['Lunch']) : '00:00:00')
                 ->setCellValue('O' . $row, !empty($valuex['Email']) ? $fn->calcDate($valuex['Email']) : '00:00:00')
-                ->setCellValue('P' . $row, !empty($valuex['Undefined AuxTime']) ? $fn->calcDate($valuex['Undefined AuxTime']) : '00:00:00');
+                ->setCellValue('P' . $row, !empty($valuex['login']) ? $fn->calcDate($valuex['login']) : '00:00:00');
 
         $row++;
     }
