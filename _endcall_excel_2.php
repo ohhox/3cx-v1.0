@@ -70,13 +70,14 @@ foreach ($list AS $key => $value) {
         } else {
             $score = "NULL";
         }
-        $Page3Data['dontSuccess'] ++;
     } else {
         $score = $value['score'];
     }
     if ($score !== 'NULL') {
         $Page3Data['success'] ++;
         $Page3Data['score'][$score] ++;
+    } else {
+        $Page3Data['dontSuccess'] ++;
     }
     if ($score === "0" || $score == 3) {
         $NullValue[$i] = $value;
@@ -362,19 +363,14 @@ foreach ($NullValue AS $k => $v) {
 
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue("A$i", $i - 12)
-            ->setCellValue("B$i", $fn->redate($v['DateLeave'],'NO'))
+            ->setCellValue("B$i", $fn->redate($v['DateLeave'], 'NO'))
             ->setCellValue("C$i", $fn->retime($v['time']))
             ->setCellValue("D$i", $v['customernumber'])
             ->setCellValue("E$i", $v['name']);
     $i++;
 }
 
-
-
-
-
 /* * ************* END PAGE 1 ************ */
-
 
 // Redirect output to a clientâ€™s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
