@@ -6,7 +6,6 @@ $list = $fn->getAuxtime();
 
 $project = $fn->getProjectList();
 $thisProject = "";
-
 $projectId = "";
 $DIDID = "";
 $QueuesID = "";
@@ -195,7 +194,7 @@ $AuxType = $fn->getAuxType();
                                         <label style="margin-left: 25px;margin-bottom: 5px;">
                                             <input class="AgentCheck" type="radio" name="agentOption" value="number" <?php echo (isset($_GET['agentOption']) && $_GET['agentOption'] == 'number') ? 'checked' : ((!isset($_GET['agentOption'])) ? 'checked' : '') ?> > Agent  Number
                                             <div class="Padding-left20">
-                                                <select class=" form-control" name="Agent" id="Agent" <?= (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' )   ? 'disabled' : '' ?>>
+                                                <select class=" form-control" name="Agent" id="Agent" <?= (isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' ) ? 'disabled' : '' ?>>
                                                     <option value="all">ALL</option>
                                                     <?php
                                                     foreach ($agent AS $key => $value) {
@@ -211,7 +210,7 @@ $AuxType = $fn->getAuxType();
                                                 <input id="AgentName" type="text" name="Cusnum"  placeholder="Agent Name" class="form-control" value="<?= (isset($_GET['Cusnum'])) ? $_GET['Cusnum'] : "" ?>" <?= isset($_GET['agentOption']) && $_GET['agentOption'] == 'name' || ((!isset($_GET['agentOption'])) ? 'checked' : '') ? 'disabled' : '' ?>>
                                             </div>
                                         </label>
-                                        
+
                                     </div> 
                                 </div> 
                                 <div class="col-md-3">

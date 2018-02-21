@@ -362,7 +362,7 @@ foreach ($NullValue AS $k => $v) {
 
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue("A$i", $i - 12)
-            ->setCellValue("B$i", $fn->redate($v['DateLeave']))
+            ->setCellValue("B$i", $fn->redate($v['DateLeave'],'NO'))
             ->setCellValue("C$i", $fn->retime($v['time']))
             ->setCellValue("D$i", $v['customernumber'])
             ->setCellValue("E$i", $v['name']);
