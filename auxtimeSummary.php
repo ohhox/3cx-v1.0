@@ -275,7 +275,7 @@ $AuxType = $fn->getAuxType();
                                             <th rowspan="2" class=" ">No.</th>
                                             <th rowspan="2" class="">Agent</th>
                                             <th rowspan="2" class="bg-successP2y">Staff Time</th>
-                                            <th rowspan="2" class="">Total Available</th>
+                                            <th rowspan="2" class="">Available and Talking</th>
                                             <th rowspan="2" class="">Total Wrap</th>
                                             <th rowspan="2" class="bg-successP2y">Total Aux Time</th>
                                             <th colspan="9" class=" text-center">Aux Time</th>
