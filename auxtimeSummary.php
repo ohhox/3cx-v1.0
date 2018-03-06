@@ -308,11 +308,14 @@ $AuxType = $fn->getAuxType();
                                             if ($tttime > 0) {
 
                                                 //$tttime = $tttime - (3600 * $numberDays);
+                                                
                                             }
+                                            $AgentName = $fn->getAgentByCode($value['Agent']);
+                                            $AgentName = $fn->ThaiTextToutf($AgentName);
                                             ?>
                                             <tr>
                                                 <td scope="row"><?= $i++ ?></td>                                            
-                                                <td ><?= $value['Agent']; ?></td>
+                                                <td ><?= $value['Agent']. '<br/>'.  $AgentName['name'].' '. $AgentName['lastname'] ; ?></td>
                                                 <td class="bg-successP2y"><?= $fn->calcDate($tttime); ?></td>
                                                 <td><?= !empty($valuex['Available']) ? $fn->calcDate($valuex['Available']) : '00:00:00' ?></td>
                                                 <td><?= !empty($valuex['Wrap']) ? $fn->calcDate($valuex['Wrap']) : '00:00:00' ?></td>

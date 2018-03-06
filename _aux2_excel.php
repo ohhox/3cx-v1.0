@@ -73,10 +73,13 @@ foreach ($list AS $key => $value) {
     if ($tttime > 0) {
         // $tttime = $tttime - 3600;
     }
+    $AgentName = $fn->getAgentByCode($value['Agent']);
+    $AgentName = $fn->ThaiTextToutf($AgentName);
+    $AgentName = " \n" . $AgentName['name'] . ' ' . $AgentName['lastname'];
 
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A' . $row, $countrow++)
-            ->setCellValue('B' . $row, $valuex['Agent'])
+            ->setCellValue('B' . $row, $valuex['Agent'] . $AgentName)
             ->setCellValue('C' . $row, $fn->calcDate($tttime))
             ->setCellValue('D' . $row, !empty($valuex['Available']) ? $fn->calcDate($valuex['Available']) : '00:00:00' )
             ->setCellValue('E' . $row, !empty($valuex['Wrap']) ? $fn->calcDate($valuex['Wrap']) : '00:00:00')
@@ -91,6 +94,8 @@ foreach ($list AS $key => $value) {
             ->setCellValue('N' . $row, !empty($valuex['Lunch']) ? $fn->calcDate($valuex['Lunch']) : '00:00:00')
             ->setCellValue('O' . $row, !empty($valuex['Email']) ? $fn->calcDate($valuex['Email']) : '00:00:00')
             ->setCellValue('P' . $row, !empty($valuex['login']) ? $fn->calcDate($valuex['login']) : '00:00:00');
+
+     
 
     $row++;
 }
@@ -160,10 +165,12 @@ for ($i = $begin; $i <= $end; $i->modify('+1 day')) {
         if ($tttime > 0) {
             //  $tttime = $tttime - 3600;
         }
-
+        $AgentName = $fn->getAgentByCode($v['Agent']);
+        $AgentName = $fn->ThaiTextToutf($AgentName);
+        $AgentName = " \n" . $AgentName['name'] . ' ' . $AgentName['lastname'];
         $objPHPExcel->setActiveSheetIndex($count)
                 ->setCellValue('A' . $row, $countrow++)
-                ->setCellValue('B' . $row, $v['Agent'])
+                ->setCellValue('B' . $row, $v['Agent'] . $AgentName)
                 ->setCellValue('C' . $row, $fn->calcDate($tttime))
                 ->setCellValue('D' . $row, !empty($valuex['Available']) ? $fn->calcDate($valuex['Available']) : '00:00:00' )
                 ->setCellValue('E' . $row, !empty($valuex['Wrap']) ? $fn->calcDate($valuex['Wrap']) : '00:00:00')

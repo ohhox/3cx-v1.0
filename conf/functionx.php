@@ -425,12 +425,12 @@ class functionx extends Crud {
         $res = $this->query($sql);
         $arra = array();
         foreach ($res as $key => $value) {
-            $sql = "SELECT   Agent, [Available], [Wrap], [Restroom], [Email], [Lunch] ,[Call out],[Follow Up Case],[Coaching],[Contact Person],[Audit],[Computer Down],
+            $sql = "SELECT   Agent,[Available], [Wrap], [Restroom], [Email], [Lunch] ,[Call out],[Follow Up Case],[Coaching],[Contact Person],[Audit],[Computer Down],
                  ([Available]+[Wrap]+[Restroom]+ [Email] + [Lunch] +[Call out]+[Follow Up Case]+[Coaching]+[Contact Person]+[Audit]+[Computer Down]) AS AllTime , 
                   ([Restroom]+ [Email] + [Lunch] +[Call out]+[Follow Up Case]+[Coaching]+[Contact Person]+[Audit]+[Computer Down]) AS AllAux,[login]
 		FROM   
 		(
-			SELECT Agent, AuxDes, (
+			SELECT Agent,AuxDes, (
              ( DATEPART(hh, AuxDuration) * 3600 ) +
              ( DATEPART(mi, AuxDuration) * 60 ) +
                DATEPART(ss, AuxDuration)
@@ -694,6 +694,16 @@ class functionx extends Crud {
         return sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
         if ($seconds < 0) {
             echo "</span>";
+        }
+    }
+
+    public function getAgentByCode($code) {
+        $sql = "SELECT * FROM agent WHERE agent_code='$code'";
+        $res = $this->query($sql);
+        if (!empty($res)) {
+            return $res[0];
+        } else {
+            return array();
         }
     }
 
