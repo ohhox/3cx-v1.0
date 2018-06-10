@@ -68,8 +68,8 @@ class functionx extends Crud {
         if (isset($_GET['date']) && !empty($_GET['date'])) {
             $date = explode('-', $_GET['date']);
 
-            $stardate = trim($date[2] + 543) . '-' . $date[1] . '-' . $date[0];
-            $enddate = trim($date[5] + 543) . '-' . $date[4] . '-' . ltrim(trim($date[3]));
+            $stardate = trim($date[2]) . '-' . $date[1] . '-' . $date[0];
+            $enddate = trim($date[5]) . '-' . $date[4] . '-' . ltrim(trim($date[3]));
             $d = array(
                 '1' => $date[0] . '-' . $date[1] . '-' . trim($date[2]),
                 '2' => ltrim(trim($date[3])) . '-' . $date[4] . '-' . ltrim(trim($date[5])),
@@ -316,7 +316,7 @@ class functionx extends Crud {
         }
 
 
-        $where = "WHERE ax.Agent IN($sqlGETAGENTID) AND  DATEADD(year,-543,convert(date,ax.DateAux)) BETWEEN '$stardate' AND '$enddate' ";
+        $where = "WHERE ax.Agent IN($sqlGETAGENTID) AND  DATEADD(year,-0,convert(date,ax.DateAux)) BETWEEN '$stardate' AND '$enddate' ";
         if (isset($_GET['timeOption'])) {
             if (isset($_GET['timeStart']) && $_GET['timeOption'] == 'Custom') {
                 if (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) {
@@ -400,7 +400,7 @@ class functionx extends Crud {
         }
 
 
-        $where = "WHERE ax.Agent IN($sqlGETAGENTID) AND  DATEADD(year,-543,convert(date,ax.DateAux)) BETWEEN '$stardate' AND '$enddate' ";
+        $where = "WHERE ax.Agent IN($sqlGETAGENTID) AND  DATEADD(year,-0,convert(date,ax.DateAux)) BETWEEN '$stardate' AND '$enddate' ";
         if (isset($_GET['timeOption'])) {
             if (isset($_GET['timeStart']) && $_GET['timeOption'] == 'Custom') {
                 if (isset($_GET['timeEnd']) && !empty($_GET['timeEnd'])) {
@@ -436,7 +436,7 @@ class functionx extends Crud {
                DATEPART(ss, AuxDuration)
           )    AS AuxDuration 
 			FROM [dbo].[AuxTime]
-			WHERE DATEADD(year,-543,convert(date,DateAux)) BETWEEN '$stardate' AND '$enddate'  and Agent = '{$value['Agent']}'
+			WHERE DATEADD(year,-0,convert(date,DateAux)) BETWEEN '$stardate' AND '$enddate'  and Agent = '{$value['Agent']}'
 
 		) UP
 		PIVOT
