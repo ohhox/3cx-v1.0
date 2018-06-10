@@ -534,7 +534,7 @@ class functionx extends Crud {
     public function redate($date, $plus = 'yes') {
         $date = explode('-', $date);
         if ($plus == 'yes') {
-            return $date[2] . '-' . $date[1] . '-' . ($date[0] - 543);
+            return $date[2] . '-' . $date[1] . '-' . ($date[0] );
         } else {
             return $date[2] . '-' . $date[1] . '-' . ($date[0]);
         }
